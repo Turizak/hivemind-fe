@@ -2,7 +2,7 @@ function App() {
 
   return (
     <>
-      <h1>Hello World!</h1>
+      <h1 className="flex justify-center text-5xl font-bold">The Future Home of Hivemind</h1>
       </>
   )
 }
