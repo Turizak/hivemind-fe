@@ -3,9 +3,9 @@ import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 const Navbar = () => {
   return (
     <NavigationMenu.Root>
-      <NavigationMenu.List className="center flex list-none bg-black text-white justify-between px-3 py-5">
+      <NavigationMenu.List className="sm:center flex list-none bg-black text-white justify-between px-3 py-5 lg:flex">
 {/* Hamburger Menu */}
-        <NavigationMenu.Item>
+        <NavigationMenu.Item className="md:hidden">
           <NavigationMenu.Trigger>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -29,6 +29,7 @@ const Navbar = () => {
           <NavigationMenu.Link href="#">Hivemind</NavigationMenu.Link>
         </NavigationMenu.Item>
 {/* Add Content Logo */}
+      <div className='flex gap-4'>
         <NavigationMenu.Item>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -66,6 +67,7 @@ const Navbar = () => {
             </NavigationMenu.Sub>
           </NavigationMenu.Content>
         </NavigationMenu.Item>
+        </div>
       </NavigationMenu.List>
     </NavigationMenu.Root>
   );
