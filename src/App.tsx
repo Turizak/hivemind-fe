@@ -1,6 +1,6 @@
 import Navbar from "./components/Navbar"
 
-import ContentContainer from "./ContentContainer"
+import ContentContainer from "./components/ContentContainer"
 function App() {
 
   return (
