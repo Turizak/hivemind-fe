@@ -1,6 +1,6 @@
 const Toolbar = () => {
   return (
-    <div className="hidden md:flex mx-auto my-2 max-w-xl p-2 gap-2 rounded-md bg-gray-500">
+    <div className="hidden md:flex mx-auto mt-2 max-w-xl p-2 gap-2 rounded-md bg-gray-500">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
