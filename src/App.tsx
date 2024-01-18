@@ -1,4 +1,5 @@
 import Navbar from "./components/Navbar"
+import Toolbar from "./components/Toolbar"
 
 import ContentContainer from "./components/ContentContainer"
 function App() {
@@ -6,7 +7,7 @@ function App() {
   return (
     <>
     <Navbar />
-      <h1 className="flex text-center text-4xl font-bold p-3">The Future Home of Hivemind</h1>
+    <Toolbar />
       <ContentContainer />
       </>
   )
