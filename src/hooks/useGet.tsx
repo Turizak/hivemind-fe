@@ -7,12 +7,12 @@ const useGet = (url: string) => {
         return data
     }
 
-    const { data } = useQuery({
+    const { data, error, isLoading, isError, isFetching } = useQuery({
         queryKey: ['items'],
         queryFn: getData
     })
 
-  return { data }
+  return { data, error, isLoading, isError, isFetching }
 }
 
 export default useGet
