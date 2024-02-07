@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 
-const useGet = (url: string) => {
+const useGetComments = (url: string) => {
     const getData = async () => {
         const response = await fetch(url)
         const data = await response.json()
@@ -8,11 +8,11 @@ const useGet = (url: string) => {
     }
 
     const { data, error, isLoading, isError, isFetching } = useQuery({
-        queryKey: ['items'],
+        queryKey: ['comments'],
         queryFn: getData
     })
 
   return { data, error, isLoading, isError, isFetching }
 }
 
-export default useGet
+export default useGetComments

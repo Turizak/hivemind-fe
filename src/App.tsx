@@ -1,23 +1,20 @@
-import { BrowserRouter, RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom"
-import Navbar from "./components/Navbar"
-import Home from "./pages/Home"
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import Content from './pages/Content';
 
 function App() {
-
-  const router = createBrowserRouter(createRoutesFromElements(
-    <Route path="/" element={<Navbar />}>
-      <Route index element={<Home />} />
-    </Route>
-  ));
-
   return (
     <>
-    <RouterProvider router={router} />
+      <Navbar />
       <BrowserRouter>
-      <Home />
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="content/uuid/:uuid" element={<Content />}></Route>
+        </Routes>
       </BrowserRouter>
-      </>
-  )
+    </>
+  );
 }
 
-export default App
+export default App;

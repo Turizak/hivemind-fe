@@ -26,7 +26,7 @@ const Navbar = () => {
         </NavigationMenu.Item>
 {/* Hivemind Logo */}    
         <NavigationMenu.Item className="pr-48">
-          <NavigationMenu.Link href="#">Hivemind</NavigationMenu.Link>
+          <NavigationMenu.Link href='/'>Hivemind</NavigationMenu.Link>
         </NavigationMenu.Item>
 {/* Add Content Logo */}
       <div className='flex gap-4'>
