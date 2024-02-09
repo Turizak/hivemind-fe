@@ -1,6 +1,8 @@
 import useIso from "../hooks/useIso";
 
+
 const ContentContentContainer = (props: any) => {
+
   return (
     <div
       className="p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md"
@@ -35,7 +37,7 @@ const ContentContentContainer = (props: any) => {
         </div>
         <div>
           {/* User & Time Container */}
-          <div className="flex w-max p-2 rounded-md text-sm bg-gray-400">
+          <div className="flex w-max p-2 rounded-md text-sm">
             <p>{props.Hive} | {useIso(props.Created.Time)}</p>
           </div>
           {/* Content Title Container */}
@@ -73,7 +75,7 @@ const ContentContentContainer = (props: any) => {
               <p className="px-2">{props.Downvote}</p>
             </div>
             {/* Comment Container */}
-              <button className="flex w-max p-2 justify-evenly rounded-md text-sm bg-gray-400 hover:bg-gray-200">
+              <button className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
