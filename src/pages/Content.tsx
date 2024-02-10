@@ -1,7 +1,7 @@
 import useGetContent from '../hooks/useGetContent';
 import useGetComments from '../hooks/useGetComments';
 import { useParams } from 'react-router-dom';
-import ContentContentContainer from '../components/ContentContentContainer';
+import ContentContentContainer from '../components/contentContentContainer';
 import CommentContainer from '../components/CommentContainer';
 import AddComment from '../components/AddComment';
 
@@ -21,7 +21,7 @@ const Content = () => {
     isLoading: isCommentsLoading,
     isFetching: isCommentsFetching,
     isError: isCommentsError,
-  } = useGetComments(baseURL + '/content/uuid/' + params.uuid + '/comments');
+  } = useGetComments(baseURL + '/content/uuid/' + params.uuid + '/comment');
 
   return (
     <>

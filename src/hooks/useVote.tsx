@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 
-const useVote = (successFn: any) => {
+const useVote = (url: string, setter: any ) => {
 
-  const castVote = async (url: any) => {
+  const castVote = async () => {
     const response = await fetch(url, {
       method: 'PATCH',
       headers: {
@@ -17,7 +17,7 @@ const useVote = (successFn: any) => {
 
   const { mutate } = useMutation({
     mutationFn: castVote,
-    onSuccess: successFn
+    onMutate: setter,
   });
 
   return { mutate };
