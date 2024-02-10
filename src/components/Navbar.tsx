@@ -30,7 +30,7 @@ const Navbar = () => {
         </NavigationMenu.Item>
 {/* Add Content Logo */}
       <div className='flex gap-4'>
-        <NavigationMenu.Item>
+        <NavigationMenu.Item className="hover:cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"

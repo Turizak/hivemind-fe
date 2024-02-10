@@ -7,12 +7,12 @@ const useGetContent = (url: string) => {
         return data
     }
 
-    const { data, error, isLoading, isError, isFetching } = useQuery({
+    const { data, error, refetch, isLoading, isError, isFetching } = useQuery({
         queryKey: ['content'],
         queryFn: getData
     })
 
-  return { data, error, isLoading, isError, isFetching }
+  return { data, error, refetch, isLoading, isError, isFetching }
 }
 
 export default useGetContent

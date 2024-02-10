@@ -9,7 +9,7 @@ const CommentContainer = ({ item }: { item: any }) => {
       <div className="flex gap-2">
         <div>
           {/* User & Time Container */}
-          <div className="flex w-max p-2 rounded-md text-sm bg-gray-400">
+          <div className="flex w-max p-2 rounded-md text-sm">
             <p>{item.Author} | {useIso(item.Created.Time)}</p>
             <p></p>
           </div>
@@ -44,7 +44,7 @@ const CommentContainer = ({ item }: { item: any }) => {
               <p className="px-2">{item.Downvote}</p>
             </div>
             {/* Comment Container */}
-              <button className="flex w-max p-2 justify-evenly rounded-md text-sm bg-gray-400 hover:bg-gray-200">
+              <button className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
