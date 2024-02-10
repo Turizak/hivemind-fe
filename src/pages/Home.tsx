@@ -6,9 +6,6 @@ const Home = () => {
   const { data, error, refetch, isLoading, isFetching, isError } = useGetContent(
     baseURL + '/content'
   );
-  const voteCount = () => {
-    refetch()
-  }
 
   return (
     <>
@@ -20,7 +17,7 @@ const Home = () => {
         <span className="flex justify-center p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md">Error: {error?.message}</span>
       ) : (
         data &&
-        data.map((item: any) => <HomeContentContainer key={item.Id} item={item} voteCount={voteCount}/>)
+        data.map((item: any) => <HomeContentContainer key={item.Id} item={item} />)
       )}
     </>
   );
