@@ -70,8 +70,8 @@ const HomeContentContainer = ({ item }: { item: any }) => {
         <div>
           {/* User & Time Container */}
           <div className="flex w-max p-2 rounded-md text-sm">
-            <p>
-              {item.Hive} | {useIso(item.Created.Time)}
+            <p className="hover:cursor-pointer hover:underline">
+              <Link to={`/hive/uuid/${item.HiveUuid}/content`}>{item.Hive}</Link> | {useIso(item.Created.Time)}
             </p>
           </div>
           {/* Content Title Container */}

@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {ReactQueryDevtools} from '@tanstack/react-query-devtools'
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
+import Hive from './pages/Hive';
 import Content from './pages/Content';
 
 function App() {
@@ -11,7 +13,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="content/uuid/:uuid" element={<Content />}></Route>
+          <Route path="hive/uuid/:hiveUuid/content" element={<Hive />}></Route>
         </Routes>
+      <ReactQueryDevtools initialIsOpen={true} />
       </BrowserRouter>
     </>
   );
