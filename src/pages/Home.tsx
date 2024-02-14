@@ -1,6 +1,7 @@
 import useGetContent from '../hooks/useGetContent';
 import HomeContentContainer from '../components/HomeContentContainer';
 
+
 const Home = () => {
   const baseURL = import.meta.env.VITE_BASEURL;
   const { data, error, refetch, isLoading, isFetching, isError } = useGetContent(
