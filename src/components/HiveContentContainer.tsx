@@ -1,8 +1,9 @@
 import { useState } from "react";
 import useIso from "../hooks/useIso";
 import useVote from '../hooks/useVote';
+import { TContent } from "../types";
 
-const HiveContentContainer = ({ item }: { item: any }) => {
+const HiveContentContainer = ({ item }: { item: TContent }) => {
   {
     /* URL Variables */
   }

@@ -1,5 +1,6 @@
 import useGetContent from '../hooks/useGetContent';
 import HomeContentContainer from '../components/HomeContentContainer';
+import { TContent } from '../types';
 
 
 const Home = () => {
@@ -18,7 +19,7 @@ const Home = () => {
         <span className="flex justify-center p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md">Error: {error?.message}</span>
       ) : (
         data &&
-        data.map((item: any) => <HomeContentContainer key={item.Id} item={item} />)
+        data.map((item: TContent) => <HomeContentContainer key={item.Id} item={item} />)
       )}
     </>
   );

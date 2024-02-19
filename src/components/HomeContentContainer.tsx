@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import useIso from '../hooks/useIso';
 import useVote from '../hooks/useVote';
-import { Link } from 'react-router-dom';
+import { TContent } from '../types';
 
-const HomeContentContainer = ({ item }: { item: any }) => {
+
+const HomeContentContainer = ({ item }: { item: TContent }) => {
   {
     /* URL Variables */
   }
