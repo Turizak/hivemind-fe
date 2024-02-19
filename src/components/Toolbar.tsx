@@ -13,7 +13,7 @@ const Toolbar = () => {
           clipRule="evenodd"
         />
       </svg>
-      <input type="text" className="flex-1 rounded-md p-2"/>
+      <input type="text" className="flex-1 rounded-md p-2" />
     </div>
   );
 };
