@@ -1,8 +1,9 @@
 import { useState } from "react";
 import useIso from "../hooks/useIso";
 import useVote from '../hooks/useVote';
+import { TContent } from "../types";
 
-const ContentContentContainer = (props: any) => {
+const ContentContentContainer = (props: TContent) => {
   {
     /* URL Variables */
   }

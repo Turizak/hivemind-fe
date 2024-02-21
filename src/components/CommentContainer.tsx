@@ -1,8 +1,9 @@
 import { useState } from "react";
 import useIso from "../hooks/useIso";
 import useVote from "../hooks/useVote";
+import { TContent } from "../types";
 
-const CommentContainer = ({ item }: { item: any }) => {
+const CommentContainer = ({ item }: { item: TContent }) => {
   {
     /* URL Variables */
   }

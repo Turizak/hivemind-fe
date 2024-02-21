@@ -1,6 +1,7 @@
 import useGetContent from '../hooks/useGetContent';
 import HiveContentContainer from '../components/HiveContentContainer';
 import { useParams } from 'react-router-dom';
+import { TContent } from '../types';
 
 const Hive = () => {
   const params = useParams();
@@ -27,7 +28,7 @@ const Hive = () => {
         </span>
       ) : (
         data &&
-        data.map((item: any) => (
+        data.map((item: TContent) => (
           <HiveContentContainer key={item.Id} item={item} />
         ))
       )}
