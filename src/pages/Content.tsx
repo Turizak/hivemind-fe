@@ -1,7 +1,7 @@
 import useGetContent from "../hooks/useGetContent";
 import useGetComments from "../hooks/useGetComments";
 import { useParams } from "react-router-dom";
-import ContentContentContainer from "../components/ContentContentContainer";
+import ContentContentContainer from "../components/contentContentContainer";
 import CommentContainer from "../components/CommentContainer";
 import AddComment from "../components/AddComment";
 import { TContent } from "../types";
@@ -60,7 +60,6 @@ const Content = () => {
         </span>
       ) : (
         comments &&
-        comments.map((item: TContent) => (
         comments.map((item: TContent) => (
           <CommentContainer key={item.Id} item={item} />
         ))
