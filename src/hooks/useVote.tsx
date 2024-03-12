@@ -1,16 +1,15 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation } from "@tanstack/react-query";
 
-const useVote = (url: string, setter: any ) => {
-
+const useVote = (url: string, setter: any) => {
   const castVote = async () => {
     const response = await fetch(url, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: {
-        Accept: '*/*',
+        Accept: "*/*",
       },
     });
     if (!response.ok) {
-      throw new Error('Failed');
+      throw new Error("Failed");
     }
     return await response.json();
   };

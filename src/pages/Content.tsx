@@ -1,10 +1,10 @@
-import useGetContent from '../hooks/useGetContent';
-import useGetComments from '../hooks/useGetComments';
-import { useParams } from 'react-router-dom';
-import ContentContentContainer from '../components/ContentContentContainer';
-import CommentContainer from '../components/CommentContainer';
-import AddComment from '../components/AddComment';
-import { TContent } from '../types';
+import useGetContent from "../hooks/useGetContent";
+import useGetComments from "../hooks/useGetComments";
+import { useParams } from "react-router-dom";
+import ContentContentContainer from "../components/ContentContentContainer";
+import CommentContainer from "../components/CommentContainer";
+import AddComment from "../components/AddComment";
+import { TContent } from "../types";
 
 const Content = () => {
   const params = useParams();
@@ -15,14 +15,14 @@ const Content = () => {
     isLoading: isContentLoading,
     isFetching: isContentFetching,
     isError: isContentError,
-  } = useGetContent(baseURL + '/content/uuid/' + params.uuid);
+  } = useGetContent(baseURL + "/content/uuid/" + params.uuid);
   const {
     data: comments,
     error: commentsError,
     isLoading: isCommentsLoading,
     isFetching: isCommentsFetching,
     isError: isCommentsError,
-  } = useGetComments(baseURL + '/content/uuid/' + params.uuid + '/comment');
+  } = useGetComments(baseURL + "/content/uuid/" + params.uuid + "/comment");
 
   return (
     <>
@@ -45,7 +45,7 @@ const Content = () => {
       )}
       <div>
         <AddComment />
-        </div>
+      </div>
       {isCommentsLoading ? (
         <span className="flex justify-center p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md">
           Loading...
@@ -60,6 +60,7 @@ const Content = () => {
         </span>
       ) : (
         comments &&
+        comments.map((item: TContent) => (
         comments.map((item: TContent) => (
           <CommentContainer key={item.Id} item={item} />
         ))

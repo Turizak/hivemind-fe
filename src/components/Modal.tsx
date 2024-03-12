@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const Modal = () => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
@@ -10,8 +10,8 @@ const Modal = () => {
     <div
       className={
         isOpen
-          ? 'fixed z-50 inset-0 bg-black bg-opacity-80 transition-opacity ease-in-out duration-200'
-          : 'hidden'
+          ? "fixed z-50 inset-0 bg-black bg-opacity-80 transition-opacity ease-in-out duration-200"
+          : "hidden"
       }
     >
       <div className="w-3/4 md:w-max flex flex-col mx-auto mt-48 p-8 rounded-md shadow-md bg-white">
