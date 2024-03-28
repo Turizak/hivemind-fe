@@ -4,7 +4,8 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Hive from "./pages/HIve";
 import Content from "./pages/Content";
-import NewAccount from "./pages/newAccount";
+import NewAccount from "./pages/NewAccount";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/create" element={<NewAccount />}></Route>
+          <Route path="/login" element={<Login />}></Route>
           <Route path="content/uuid/:uuid" element={<Content />}></Route>
           <Route path="hive/uuid/:hiveUuid/content" element={<Hive />}></Route>
         </Routes>
