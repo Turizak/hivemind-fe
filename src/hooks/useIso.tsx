@@ -9,6 +9,7 @@ const useIso = (isoTime: any) => {
     timeZoneName: "short", // Optional: Include time zone
   };
 
+  //@ts-expect-error
   const formattedTime = date.toLocaleString("en-US", options);
   return formattedTime;
 };

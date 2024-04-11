@@ -47,6 +47,7 @@ const LoginForm: React.FC = () => {
       }
       const results = await response.json();
       localStorage.setItem("accessToken", results.Token);
+      //@ts-expect-error
       setSession(prevState => ({
         ...prevState, // Spread the previous state to preserve other properties
         [session.accessToken]: results.Token // Update the specific property with the new value
