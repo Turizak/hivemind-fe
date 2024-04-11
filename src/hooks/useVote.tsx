@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 
 const useVote = (url: string, setter: any) => {
-  const accessToken = localStorage.getItem('accessToken')
+  // const accessToken = localStorage.getItem('accessToken')
   const castVote = async () => {
     const response = await fetch(url, {
       method: "PATCH",
