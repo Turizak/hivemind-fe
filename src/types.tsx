@@ -14,3 +14,7 @@ export type TContent = {
   Deleted: number;
   Created: any;
 };
+
+export type TSession = {
+  accessToken: string;
+}
