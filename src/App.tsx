@@ -13,10 +13,9 @@ function App() {
       <Navbar />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />}></Route>
+          <Route path="/home" element={<Home />} />
           <Route path="/create" element={<NewAccount />}></Route>
-          <Route path="/login" element={<Login />}></Route>
           <Route path="content/uuid/:uuid" element={<Content />}></Route>
           <Route path="hive/uuid/:hiveUuid/content" element={<Hive />}></Route>
         </Routes>

@@ -1,17 +1,18 @@
+import { useNavigate } from "react-router-dom";
 import useGetContent from "../hooks/useGetContent";
 import HomeContentContainer from "../components/HomeContentContainer";
 import { TContent } from "../types";
 
 const Home = () => {
+  const navigate = useNavigate();
   const baseURL = import.meta.env.VITE_BASEURL;
-  const { data, error, isLoading, isFetching, isError } =
-    useGetContent(baseURL + "/content");
-
-
+  const { data, error, isLoading, isFetching, isError } = useGetContent(
+    baseURL + "/content",
+  );
 
   return (
     <>
-    
+      <button onClick={() => navigate("/")}>Login</button>
       {isLoading ? (
         <span className="flex justify-center p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md">
           Loading...
