@@ -5,7 +5,6 @@ const useVote = (url: string, setter: any) => {
   const castVote = async () => {
     const response = await fetch(url, {
       method: "PATCH",
-      // credentials: 'include',
       headers: {
         // Authorization: `Bearer ${accessToken}`,
         Accept: "*/*",
