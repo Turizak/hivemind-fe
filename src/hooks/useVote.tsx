@@ -1,12 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
 
 const useVote = (url: string, setter: any) => {
-  // const accessToken = localStorage.getItem('accessToken')
+  const token = localStorage.getItem("accessToken");
   const castVote = async () => {
     const response = await fetch(url, {
       method: "PATCH",
       headers: {
-        // Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${token}`,
         Accept: "*/*",
       },
     });

@@ -51,8 +51,8 @@ const LoginForm: React.FC = () => {
       localStorage.setItem("accessToken", results.Token);
       //@ts-expect-error
       setSession((prevState) => ({
-        ...prevState, // Spread the previous state to preserve other properties
-        [session.accessToken]: results.Token, // Update the specific property with the new value
+        ...prevState,
+        [session.accessToken]: results.Token,
       }));
       navigate("/home");
     } catch (error) {
