@@ -1,5 +1,6 @@
 import * as Form from "@radix-ui/react-form";
 import { useRef, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import SessionContext from "../context/SessionProvider";
 import { useMutation } from "@tanstack/react-query";
 
@@ -13,10 +14,11 @@ const LoginForm: React.FC = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const baseURL = import.meta.env.VITE_BASEURL;
+  const navigate = useNavigate();
 
   //@ts-expect-error
   // Session hook
-  const { session, setSession } = useContext(SessionContext)
+  const { session, setSession } = useContext(SessionContext);
 
   // Login
   function handleSubmit(e: React.FormEvent) {
@@ -48,10 +50,11 @@ const LoginForm: React.FC = () => {
       const results = await response.json();
       localStorage.setItem("accessToken", results.Token);
       //@ts-expect-error
-      setSession(prevState => ({
+      setSession((prevState) => ({
         ...prevState, // Spread the previous state to preserve other properties
-        [session.accessToken]: results.Token // Update the specific property with the new value
+        [session.accessToken]: results.Token, // Update the specific property with the new value
       }));
+      navigate("/home");
     } catch (error) {
       console.error(error);
     }
