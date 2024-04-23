@@ -19,6 +19,7 @@ const Content = () => {
   const {
     data: comments,
     error: commentsError,
+    refetch: commentsRefetch,
     isLoading: isCommentsLoading,
     isFetching: isCommentsFetching,
     isError: isCommentsError,
@@ -44,7 +45,7 @@ const Content = () => {
         </>
       )}
       <div>
-        <AddComment />
+        <AddComment refetch={commentsRefetch} />
       </div>
       {isCommentsLoading ? (
         <span className="flex justify-center p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md">
