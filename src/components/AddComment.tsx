@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 
-const AddComment = () => {
+const AddComment = (props: any) => {
   const [disabled, setDisabled] = useState<boolean>(false);
   const [buttonText, setButtonText] = useState<string>("Add Comment");
   const [textareaValue, setTextareaValue] = useState<string>("");
@@ -45,7 +45,7 @@ const AddComment = () => {
         setButtonText("Add Comment");
         setTextareaValue("");
         setDisabled(false);
-        window.location.reload();
+        props.refetch();
       }, 1500);
     } catch (error) {
       console.error(error);
