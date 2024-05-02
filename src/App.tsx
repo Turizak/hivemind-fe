@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Hive from "./pages/HIve";
 import Content from "./pages/Content";
 import NewAccount from "./pages/NewAccount";
+import Create from "./pages/Create";
 import Login from "./pages/Login";
 
 function App() {
@@ -15,7 +16,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />}></Route>
           <Route path="/home" element={<Home />} />
-          <Route path="/create" element={<NewAccount />}></Route>
+          <Route path="/create" element={<Create />} />
+          <Route path="/new" element={<NewAccount />}></Route>
           <Route path="content/uuid/:uuid" element={<Content />}></Route>
           <Route path="hive/uuid/:hiveUuid/content" element={<Hive />}></Route>
         </Routes>
