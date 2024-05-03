@@ -2,6 +2,7 @@ import useGetContent from "../hooks/useGetContent";
 import useGetComments from "../hooks/useGetComments";
 import { useParams } from "react-router-dom";
 import CommentContainer from "../components/CommentContainer";
+import ContentContentContainer from "../components/ContentContentContainer";
 import AddComment from "../components/AddComment";
 import { TContent } from "../types";
 
@@ -39,7 +40,9 @@ const Content = () => {
           Error: {contentError?.message}
         </span>
       ) : (
-        <>{/* <ContentContentContainer {...content} /> */}</>
+        <>
+          <ContentContentContainer {...content} />
+        </>
       )}
       <div>
         <AddComment refetch={commentsRefetch} />
