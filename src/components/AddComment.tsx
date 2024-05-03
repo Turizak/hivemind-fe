@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 
-// AddComment component 
 const AddComment = (props: any) => {
   const [disabled, setDisabled] = useState<boolean>(false);
   const [buttonText, setButtonText] = useState<string>("Add Comment");
