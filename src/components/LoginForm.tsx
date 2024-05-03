@@ -49,10 +49,12 @@ const LoginForm: React.FC = () => {
       }
       const results = await response.json();
       localStorage.setItem("accessToken", results.Token);
+      localStorage.setItem("username", "rkazirut")
       //@ts-expect-error
       setSession((prevState) => ({
         ...prevState,
         [session.accessToken]: results.Token,
+        [session.username]: "rkazirut"
       }));
       navigate("/home");
     } catch (error) {

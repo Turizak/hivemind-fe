@@ -1,8 +1,8 @@
 import useGetContent from "../hooks/useGetContent";
 import useGetComments from "../hooks/useGetComments";
 import { useParams } from "react-router-dom";
-import ContentContentContainer from "../components/contentContentContainer";
 import CommentContainer from "../components/CommentContainer";
+import ContentContentContainer from "../components/ContentContentContainer";
 import AddComment from "../components/AddComment";
 import { TContent } from "../types";
 

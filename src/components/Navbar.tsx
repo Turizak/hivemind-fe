@@ -28,10 +28,14 @@ const Navbar = () => {
         <NavigationMenu.Item className="pr-48">
           <NavigationMenu.Link href="/home">Hivemind</NavigationMenu.Link>
         </NavigationMenu.Item>
-        {/* Add Content Logo */}
+        {/* Add Content */}
         <div className="flex gap-4">
           <NavigationMenu.Item>
-          <NavigationMenu.Link href="/create">Add</NavigationMenu.Link>
+          <NavigationMenu.Link href="/create">Create Content</NavigationMenu.Link>
+          </NavigationMenu.Item>
+        {/* Add Hive */}
+          <NavigationMenu.Item>
+          <NavigationMenu.Link>Create Hive</NavigationMenu.Link>
           </NavigationMenu.Item>
           {/* User Menu */}
           <NavigationMenu.Item>
