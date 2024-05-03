@@ -1,10 +1,10 @@
 import useGetContent from "../hooks/useGetContent";
 import useGetComments from "../hooks/useGetComments";
 import { useParams } from "react-router-dom";
-import ContentContentContainer from "../components/contentContentContainer";
 import CommentContainer from "../components/CommentContainer";
 import AddComment from "../components/AddComment";
 import { TContent } from "../types";
+import ContentContentContainer from "../components/ContentContentContainer";
 
 const Content = () => {
   const params = useParams();
