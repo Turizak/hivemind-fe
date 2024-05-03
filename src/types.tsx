@@ -17,4 +17,6 @@ export type TContent = {
 
 export type TSession = {
   accessToken: string;
-}
+  username: string;
+  accountUUID: string;
+};
