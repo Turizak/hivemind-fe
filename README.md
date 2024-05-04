@@ -6,7 +6,7 @@ This application works in parallel with Hivemind Backend to provide a modern, Re
 ## Built With
 
 ![Static Badge](https://shields.io/badge/react-black?logo=react&style=for-the-badge)  
-![Static Badge](https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white)  
+![Static Badge](https://img.shields.io/badge/-Tanstack%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=#ffd94c)  
 ![Static Badge](https://img.shields.io/badge/tailwindcss-0F172A?&style=for-the-badge&logo=tailwindcss)  
 ![Static Badge](https://img.shields.io/badge/radix%20ui-161618.svg?style=for-the-badge&logo=radix-ui&logoColor=white)  
 ![Static Badge](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)  

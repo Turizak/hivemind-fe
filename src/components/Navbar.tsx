@@ -35,7 +35,7 @@ const Navbar = () => {
           </NavigationMenu.Item>
         {/* Add Hive */}
           <NavigationMenu.Item>
-          <NavigationMenu.Link>Create Hive</NavigationMenu.Link>
+          <NavigationMenu.Link href="/createHive">Create Hive</NavigationMenu.Link>
           </NavigationMenu.Item>
           {/* User Menu */}
           <NavigationMenu.Item>
