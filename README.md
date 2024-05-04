@@ -14,20 +14,32 @@ This application works in parallel with Hivemind Backend to provide a modern, Re
 ## Getting Started
 
 1. Fork the repo  
-`git clone https://github.com/rakazirut/hivemind-fe.git`
+   
+```bash
+git clone https://github.com/rakazirut/hivemind-fe.git
+```  
 
-2. Install Node.JS
-[Node.JS](https://nodejs.org/en)  
-
+2. Install  [Node.JS](https://nodejs.org/en)
+   
+   
 3. Install Dependencies  
-`npm install`  
 
-4. Update Environmental Variables  
+```bash
+npm install
+```  
+
+4. Update Environmental Variables
+   
 Create a .ENV file in the root folder of the project and add the URL for your webserver  
-`touch .ENV && echo "VITE_BASEURL=https://www.yourwebserverURL.com" > .ENV`
+```bash
+touch .ENV && echo "VITE_BASEURL=https://www.yourwebserverURL.com" > .ENV`
+```
 
 5. Run the app  
-`npm run dev`  
+   
+```bash
+npm run dev
+```
 
 ## License
 
