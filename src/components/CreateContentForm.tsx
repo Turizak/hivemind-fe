@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
+import useGetHives from "../hooks/useGetHives";
 
 type Content = {
   Hive: string;
@@ -11,13 +12,18 @@ type Content = {
 
 const CreateContentForm = () => {
   const [disabled, setDisabled] = useState<boolean>(false);
-  const [selectValue, setSelectValue] = useState<string>('')
+  const [selectValue, setSelectValue] = useState<string>("");
   const [textareaValue, setTextareaValue] = useState<string>("");
-  const [buttonText, setButtonText] = useState<string>("Create Content")
+  const [buttonText, setButtonText] = useState<string>("Create Content");
   const titleRef = useRef<HTMLInputElement>(null);
 
   const baseURL = import.meta.env.VITE_BASEURL;
   const navigate = useNavigate();
+
+  // Get All Hives
+  const { data, error, isLoading, isFetching, isError } = useGetHives(
+    baseURL + "/hive",
+  );
 
   // POST Content
   function handleSubmit(e: React.FormEvent) {
@@ -25,9 +31,9 @@ const CreateContentForm = () => {
     setDisabled(true);
     const contentObject: Content = {
       Hive: selectValue,
-      Author: `${localStorage.getItem('username')}`,
+      Author: `${localStorage.getItem("username")}`,
       Title: `${titleRef?.current?.value}`,
-      Message: textareaValue
+      Message: textareaValue,
     };
     mutate(contentObject);
   }
@@ -37,7 +43,7 @@ const CreateContentForm = () => {
 
   async function postContent(body: Content) {
     const token = localStorage.getItem("accessToken");
-    setDisabled(true)
+    setDisabled(true);
     try {
       const response = await fetch(baseURL + "/content", {
         method: "POST",
@@ -49,10 +55,10 @@ const CreateContentForm = () => {
         body: JSON.stringify(body),
       });
       if (!response.ok) {
-        setDisabled(false)
+        setDisabled(false);
         throw new Error(`${response.status}`);
       }
-      setButtonText('Success!');
+      setButtonText("Success!");
       setTimeout(() => {
         navigate("/home");
       }, 1500);
@@ -84,8 +90,17 @@ const CreateContentForm = () => {
           value={selectValue}
           onChange={selectHandler}
         >
-          <option value=""></option>
-          <option value="Gaming">Gaming</option>
+          {isLoading ? (
+            <option value="">Loading...</option>
+          ) : isFetching ? (
+            <option value="">Loading...</option>
+          ) : isError ? (
+            <option value="">Error: {error?.message}</option>
+          ) : (
+            data && data.map((item: any) => (
+              <option value={item.Name} key={item.Id}>{item.Name}</option>
+            ))
+          )}
         </select>
         <label
           htmlFor="title"
