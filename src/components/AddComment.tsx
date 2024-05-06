@@ -63,6 +63,8 @@ const AddComment = (props: any) => {
           className="w-4/5 border border-black rounded-md p-3 md:mx-auto my-2 max-w-xl resize-none"
           name="writeComment"
           rows={4}
+          minLength={1}
+          maxLength={2048}
           value={textareaValue}
           onChange={textareaHandler}
           disabled={disabled}
