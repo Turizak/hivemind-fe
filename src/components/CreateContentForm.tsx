@@ -97,8 +97,11 @@ const CreateContentForm = () => {
           ) : isError ? (
             <option value="">Error: {error?.message}</option>
           ) : (
-            data && data.map((item: any) => (
-              <option value={item.Name} key={item.Id}>{item.Name}</option>
+            data &&
+            data.map((item: any) => (
+              <option value={item.Name} key={item.Id}>
+                {item.Name}
+              </option>
             ))
           )}
         </select>
@@ -112,6 +115,8 @@ const CreateContentForm = () => {
           type="text"
           name="title"
           className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
+          minLength={1}
+          maxLength={256}
           disabled={disabled}
           ref={titleRef}
           required
@@ -125,6 +130,8 @@ const CreateContentForm = () => {
         <textarea
           name="title"
           className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[150px] p-2 appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
+          minLength={1}
+          maxLength={5000}
           disabled={disabled}
           value={textareaValue}
           onChange={textareaHandler}
