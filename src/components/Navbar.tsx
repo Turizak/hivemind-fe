@@ -31,11 +31,15 @@ const Navbar = () => {
         {/* Add Content */}
         <div className="flex gap-4">
           <NavigationMenu.Item>
-          <NavigationMenu.Link href="/create">Create Content</NavigationMenu.Link>
+          <NavigationMenu.Link href="/createContent">Create Content</NavigationMenu.Link>
           </NavigationMenu.Item>
         {/* Add Hive */}
           <NavigationMenu.Item>
           <NavigationMenu.Link href="/createHive">Create Hive</NavigationMenu.Link>
+          </NavigationMenu.Item>
+        {/* Create Account */}
+          <NavigationMenu.Item>
+          <NavigationMenu.Link href="/createAccount">Create Account</NavigationMenu.Link>
           </NavigationMenu.Item>
           {/* User Menu */}
           <NavigationMenu.Item>
