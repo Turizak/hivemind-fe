@@ -86,7 +86,7 @@ return (
           />
         </Form.Control>
       </Form.Field>
-      <Form.Field className="grid mb-[10px]" name="email">
+      <Form.Field className="grid mb-[10px]" name="password">
         <div className="flex items-baseline justify-between">
           <Form.Label className="text-[15px] font-medium leading-[35px] text-black">
             Password
