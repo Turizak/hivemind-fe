@@ -44,9 +44,9 @@ const CreateAccount = () => {
       });
       if (!response.ok) {
         setDisabled(false)
+        setButtonText('There was an error')
         throw new Error(`${response.status}`);
       }
-      const results = await response.json();
       setButtonText("Account Created!")
       setTimeout(() => {
         navigate("/");
@@ -55,6 +55,7 @@ const CreateAccount = () => {
       console.error(error);
     }
   }
+
 return (
 <div className="flex justify-center">
 <form className="w-[260px]" onSubmit={handleSubmit}>
