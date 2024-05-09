@@ -1,7 +1,9 @@
 
-# Hivemind Front-End
+# Hivemind Frontend Repo
 
-This application works in parallel with Hivemind Backend to provide a modern, Reddit-style social content site.
+## :honeybee: What is Hivemind?
+
+Hivemind is a reddit/forum style web application created by [Tom Slanda]("https://www.github.com/slandath") and [Robert Kazirut]("https://www.github.com/rakazirut").  This is the frontend repo for that application and works in parallel with [Hivemind Backend Repo]("https://github.com/rakazirut/hivemind-be").
 
 ## Built With
 
