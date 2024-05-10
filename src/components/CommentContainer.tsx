@@ -16,6 +16,15 @@ const CommentContainer = ({ item }: { item: TContent }) => {
   }
   const [upvoteCount, setUpvoteCount] = useState<number>(item.Upvote);
   const [downvoteCount, setDownvoteCount] = useState<number>(item.Downvote);
+  const [textareaClass, setTextareaClass] = useState<any>(
+    "w-4/5 border border-black rounded-md p-3 md:mx-auto my-2 max-w-xl resize-none hidden",
+  );
+  const [buttonClass, setButtonClass] = useState<any>(
+    "w-4/5 justify-center md:w-auto rounded-md flex p-3 mx-auto my-2 max-w-xl bg-black text-white hover:cursor-pointer hover:bg-gray-300 hover:text-black hidden",
+  );
+  const [textareaValue, setTextareaValue] = useState<string>("");
+  const [buttonText, setButtonText] = useState<string>("Add Reply");
+  const [disabled, setDisabled] = useState<boolean>(false);
   const upvoteSetter = () => setUpvoteCount((prev: any) => prev + 1);
   const downvoteSetter = () => setDownvoteCount((prev: any) => prev + 1);
 
@@ -30,6 +39,19 @@ const CommentContainer = ({ item }: { item: TContent }) => {
   }
   function vote(fn: any) {
     fn();
+  }
+
+  function textareaHandler(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    setTextareaValue(e.target.value);
+  }
+
+  function replyToggle() {
+    setTextareaClass(
+      "w-4/5 border border-black rounded-md p-3 md:mx-auto my-2 max-w-xl resize-none",
+    );
+    setButtonClass(
+      "w-4/5 justify-center md:w-auto rounded-md flex p-3 mx-auto my-2 max-w-xl bg-black text-white hover:cursor-pointer hover:bg-gray-500 hover:text-black",
+    );
   }
 
   return (
@@ -77,7 +99,10 @@ const CommentContainer = ({ item }: { item: TContent }) => {
               <p className="px-2">{downvoteCount}</p>
             </div>
             {/* Comment Container */}
-            <button className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200">
+            <button
+              className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200"
+              onClick={replyToggle}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -91,6 +116,26 @@ const CommentContainer = ({ item }: { item: TContent }) => {
                 />
               </svg>
               <p className="px-1">{item.CommentCount}</p>
+            </button>
+          </div>
+          <div>
+            <textarea
+              className={textareaClass}
+              name="reply"
+              rows={3}
+              minLength={1}
+              maxLength={2048}
+              placeholder="Type Reply"
+              value={textareaValue}
+              onChange={textareaHandler}
+              disabled={disabled}
+            ></textarea>
+            <button
+              className={buttonClass}
+              // onClick={handleSubmit}
+              disabled={disabled}
+            >
+              {buttonText}
             </button>
           </div>
         </div>
