@@ -62,7 +62,8 @@ const Content = () => {
       ) : (
         comments &&
         comments.map((item: TContent) => (
-          <CommentContainer key={item.Id} item={item} />
+          // @ts-expect-error
+          <CommentContainer key={item.Id} item={item} uuid={item.Uuid}/>
         ))
       )}
     </>

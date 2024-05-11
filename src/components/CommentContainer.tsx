@@ -1,7 +1,9 @@
 import { useState } from "react";
 import useIso from "../hooks/useIso";
 import useVote from "../hooks/useVote";
+import useGetReplies from "../hooks/useGetReplies";
 import { TContent } from "../types";
+import ReplyContainer from "./ReplyContainer";
 
 const CommentContainer = ({ item }: { item: TContent }) => {
   {
@@ -29,6 +31,18 @@ const CommentContainer = ({ item }: { item: TContent }) => {
   const downvoteSetter = () => setDownvoteCount((prev: any) => prev + 1);
 
   {
+    /* Fetch Replies */
+  }
+  // const {
+  //   data: replies,
+  //   error: repliesError,
+  //   refetch: repliesRefetch,
+  //   isLoading: isRepliesLoading,
+  //   isFetching: isRepliesFetching,
+  //   isError: isRepliesError,
+  // } = useGetReplies(baseURL + "/comment/uuid/" + item.Uuid + "/replies");
+
+  {
     /* Vote Hooks.  Params are the PATCH URL and the setter function */
   }
   const { mutate: upvote } = useVote(upvoteURL, upvoteSetter);
@@ -41,10 +55,20 @@ const CommentContainer = ({ item }: { item: TContent }) => {
     fn();
   }
 
+  {
+    /* Reply Start */
+  }
+  {
+    /* Text Area Value Handler */
+  }
+
   function textareaHandler(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setTextareaValue(e.target.value);
   }
 
+  {
+    /* Add Reply Toggle Control */
+  }
   function replyToggle() {
     setTextareaClass(
       "w-4/5 border border-black rounded-md p-3 md:mx-auto my-2 max-w-xl resize-none",
@@ -52,6 +76,10 @@ const CommentContainer = ({ item }: { item: TContent }) => {
     setButtonClass(
       "w-4/5 justify-center md:w-auto rounded-md flex p-3 mx-auto my-2 max-w-xl bg-black text-white hover:cursor-pointer hover:bg-gray-500 hover:text-black",
     );
+  }
+
+  {
+    /* Reply End */
   }
 
   return (
@@ -118,6 +146,7 @@ const CommentContainer = ({ item }: { item: TContent }) => {
               <p className="px-1">{item.CommentCount}</p>
             </button>
           </div>
+          {/* Reply Input Start */}
           <div>
             <textarea
               className={textareaClass}
@@ -138,6 +167,26 @@ const CommentContainer = ({ item }: { item: TContent }) => {
               {buttonText}
             </button>
           </div>
+          {/* Reply Input End */}
+          {/* Replies Map
+          {isRepliesLoading ? (
+            <span className="flex justify-center p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md">
+              Loading...
+            </span>
+          ) : isRepliesFetching ? (
+            <span className="flex justify-center p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md">
+              Loading...
+            </span>
+          ) : isRepliesError ? (
+            <span className="flex justify-center p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md">
+              Error: {repliesError?.message}
+            </span>
+          ) : (
+            replies &&
+            replies.map((item: TContent) => (
+              <ReplyContainer key={item.Id} item={item} />
+            ))
+          )} */}
         </div>
       </div>
     </div>
