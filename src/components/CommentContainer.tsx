@@ -1,23 +1,21 @@
 import { useState } from "react";
 import useIso from "../hooks/useIso";
 import useVote from "../hooks/useVote";
-import useGetReplies from "../hooks/useGetReplies";
-import { TContent } from "../types";
-import ReplyContainer from "./ReplyContainer";
+import { TComment } from "../types";
 
-const CommentContainer = ({ item }: { item: TContent }) => {
+const CommentContainer = (props: TComment) => {
   {
     /* URL Variables */
   }
   const baseURL = import.meta.env.VITE_BASEURL;
-  const upvoteURL = baseURL + "/comment/uuid/" + item.Uuid + "/add-upvote";
-  const downvoteURL = baseURL + "/comment/uuid/" + item.Uuid + "/add-downvote";
+  const upvoteURL = baseURL + "/comment/uuid/" + props.Uuid + "/add-upvote";
+  const downvoteURL = baseURL + "/comment/uuid/" + props.Uuid + "/add-downvote";
 
   {
     /* State and Setters.  Initial state is received from parent component via GET.  Setter function calls useState and increments the value by 1. */
   }
-  const [upvoteCount, setUpvoteCount] = useState<number>(item.Upvote);
-  const [downvoteCount, setDownvoteCount] = useState<number>(item.Downvote);
+  const [upvoteCount, setUpvoteCount] = useState<number>(props.Upvote);
+  const [downvoteCount, setDownvoteCount] = useState<number>(props.Downvote);
   const [textareaClass, setTextareaClass] = useState<any>(
     "w-4/5 border border-black rounded-md p-3 md:mx-auto my-2 max-w-xl resize-none hidden",
   );
@@ -29,18 +27,6 @@ const CommentContainer = ({ item }: { item: TContent }) => {
   const [disabled, setDisabled] = useState<boolean>(false);
   const upvoteSetter = () => setUpvoteCount((prev: any) => prev + 1);
   const downvoteSetter = () => setDownvoteCount((prev: any) => prev + 1);
-
-  {
-    /* Fetch Replies */
-  }
-  // const {
-  //   data: replies,
-  //   error: repliesError,
-  //   refetch: repliesRefetch,
-  //   isLoading: isRepliesLoading,
-  //   isFetching: isRepliesFetching,
-  //   isError: isRepliesError,
-  // } = useGetReplies(baseURL + "/comment/uuid/" + item.Uuid + "/replies");
 
   {
     /* Vote Hooks.  Params are the PATCH URL and the setter function */
@@ -58,6 +44,7 @@ const CommentContainer = ({ item }: { item: TContent }) => {
   {
     /* Reply Start */
   }
+
   {
     /* Text Area Value Handler */
   }
@@ -77,28 +64,30 @@ const CommentContainer = ({ item }: { item: TContent }) => {
       "w-4/5 justify-center md:w-auto rounded-md flex p-3 mx-auto my-2 max-w-xl bg-black text-white hover:cursor-pointer hover:bg-gray-500 hover:text-black",
     );
   }
-
   {
     /* Reply End */
   }
-
   return (
     <div
-      className="p-3 mx-auto my-4 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md"
-      id={item.Id}
+      className={
+        props.ParentUuid
+          ? "p-3 mx-auto my-4 max-w-xl bg-red-600 xs:rounded-none sm:rounded-md"
+          : "p-3 mx-auto my-4 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md"
+      }
+      id={props.Id}
     >
       <div className="flex gap-2">
         <div>
           {/* User & Time Container */}
           <div className="flex w-max p-2 rounded-md text-sm">
             <p>
-              {item.Author} | {useIso(item.Created.Time)}
+              {props.Author} | {useIso(props.Created.Time)}
             </p>
             <p></p>
           </div>
           {/* Comment Body Container */}
           <div className="p-2 rounded-md flex-none max-w-md">
-            <p>{item.Message}</p>
+            <p>{props.Deleted === true ? "Comment Deleted" : props.Message}</p>
           </div>
           {/* Horizontal Vote Container */}
           <div className="flex gap-2">
@@ -128,7 +117,7 @@ const CommentContainer = ({ item }: { item: TContent }) => {
             </div>
             {/* Comment Container */}
             <button
-              className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200"
+              className={props.ParentUuid ? "hidden" : "flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200"}
               onClick={replyToggle}
             >
               <svg
@@ -143,7 +132,7 @@ const CommentContainer = ({ item }: { item: TContent }) => {
                   clipRule="evenodd"
                 />
               </svg>
-              <p className="px-1">{item.CommentCount}</p>
+              {/* <p className="px-1">{props.CommentCount}</p> */}
             </button>
           </div>
           {/* Reply Input Start */}
@@ -167,26 +156,10 @@ const CommentContainer = ({ item }: { item: TContent }) => {
               {buttonText}
             </button>
           </div>
-          {/* Reply Input End */}
-          {/* Replies Map
-          {isRepliesLoading ? (
-            <span className="flex justify-center p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md">
-              Loading...
-            </span>
-          ) : isRepliesFetching ? (
-            <span className="flex justify-center p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md">
-              Loading...
-            </span>
-          ) : isRepliesError ? (
-            <span className="flex justify-center p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md">
-              Error: {repliesError?.message}
-            </span>
-          ) : (
-            replies &&
-            replies.map((item: TContent) => (
-              <ReplyContainer key={item.Id} item={item} />
-            ))
-          )} */}
+          <p className="text-xs">{"Uuid: " + props.Uuid}</p>
+          <p className="text-xs">
+            {props.ParentUuid ? "Reply to: " + props.ParentUuid : null}
+          </p>
         </div>
       </div>
     </div>
