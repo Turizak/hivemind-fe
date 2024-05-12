@@ -62,7 +62,7 @@ const Content = () => {
       ) : (
         comments &&
         comments.map((item: TComment) => (
-          <CommentContainer key={item.Id} {...item}/>
+          <CommentContainer key={item.Id} refetch={commentsRefetch} {...item}/>
         ))
       )}
     </>
