@@ -15,8 +15,24 @@ export type TContent = {
   Created: any;
 };
 
+export type TComment = {
+  Id: string;
+  Author: string;
+  Message: string;
+  Uuid: string;
+  AccountUUID: string;
+  ContentUuid: string;
+  ParentUuid: string;
+  Upvote: number;
+  Downvote: number;
+  Deleted: boolean;
+  Created: any;
+  LastEdited: any;
+};
+
 export type TSession = {
   accessToken: string;
   username: string;
   accountUUID: string;
 };
+
