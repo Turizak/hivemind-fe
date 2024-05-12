@@ -20,8 +20,8 @@ const CommentContainer = (props: any) => {
     "w-4/5 justify-center md:w-auto rounded-md flex p-3 mx-auto my-2 max-w-xl bg-black text-white hover:cursor-pointer hover:bg-gray-300 hover:text-black hidden",
   );
   const [textareaValue, setTextareaValue] = useState<string>("");
-  const [buttonText, setButtonText] = useState<string>("Add Reply");
-  const [disabled, setDisabled] = useState<boolean>(false);
+  // const [buttonText, setButtonText] = useState<string>("Add Reply");
+  // const [disabled, setDisabled] = useState<boolean>(false);
 
   // Initial state is received from parent component via GET.  Setter function calls useState and increments the value by 1.
   const upvoteSetter = () => setUpvoteCount((prev: any) => prev + 1);
@@ -130,14 +130,12 @@ const CommentContainer = (props: any) => {
               placeholder="Type Reply"
               value={textareaValue}
               onChange={textareaHandler}
-              disabled={disabled}
             ></textarea>
             <button
               className={buttonClass}
               // onClick={handleSubmit}
-              disabled={disabled}
             >
-              {buttonText}
+              Add Reply
             </button>
           </div>
           <p className="text-xs"></p>
