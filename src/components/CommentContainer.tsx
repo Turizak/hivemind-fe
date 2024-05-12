@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import useIso from "../hooks/useIso";
 import useVote from "../hooks/useVote";
+import { useMutation } from "@tanstack/react-query";
 import { TComment } from "../types";
 import ReplyContainer from "./ReplyContainer";
 
@@ -9,6 +11,7 @@ const CommentContainer = (props: any) => {
   const baseURL = import.meta.env.VITE_BASEURL;
   const upvoteURL = baseURL + "/comment/uuid/" + props.Uuid + "/add-upvote";
   const downvoteURL = baseURL + "/comment/uuid/" + props.Uuid + "/add-downvote";
+  const params = useParams();
 
   // State
   const [upvoteCount, setUpvoteCount] = useState<number>(props.Upvote);
@@ -16,8 +19,8 @@ const CommentContainer = (props: any) => {
   const [replyTextareaShow, setReplyTextareaShow] = useState<boolean>(false)
   const [replyButtonShow, setReplyButtonShow] = useState<boolean>(false)
   const [textareaValue, setTextareaValue] = useState<string>("");
-  // const [buttonText, setButtonText] = useState<string>("Add Reply");
-  // const [disabled, setDisabled] = useState<boolean>(false);
+  const [replyButtonText, setReplyButtonText] = useState<string>("Add Reply");
+  const [disabled, setDisabled] = useState<boolean>(false);
 
   // Initial state is received from parent component via GET.  Setter function calls useState and increments the value by 1.
   const upvoteSetter = () => setUpvoteCount((prev: any) => prev + 1);
@@ -45,6 +48,53 @@ const CommentContainer = (props: any) => {
     setReplyTextareaShow(!replyTextareaShow)
     setReplyButtonShow(!replyButtonShow)
   }
+
+// POST Reply
+function handleSubmit(e: React.FormEvent) {
+  e.preventDefault();
+  setDisabled(true);
+  const commentObject: any = {
+    message: textareaValue,
+  };
+  mutate(commentObject);
+}
+const { mutate } = useMutation({
+  mutationFn: postReply,
+});
+
+async function postReply(body: string) {
+  const token = localStorage.getItem("accessToken");
+  try {
+    const response = await fetch(
+      baseURL + "/content/uuid/" + params.uuid + "/comment/" + props.Uuid + "/reply",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "*/*",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      },
+    );
+    if (!response.ok) {
+      throw new Error(`${response.status}`);
+    }
+    setReplyButtonText("Reply Added!");
+    setDisabled(true);
+    setTimeout(() => {
+      setReplyButtonText("Add Reply");
+      setTextareaValue("");
+      setDisabled(false);
+      props.refetch();
+    }, 1500);
+  } catch (error) {
+    console.error(error);
+    setDisabled(false)
+  }
+}
+
+
   // ----- Reply End ----- //
 
   return (
@@ -53,7 +103,7 @@ const CommentContainer = (props: any) => {
       id={props.Id}
     >
       <div className="flex gap-2">
-        <div>
+        <div className="w-full">
           {/* User & Time Container */}
           <div className="flex w-max p-2 rounded-md text-sm">
             <p>
@@ -95,7 +145,7 @@ const CommentContainer = (props: any) => {
             <button
               className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200"
               onClick={replyToggle}
-            >
+            ><p className="pr-1">{props.Replies.length}</p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -108,26 +158,27 @@ const CommentContainer = (props: any) => {
                   clipRule="evenodd"
                 />
               </svg>
-              {/* <p className="px-1">{props.CommentCount}</p> */}
             </button>
           </div>
           {/* Reply Input Start */}
-          <div>
+          <div className="mx-auto bg-gray-300 xs:rounded-none sm:rounded-md">
             {replyTextareaShow && <textarea
-              className={"w-4/5 border border-black rounded-md p-3 md:mx-auto my-2 max-w-xl resize-none"}
+              className={"w-full border border-black rounded-md p-3 md:mx-auto my-2 max-w-xl resize-none"}
               name="reply"
               rows={3}
               minLength={1}
               maxLength={2048}
               placeholder="Type Reply"
               value={textareaValue}
+              disabled={disabled}
               onChange={textareaHandler}
             ></textarea>}
             {replyButtonShow && <button
-              className={"w-4/5 justify-center md:w-auto rounded-md flex p-3 mx-auto my-2 max-w-xl bg-black text-white hover:cursor-pointer hover:bg-gray-300 hover:text-black"}
-              // onClick={handleSubmit}
+              className={"w-4/5 justify-center md:w-auto rounded-md flex p-3 mx-auto max-w-xl bg-black text-white hover:cursor-pointer hover:bg-gray-300 hover:text-black"}
+              disabled={disabled}
+              onClick={handleSubmit}
             >
-              Add Reply
+              {replyButtonText}
             </button>}
           </div>
           <p className="text-xs"></p>
