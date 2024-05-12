@@ -13,12 +13,8 @@ const CommentContainer = (props: any) => {
   // State
   const [upvoteCount, setUpvoteCount] = useState<number>(props.Upvote);
   const [downvoteCount, setDownvoteCount] = useState<number>(props.Downvote);
-  const [textareaClass, setTextareaClass] = useState<any>(
-    "w-4/5 border border-black rounded-md p-3 md:mx-auto my-2 max-w-xl resize-none hidden",
-  );
-  const [buttonClass, setButtonClass] = useState<any>(
-    "w-4/5 justify-center md:w-auto rounded-md flex p-3 mx-auto my-2 max-w-xl bg-black text-white hover:cursor-pointer hover:bg-gray-300 hover:text-black hidden",
-  );
+  const [replyTextareaShow, setReplyTextareaShow] = useState<boolean>(false)
+  const [replyButtonShow, setReplyButtonShow] = useState<boolean>(false)
   const [textareaValue, setTextareaValue] = useState<string>("");
   // const [buttonText, setButtonText] = useState<string>("Add Reply");
   // const [disabled, setDisabled] = useState<boolean>(false);
@@ -46,12 +42,8 @@ const CommentContainer = (props: any) => {
 
   // Add Reply Toggle Control
   function replyToggle() {
-    setTextareaClass(
-      "w-4/5 border border-black rounded-md p-3 md:mx-auto my-2 max-w-xl resize-none",
-    );
-    setButtonClass(
-      "w-4/5 justify-center md:w-auto rounded-md flex p-3 mx-auto my-2 max-w-xl bg-black text-white hover:cursor-pointer hover:bg-gray-500 hover:text-black",
-    );
+    setReplyTextareaShow(!replyTextareaShow)
+    setReplyButtonShow(!replyButtonShow)
   }
   // ----- Reply End ----- //
 
@@ -121,8 +113,8 @@ const CommentContainer = (props: any) => {
           </div>
           {/* Reply Input Start */}
           <div>
-            <textarea
-              className={textareaClass}
+            {replyTextareaShow && <textarea
+              className={"w-4/5 border border-black rounded-md p-3 md:mx-auto my-2 max-w-xl resize-none"}
               name="reply"
               rows={3}
               minLength={1}
@@ -130,13 +122,13 @@ const CommentContainer = (props: any) => {
               placeholder="Type Reply"
               value={textareaValue}
               onChange={textareaHandler}
-            ></textarea>
-            <button
-              className={buttonClass}
+            ></textarea>}
+            {replyButtonShow && <button
+              className={"w-4/5 justify-center md:w-auto rounded-md flex p-3 mx-auto my-2 max-w-xl bg-black text-white hover:cursor-pointer hover:bg-gray-300 hover:text-black"}
               // onClick={handleSubmit}
             >
               Add Reply
-            </button>
+            </button>}
           </div>
           <p className="text-xs"></p>
         </div>
