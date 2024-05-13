@@ -163,7 +163,7 @@ async function postReply(body: string) {
           {/* Reply Input Start */}
           <div className="mx-auto bg-gray-300 xs:rounded-none sm:rounded-md">
             {replyTextareaShow && <textarea
-              className={"w-full border border-black rounded-md p-3 md:mx-auto my-2 max-w-xl resize-none"}
+              className={"w-full rounded-md p-3 md:mx-auto my-2 max-w-xl resize-none"}
               name="reply"
               rows={3}
               minLength={1}
