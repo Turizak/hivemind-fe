@@ -14,7 +14,7 @@ const AddComment = (props: any) => {
     const commentObject: any = {
       message: textareaValue,
     };
-    postComment(commentObject);
+    postComment(commentObject)
   }
 
   async function postComment(body: string) {
@@ -35,7 +35,8 @@ const AddComment = (props: any) => {
       if (!response.ok) {
         throw new Error(`${response.status}`);
       }
-      if (response.ok) {
+      const data = await response.json();
+      if (data) {
         setButtonText("Comment Added!");
         setTextareaValue("")
         setDisabled(true);
