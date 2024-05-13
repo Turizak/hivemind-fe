@@ -1,5 +1,5 @@
 import LoginForm from "../components/LoginForm";
-import Message from "../components/Message";
+import ErrorMessage from "../components/ErrorMessage";
 
 const Login = () => {
   return (
@@ -7,7 +7,7 @@ const Login = () => {
       <div className="text-center text-3xl p-8 w-full bg-gray-300">
         Login
       </div>
-      <Message />
+      <ErrorMessage />
       <LoginForm />
     </>
   );

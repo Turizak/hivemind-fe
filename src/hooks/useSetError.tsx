@@ -1,16 +1,16 @@
 // @ts-nocheck
-import { MessageContext } from "../context/MessageContext";
+import { ErrorContext } from "../context/ErrorContext";
 import { useContext, useState } from "react";
 
 const useSetError = () => {
-  const { message, setMessage } = useContext(MessageContext);
-  const [newMessage, setNewMessage] = useState("");
+  const { errorMsg, setErrorMsg } = useContext(ErrorContext);
+  const [newErrorMsg, setNewErrorMsg] = useState("");
 
   const handleSetError = (msg) => {
-    setNewMessage(msg);
-    setMessage(msg);
+    setNewErrorMsg(msg);
+    setErrorMsg(msg);
     setTimeout(() => {
-      setMessage("");
+      setErrorMsg("");
     }, 3000);
   };
   return handleSetError;
