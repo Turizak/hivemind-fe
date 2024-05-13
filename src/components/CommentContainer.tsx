@@ -174,7 +174,7 @@ async function postReply(body: string) {
               onChange={textareaHandler}
             ></textarea>}
             {replyButtonShow && <button
-              className={"w-4/5 justify-center md:w-auto rounded-md flex p-3 mx-auto max-w-xl bg-black text-white hover:cursor-pointer hover:bg-gray-300 hover:text-black"}
+              className={"w-4/5 justify-center md:w-auto rounded-md flex p-3 mx-auto max-w-xl bg-black text-white hover:cursor-pointer hover:bg-gray-400 hover:text-black"}
               disabled={disabled}
               onClick={handleSubmit}
             >
