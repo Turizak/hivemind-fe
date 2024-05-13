@@ -7,8 +7,8 @@ const useSetError = () => {
   const [newErrorMsg, setNewErrorMsg] = useState("");
 
   const handleSetError = (msg) => {
-    setNewErrorMsg(msg);
     setErrorMsg(msg);
+    setNewErrorMsg(errorMsg);
     setTimeout(() => {
       setErrorMsg("");
     }, 3000);

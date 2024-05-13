@@ -2,7 +2,6 @@ import * as Form from "@radix-ui/react-form";
 import { useRef, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import SessionContext from "../context/SessionProvider";
-// import { useMutation } from "@tanstack/react-query";
 import useJWT from "../hooks/useJWT";
 import { TSession } from "../types";
 import useSetError from "../hooks/useSetError";
