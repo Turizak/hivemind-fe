@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
 
 const AddComment = (props: any) => {
   const [disabled, setDisabled] = useState<boolean>(false);
@@ -15,11 +14,8 @@ const AddComment = (props: any) => {
     const commentObject: any = {
       message: textareaValue,
     };
-    mutate(commentObject);
+    postComment(commentObject);
   }
-  const { mutate } = useMutation({
-    mutationFn: postComment,
-  });
 
   async function postComment(body: string) {
     const token = localStorage.getItem("accessToken");
@@ -39,16 +35,20 @@ const AddComment = (props: any) => {
       if (!response.ok) {
         throw new Error(`${response.status}`);
       }
-      setButtonText("Comment Added!");
-      setDisabled(true);
-      setTimeout(() => {
-        setButtonText("Add Comment");
-        setTextareaValue("");
-        setDisabled(false);
-        props.refetch();
-      }, 1500);
+      if (response.ok) {
+        setButtonText("Comment Added!");
+        setTextareaValue("")
+        setDisabled(true);
+        setTimeout(() => {
+          setButtonText("Add Comment");
+          setTextareaValue("");
+          setDisabled(false);
+          props.refetch();
+        }, 500);
+      }
     } catch (error) {
       console.error(error);
+      setButtonText("There was an error - please refresh");
     }
   }
 
