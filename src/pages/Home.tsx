@@ -1,8 +1,6 @@
 import useGetContent from "../hooks/useGetContent";
 import HomeContentContainer from "../components/HomeContentContainer";
-import ErrorMessage from "../components/ErrorMessage";
 import { TContent } from "../types";
-import useSetError from "../hooks/useSetError";
 
 const Home = () => {
   const baseURL = import.meta.env.VITE_BASEURL;
