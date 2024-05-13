@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import useIso from "../hooks/useIso";
 import useVote from "../hooks/useVote";
-import { useMutation } from "@tanstack/react-query";
 import { TComment } from "../types";
 import ReplyContainer from "./ReplyContainer";
 
@@ -16,8 +15,8 @@ const CommentContainer = (props: any) => {
   // State
   const [upvoteCount, setUpvoteCount] = useState<number>(props.Upvote);
   const [downvoteCount, setDownvoteCount] = useState<number>(props.Downvote);
-  const [replyTextareaShow, setReplyTextareaShow] = useState<boolean>(false)
-  const [replyButtonShow, setReplyButtonShow] = useState<boolean>(false)
+  const [replyTextareaShow, setReplyTextareaShow] = useState<boolean>(false);
+  const [replyButtonShow, setReplyButtonShow] = useState<boolean>(false);
   const [textareaValue, setTextareaValue] = useState<string>("");
   const [replyButtonText, setReplyButtonText] = useState<string>("Add Reply");
   const [disabled, setDisabled] = useState<boolean>(false);
@@ -45,55 +44,53 @@ const CommentContainer = (props: any) => {
 
   // Add Reply Toggle Control
   function replyToggle() {
-    setReplyTextareaShow(!replyTextareaShow)
-    setReplyButtonShow(!replyButtonShow)
+    setReplyTextareaShow(!replyTextareaShow);
+    setReplyButtonShow(!replyButtonShow);
   }
 
-// POST Reply
-function handleSubmit(e: React.FormEvent) {
-  e.preventDefault();
-  setDisabled(true);
-  const commentObject: any = {
-    message: textareaValue,
-  };
-  mutate(commentObject);
-}
-const { mutate } = useMutation({
-  mutationFn: postReply,
-});
-
-async function postReply(body: string) {
-  const token = localStorage.getItem("accessToken");
-  try {
-    const response = await fetch(
-      baseURL + "/content/uuid/" + params.uuid + "/comment/" + props.Uuid + "/reply",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: "*/*",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      },
-    );
-    if (!response.ok) {
-      throw new Error(`${response.status}`);
-    }
-    setReplyButtonText("Reply Added!");
+  // POST Reply
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
     setDisabled(true);
-    setTimeout(() => {
-      setReplyButtonText("Add Reply");
-      setTextareaValue("");
-      setDisabled(false);
-      props.refetch();
-    }, 1500);
-  } catch (error) {
-    console.error(error);
-    setDisabled(false)
+    const commentObject: any = {
+      message: textareaValue,
+    };
+    postReply(commentObject);
   }
-}
 
+  async function postReply(body: string) {
+    const token = localStorage.getItem("accessToken");
+    try {
+      const response = await fetch(
+        baseURL + "/content/uuid/" + params.uuid + "/comment/" + props.Uuid + "/reply",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "*/*",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        },
+      );
+      if (!response.ok) {
+        throw new Error(`${response.status}`);
+      }
+      if (response.ok) {
+      setReplyButtonText("Reply Added!");
+      setDisabled(true);
+      setTimeout(() => {
+        setReplyButtonText("Add Reply");
+        setTextareaValue("");
+        setDisabled(false);
+        props.refetch();
+      }, 1500);
+    }
+    } catch (error) {
+      console.error(error);
+      setReplyButtonText('There was an error - please refresh')
+    }
+  }
 
   // ----- Reply End ----- //
 
@@ -145,7 +142,8 @@ async function postReply(body: string) {
             <button
               className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200"
               onClick={replyToggle}
-            ><p className="pr-1">{props.Replies.length}</p>
+            >
+              <p className="pr-1">{props.Replies.length}</p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -162,24 +160,32 @@ async function postReply(body: string) {
           </div>
           {/* Reply Input Start */}
           <div className="mx-auto bg-gray-300 xs:rounded-none sm:rounded-md">
-            {replyTextareaShow && <textarea
-              className={"w-full rounded-md p-3 md:mx-auto my-2 max-w-xl resize-none"}
-              name="reply"
-              rows={3}
-              minLength={1}
-              maxLength={2048}
-              placeholder="Type Reply"
-              value={textareaValue}
-              disabled={disabled}
-              onChange={textareaHandler}
-            ></textarea>}
-            {replyButtonShow && <button
-              className={"w-4/5 justify-center md:w-auto rounded-md flex p-3 mx-auto max-w-xl bg-black text-white hover:cursor-pointer hover:bg-gray-400 hover:text-black"}
-              disabled={disabled}
-              onClick={handleSubmit}
-            >
-              {replyButtonText}
-            </button>}
+            {replyTextareaShow && (
+              <textarea
+                className={
+                  "w-full rounded-md p-3 md:mx-auto my-2 max-w-xl resize-none"
+                }
+                name="reply"
+                rows={3}
+                minLength={1}
+                maxLength={2048}
+                placeholder="Type Reply"
+                value={textareaValue}
+                disabled={disabled}
+                onChange={textareaHandler}
+              ></textarea>
+            )}
+            {replyButtonShow && (
+              <button
+                className={
+                  "w-4/5 justify-center md:w-auto rounded-md flex p-3 mx-auto max-w-xl bg-black text-white hover:cursor-pointer hover:bg-gray-400 hover:text-black"
+                }
+                disabled={disabled}
+                onClick={handleSubmit}
+              >
+                {replyButtonText}
+              </button>
+            )}
           </div>
           <p className="text-xs"></p>
         </div>
