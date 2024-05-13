@@ -115,7 +115,7 @@ const HomeContentContainer = ({ item }: { item: TContent }) => {
               <p className="px-2">{item.Downvote}</p>
             </div>
             {/* Comment Container */}
-            <button className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200">
+            <div className="flex w-max p-2 justify-evenly rounded-md text-sm">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -129,7 +129,7 @@ const HomeContentContainer = ({ item }: { item: TContent }) => {
                 />
               </svg>
               <p className="px-1">{item.CommentCount}</p>
-            </button>
+            </div>
           </div>
         </div>
       </div>
