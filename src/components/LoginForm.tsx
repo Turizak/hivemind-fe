@@ -2,9 +2,10 @@ import * as Form from "@radix-ui/react-form";
 import { useRef, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import SessionContext from "../context/SessionProvider";
-import { useMutation } from "@tanstack/react-query";
+// import { useMutation } from "@tanstack/react-query";
 import useJWT from "../hooks/useJWT";
 import { TSession } from "../types";
+import useSetError from "../hooks/useSetError";
 
 type LoginCredentials = {
   email: string;
@@ -17,6 +18,7 @@ const LoginForm: React.FC = () => {
   const passwordRef = useRef<HTMLInputElement>(null);
   const baseURL = import.meta.env.VITE_BASEURL;
   const navigate = useNavigate();
+  const setError = useSetError()
 
   //@ts-expect-error
   // Session hook
@@ -30,11 +32,8 @@ const LoginForm: React.FC = () => {
       email: `${emailRef?.current?.value}`,
       password: `${passwordRef?.current?.value}`,
     };
-    mutate(loginObject);
+    login(loginObject);
   }
-  const { mutate } = useMutation({
-    mutationFn: login,
-  });
 
   async function login(body: LoginCredentials) {
     try {
@@ -47,6 +46,7 @@ const LoginForm: React.FC = () => {
         body: JSON.stringify(body),
       });
       if (!response.ok) {
+        setDisabled(false)
         throw new Error(`${response.status}`);
       }
       const results = await response.json();
@@ -62,11 +62,13 @@ const LoginForm: React.FC = () => {
       }));
       navigate("/home");
     } catch (error) {
-      console.error(error);
+      setError('There was an error')
+      console.error(error)
     }
   }
 
   return (
+    <>
     <div className="flex justify-center">
       <Form.Root className="w-[260px]" onSubmit={handleSubmit}>
         <Form.Field className="grid mb-[10px]" name="email">
@@ -132,6 +134,7 @@ const LoginForm: React.FC = () => {
         </Form.Submit>
       </Form.Root>
     </div>
+    </>
   );
 };
 
