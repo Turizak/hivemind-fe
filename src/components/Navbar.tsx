@@ -1,9 +1,11 @@
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
+import UserIcon from "../assets/UserIcon";
+import CreateIcon from "../assets/CreateIcon";
 
 const Navbar = () => {
   return (
-    <NavigationMenu.Root>
-      <NavigationMenu.List className="sm:center flex list-none bg-black text-white justify-between px-3 py-5 lg:flex">
+    <NavigationMenu.Root className="relative z-[1] flex w-screen justify-center">
+      <NavigationMenu.List className="center shadow-blackA4 m-0 flex list-none rounded-[6px] bg-white p-1 shadow-[0_2px_10px]">
         {/* Hamburger Menu */}
         <NavigationMenu.Item className="md:hidden">
           <NavigationMenu.Trigger>
@@ -31,29 +33,46 @@ const Navbar = () => {
         {/* Add Content */}
         <div className="flex gap-4">
           <NavigationMenu.Item>
-          <NavigationMenu.Link href="/createContent">Create Content</NavigationMenu.Link>
-          </NavigationMenu.Item>
-        {/* Add Hive */}
-          <NavigationMenu.Item>
-          <NavigationMenu.Link href="/createHive">Create Hive</NavigationMenu.Link>
-          </NavigationMenu.Item>
-        {/* Create Account */}
-          <NavigationMenu.Item>
-          <NavigationMenu.Link href="/createAccount">Create Account</NavigationMenu.Link>
-          </NavigationMenu.Item>
-          {/* User Menu */}
-          <NavigationMenu.Item>
-            <NavigationMenu.Trigger>User</NavigationMenu.Trigger>
-            <NavigationMenu.Content>
-              <NavigationMenu.Sub>
-                <NavigationMenu.List />
-                <NavigationMenu.Viewport />
-              </NavigationMenu.Sub>
+            <NavigationMenu.Trigger className="group flex select-none items-center justify-between gap-[2px] rounded-[4px] px-3 py-2 text-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px]">
+              <CreateIcon />
+            </NavigationMenu.Trigger>
+            <NavigationMenu.Content className="bg-red-600 w-full sm:w-auto">
+              <ul className="m-0 grid list-none gap-x-[10px] p-[22px] sm:w-[600px] sm:grid-flow-col sm:grid-rows-3">
+                <li className="row-span-3 grid">
+                  <NavigationMenu.Link href="/createContent" asChild>
+                    <a className="flex h-full w-full select-none flex-col justify-end rounded-[6px] bg-gradient-to-b p-[25px] no-underline outline-none focus:shadow-[0_0_0_2px]">
+                      Content
+                    </a>
+                  </NavigationMenu.Link>
+                </li>
+                <li>
+                  <NavigationMenu.Link href="/createHive" asChild>
+                    <a>Hive</a>
+                  </NavigationMenu.Link>
+                </li>
+              </ul>
             </NavigationMenu.Content>
           </NavigationMenu.Item>
-          <NavigationMenu.NavigationMenuItem>
-            <NavigationMenu.Link href="/">Login</NavigationMenu.Link>
-          </NavigationMenu.NavigationMenuItem>
+          {/* Create Account */}
+          <NavigationMenu.Item>
+            <NavigationMenu.Trigger>
+              <UserIcon />
+            </NavigationMenu.Trigger>
+            <NavigationMenu.Content>
+              <ul>
+                <li>
+                  <NavigationMenu.Link href="/" asChild>
+                    <a>Login</a>
+                  </NavigationMenu.Link>
+                </li>
+                <li>
+                  <NavigationMenu.Link href="/createAccount" asChild>
+                    <a>Create Account</a>
+                  </NavigationMenu.Link>
+                </li>
+              </ul>
+            </NavigationMenu.Content>
+          </NavigationMenu.Item>
         </div>
       </NavigationMenu.List>
     </NavigationMenu.Root>
