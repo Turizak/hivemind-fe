@@ -49,18 +49,20 @@ const LoginForm: React.FC = () => {
         setDisabled(false);
         throw new Error(`${response.status}`);
       }
-      const results = await response.json();
-      localStorage.setItem("accessToken", results.Token);
-      const JWT = useJWT(results.Token);
-      localStorage.setItem("username", JWT.Username);
-      localStorage.setItem("accountUUID", JWT.AccountUUID);
-      setSession((prevState: TSession) => ({
-        ...prevState,
-        [session.accessToken]: results.Token,
-        [session.username]: JWT.Username,
-        [session.accountUUID]: JWT.AccountUUID,
-      }));
-      navigate("/");
+      if (response.ok) {
+        const results = await response.json();
+        localStorage.setItem("accessToken", results.Token);
+        const JWT = useJWT(results.Token);
+        localStorage.setItem("username", JWT.Username);
+        localStorage.setItem("accountUUID", JWT.AccountUUID);
+        setSession((prevState: TSession) => ({
+          ...prevState,
+          accessToken: results.Token,
+          username: JWT.Username,
+          accountUUID: JWT.AccountUUID,
+        }));
+        navigate("/");
+      }
     } catch (error) {
       setError("There was an error");
       console.error(error);
