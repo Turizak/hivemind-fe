@@ -8,20 +8,22 @@ import NewAccount from "./pages/NewAccount";
 import CreateContent from "./pages/CreateContent";
 import CreateHive from "./pages/CreateHive";
 import Login from "./pages/Login";
+import PrivateRoutes from "./routes/PrivateRoutes";
 
 function App() {
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Login />}></Route>
-        <Route path="/home" element={<Home />} />
-        <Route path="/createContent" element={<CreateContent />} />
-        <Route path="/createHive" element={<CreateHive />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/createAccount" element={<NewAccount />} />
-        <Route path="/new" element={<NewAccount />}></Route>
-        <Route path="content/uuid/:uuid" element={<Content />}></Route>
-        <Route path="hive/uuid/:hiveUuid/content" element={<Hive />}></Route>
+        <Route element={<PrivateRoutes />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/createContent" element={<CreateContent />} />
+          <Route path="/createHive" element={<CreateHive />} />
+          <Route path="content/uuid/:uuid" element={<Content />} />
+          <Route path="hive/uuid/:hiveUuid/content" element={<Hive />} />
+        </Route>
       </Routes>
       <ReactQueryDevtools initialIsOpen={true} />
     </>

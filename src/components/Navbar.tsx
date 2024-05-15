@@ -7,7 +7,7 @@ const Navbar = () => {
     <nav className="bg-black text-white">
       <ul className="flex justify-between">
         <li className="p-2">
-          <Link to="/home">Hivemind</Link>
+          <Link to="/">Hivemind</Link>
         </li>
         <div className="flex">
           <li className="p-2">

@@ -12,6 +12,9 @@ const UserDropdown = () => {
           <DropdownMenu.Item className="p-2 hover:bg-black hover:text-white hover:rounded-md">
             <button>My Profile</button>
           </DropdownMenu.Item>
+          <DropdownMenu.Item className="p-2 hover:bg-black hover:text-white hover:rounded-md">
+            <button>Logout</button>
+          </DropdownMenu.Item>
         </DropdownMenu.Group>
       </DropdownMenu.Content>
     </DropdownMenu.Root>
