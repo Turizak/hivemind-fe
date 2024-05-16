@@ -1,21 +1,21 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { useForm } from "@tanstack/react-form";
 
 const AddComment = (props: any) => {
-  const [disabled, setDisabled] = useState<boolean>(false);
   const [buttonText, setButtonText] = useState<string>("Add Comment");
-  const [textareaValue, setTextareaValue] = useState<string>("");
   const params = useParams();
   const baseURL = import.meta.env.VITE_BASEURL;
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setDisabled(true);
-    const commentObject: any = {
-      message: textareaValue,
-    };
-    postComment(commentObject)
-  }
+  const form = useForm({
+    defaultValues: {
+      message: "",
+    },
+    onSubmit: async ({ value }) => {
+      //@ts-expect-error
+      postComment(value);
+    },
+  });
 
   async function postComment(body: string) {
     const token = localStorage.getItem("accessToken");
@@ -38,12 +38,8 @@ const AddComment = (props: any) => {
       const data = await response.json();
       if (data) {
         setButtonText("Comment Added!");
-        setTextareaValue("")
-        setDisabled(true);
         setTimeout(() => {
           setButtonText("Add Comment");
-          setTextareaValue("");
-          setDisabled(false);
           props.refetch();
         }, 500);
       }
@@ -53,33 +49,39 @@ const AddComment = (props: any) => {
     }
   }
 
-  function textareaHandler(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    setTextareaValue(e.target.value);
-  }
-
   return (
     <>
-      <div className="flex justify-center">
-        <textarea
-          className="w-4/5 border border-black rounded-md p-3 md:mx-auto my-2 max-w-xl resize-none"
-          name="writeComment"
-          rows={4}
-          minLength={1}
-          maxLength={2048}
-          value={textareaValue}
-          onChange={textareaHandler}
-          disabled={disabled}
-        ></textarea>
-      </div>
-      <div>
-        <button
-          className="w-4/5 justify-center md:w-auto rounded-md flex p-3 mx-auto my-2 max-w-xl bg-black text-white hover:cursor-pointer hover:bg-gray-300 hover:text-black"
-          onClick={handleSubmit}
-          disabled={disabled}
-        >
-          {buttonText}
-        </button>
-      </div>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          form.handleSubmit();
+        }}
+      >
+        <div className="flex justify-center">
+          <form.Field
+            name="message"
+            children={(message) => (
+              <textarea
+                name="writeComment"
+                rows={4}
+                minLength={1}
+                maxLength={2048}
+                className="w-4/5 border border-black rounded-md p-3 md:mx-auto my-2 max-w-xl resize-none"
+                value={message.state.value}
+                onChange={(e) => message.handleChange(e.target.value)}
+              />
+            )}
+          />
+        </div>
+        <div>
+          <button
+            className="w-4/5 justify-center md:w-auto rounded-md flex p-3 mx-auto my-2 max-w-xl bg-black text-white hover:cursor-pointer hover:bg-gray-300 hover:text-black"
+            type="submit"
+          >
+            {buttonText}
+          </button>
+        </div>
+      </form>
     </>
   );
 };
