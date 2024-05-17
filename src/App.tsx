@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-import Hive from "./pages/HIve";
+import Hive from "./pages/Hive";
 import Content from "./pages/Content";
 import NewAccount from "./pages/NewAccount";
 import CreateContent from "./pages/CreateContent";

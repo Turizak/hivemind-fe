@@ -12,7 +12,7 @@ const Hive = () => {
 
   return (
     <>
-      <div className="text-center text-3xl p-8 w-full bg-gray-300">
+      <div className="text-center text-3xl p-8 w-full bg-yellow-400">
         {data[0].Hive}
       </div>
       {isLoading ? (
