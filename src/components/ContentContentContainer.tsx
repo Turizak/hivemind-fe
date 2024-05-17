@@ -68,7 +68,7 @@ const ContentContentContainer = (props: TContent) => {
           </div>
           {/* Content Body Container */}
           <div className="p-2 rounded-md flex-none max-w-md">
-            <p>{props.Message}</p>
+            <p className="truncate ...">{props.Message}</p>
           </div>
           {/* Horizontal Vote Container */}
           <div className="flex gap-2">

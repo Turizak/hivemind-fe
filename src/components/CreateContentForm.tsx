@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
+import { useForm } from "@tanstack/react-form";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
 import useGetHives from "../hooks/useGetHives";
 
 type Content = {
@@ -11,14 +11,23 @@ type Content = {
 };
 
 const CreateContentForm = () => {
-  const [disabled, setDisabled] = useState<boolean>(false);
   const [selectValue, setSelectValue] = useState<string>("");
-  const [textareaValue, setTextareaValue] = useState<string>("");
   const [buttonText, setButtonText] = useState<string>("Create Content");
-  const titleRef = useRef<HTMLInputElement>(null);
 
   const baseURL = import.meta.env.VITE_BASEURL;
   const navigate = useNavigate();
+
+  const form = useForm({
+    defaultValues: {
+      Hive: selectValue,
+      Author: `${localStorage.getItem("username")}`,
+      Title: "",
+      Message: "",
+    },
+    onSubmit: async ({ value }) => {
+      postContent(value);
+    },
+  });
 
   // Get All Hives
   const { data, error, isLoading, isFetching, isError } = useGetHives(
@@ -26,24 +35,8 @@ const CreateContentForm = () => {
   );
 
   // POST Content
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setDisabled(true);
-    const contentObject: Content = {
-      Hive: selectValue,
-      Author: `${localStorage.getItem("username")}`,
-      Title: `${titleRef?.current?.value}`,
-      Message: textareaValue,
-    };
-    mutate(contentObject);
-  }
-  const { mutate } = useMutation({
-    mutationFn: postContent,
-  });
-
   async function postContent(body: Content) {
     const token = localStorage.getItem("accessToken");
-    setDisabled(true);
     try {
       const response = await fetch(baseURL + "/content", {
         method: "POST",
@@ -55,20 +48,16 @@ const CreateContentForm = () => {
         body: JSON.stringify(body),
       });
       if (!response.ok) {
-        setDisabled(false);
         throw new Error(`${response.status}`);
       }
       setButtonText("Success!");
       setTimeout(() => {
-        navigate("/home");
+        navigate("/");
       }, 1500);
     } catch (error) {
+      setButtonText("There was an error")
       console.error(error);
     }
-  }
-
-  function textareaHandler(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    setTextareaValue(e.target.value);
   }
 
   function selectHandler(e: React.ChangeEvent<HTMLSelectElement>) {
@@ -77,7 +66,13 @@ const CreateContentForm = () => {
 
   return (
     <div className="flex justify-center">
-      <form className="w-[260px]" onSubmit={handleSubmit}>
+      <form
+        className="w-[260px]"
+        onSubmit={(e) => {
+          e.preventDefault();
+          form.handleSubmit();
+        }}
+      >
         <label
           htmlFor="hive"
           className="text-[15px] font-normal leading-[35px] text-black"
@@ -111,15 +106,19 @@ const CreateContentForm = () => {
         >
           Title
         </label>
-        <input
-          type="text"
-          name="title"
-          className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
-          minLength={1}
-          maxLength={256}
-          disabled={disabled}
-          ref={titleRef}
-          required
+        <form.Field
+          name="Title"
+          children={(Title) => (
+            <input
+              name="Title"
+              className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
+              value={Title.state.value}
+              minLength={1}
+              maxLength={256}
+              onChange={(e) => Title.handleChange(e.target.value)}
+              required
+            />
+          )}
         />
         <label
           htmlFor="message"
@@ -127,15 +126,19 @@ const CreateContentForm = () => {
         >
           Message
         </label>
-        <textarea
-          name="title"
-          className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[150px] p-2 appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
-          minLength={1}
-          maxLength={5000}
-          disabled={disabled}
-          value={textareaValue}
-          onChange={textareaHandler}
-          required
+        <form.Field
+          name="Message"
+          children={(Message) => (
+            <textarea
+              name="Message"
+              minLength={1}
+              maxLength={5000}
+              className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[150px] p-2 appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
+              value={Message.state.value}
+              required
+              onChange={(e) => Message.handleChange(e.target.value)}
+            />
+          )}
         />
         <button
           type="submit"
