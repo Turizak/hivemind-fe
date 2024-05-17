@@ -27,7 +27,9 @@ function App() {
           <Route path="hive/uuid/:hiveUuid/content" element={<Hive />} />
         </Route>
       </Routes>
-      <ReactQueryDevtools initialIsOpen={true} />
+      <ReactQueryDevtools
+        initialIsOpen={import.meta.env.VITE_OPEN_DEVTOOLS === "true" ? true : false}
+      />
     </>
   );
 }
