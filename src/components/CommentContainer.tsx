@@ -2,41 +2,19 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useForm } from "@tanstack/react-form";
 import useIso from "../hooks/useIso";
-import useVote from "../hooks/useVote";
 import { TComment } from "../types";
 import ReplyContainer from "./ReplyContainer";
-import UpvoteIcon from "../assets/UpvoteIcon";
-import DownvoteIcon from "../assets/DownvoteIcon";
 import CommentIcon from "../assets/CommentIcon";
 
 const CommentContainer = (props: any) => {
   // URL Variables
   const baseURL = import.meta.env.VITE_BASEURL;
-  const upvoteURL = baseURL + "/comment/uuid/" + props.Uuid + "/add-upvote";
-  const downvoteURL = baseURL + "/comment/uuid/" + props.Uuid + "/add-downvote";
   const params = useParams();
 
   // State
-  const [upvoteCount, setUpvoteCount] = useState<number>(props.Upvote);
-  const [downvoteCount, setDownvoteCount] = useState<number>(props.Downvote);
   const [replyTextareaShow, setReplyTextareaShow] = useState<boolean>(false);
   const [replyButtonShow, setReplyButtonShow] = useState<boolean>(false);
   const [replyButtonText, setReplyButtonText] = useState<string>("Add Reply");
-
-  // Initial state is received from parent component via GET.  Setter function calls useState and increments the value by 1.
-  const upvoteSetter = () => setUpvoteCount((prev: any) => prev + 1);
-  const downvoteSetter = () => setDownvoteCount((prev: any) => prev + 1);
-
-  // ----- Voting Start ----- //
-  // Vote Hooks.  Params are the PATCH URL and the setter function
-  const { mutate: upvote } = useVote(upvoteURL, upvoteSetter);
-  const { mutate: downvote } = useVote(downvoteURL, downvoteSetter);
-
-  // Vote Click Function.  Pass in the mutution to call
-  function vote(fn: any) {
-    fn();
-  }
-  // ----- Voting End ----- //
 
   // ----- Reply Start ----- //
   const form = useForm({
@@ -114,16 +92,16 @@ const CommentContainer = (props: any) => {
           </div>
           {/* Horizontal Vote Container */}
           <div className="flex gap-2">
-            <div className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200">
-              <button onClick={() => vote(upvote)}>
+            {/* <div className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200">
+              <button>
                 <UpvoteIcon />
               </button>
-              <p className="px-2">{upvoteCount}</p>
-              <button onClick={() => vote(downvote)}>
+              <p className="px-2"></p>
+              <button>
                 <DownvoteIcon />
               </button>
-              <p className="px-2">{downvoteCount}</p>
-            </div>
+              <p className="px-2"></p>
+            </div> */}
             {/* Comment Container */}
             <button
               className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200"
