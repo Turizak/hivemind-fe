@@ -1,7 +1,24 @@
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import SessionContext from "../context/SessionProvider";
+import { TSession } from "../types";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import UserIcon from "../assets/UserIcon";
 
 const UserDropdown = () => {
+  const { setSession }: any = useContext(SessionContext);
+  const navigate = useNavigate();
+
+  function logout() {
+    localStorage.clear();
+    setSession((prevState: TSession) => ({
+      ...prevState,
+      accessToken: "",
+      username: "",
+      accountUUID: "",
+    }));
+    navigate("/login");
+  }
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
@@ -13,7 +30,7 @@ const UserDropdown = () => {
             <button>My Profile</button>
           </DropdownMenu.Item>
           <DropdownMenu.Item className="p-2 hover:bg-black hover:text-white hover:rounded-md">
-            <button>Logout</button>
+            <button onClick={logout}>Logout</button>
           </DropdownMenu.Item>
         </DropdownMenu.Group>
       </DropdownMenu.Content>

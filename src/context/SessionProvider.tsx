@@ -1,9 +1,9 @@
-// @ts-nocheck
 import { createContext, useState } from "react";
 import { TSession } from "../types";
 
-const SessionContext = createContext({});
-export const SessionProvider = ({ children }) => {
+const SessionContext = createContext<TSession | undefined>(undefined);
+
+export const SessionProvider = ({ children }: any) => {
   const [session, setSession] = useState<TSession>({
     accessToken: localStorage.getItem("accessToken"),
     username: localStorage.getItem("username"),
@@ -13,6 +13,7 @@ export const SessionProvider = ({ children }) => {
   });
 
   return (
+    // @ts-expect-error
     <SessionContext.Provider value={{ session, setSession }}>
       {children}
     </SessionContext.Provider>
