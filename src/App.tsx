@@ -3,6 +3,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Hive from "./pages/HIve";
+import Profile from "./pages/Profile";
 import Content from "./pages/Content";
 import NewAccount from "./pages/NewAccount";
 import CreateContent from "./pages/CreateContent";
@@ -19,6 +20,7 @@ function App() {
         <Route path="/createAccount" element={<NewAccount />} />
         <Route element={<PrivateRoutes />}>
           <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/createContent" element={<CreateContent />} />
           <Route path="/createHive" element={<CreateHive />} />
           <Route path="content/uuid/:uuid" element={<Content />} />
