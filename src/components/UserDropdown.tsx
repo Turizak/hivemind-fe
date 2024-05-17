@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import SessionContext from "../context/SessionProvider";
 import { TSession } from "../types";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
@@ -27,7 +28,7 @@ const UserDropdown = () => {
       <DropdownMenu.Content className="p-2 m-2 text-sm rounded-md bg-gray-300 text-black drop-shadow-md">
         <DropdownMenu.Group>
           <DropdownMenu.Item className="p-2 hover:bg-black hover:text-white hover:rounded-md">
-            <button>My Profile</button>
+            <Link to="/profile">My Profile</Link>
           </DropdownMenu.Item>
           <DropdownMenu.Item className="p-2 hover:bg-black hover:text-white hover:rounded-md">
             <button onClick={logout}>Logout</button>
