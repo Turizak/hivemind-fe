@@ -1,34 +1,28 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
+import { useForm } from "@tanstack/react-form";
+
+type Hive = {
+  Name: string;
+  Creator: string;
+  Description: string;
+};
 
 const CreateHiveForm = () => {
   const [buttonText, setButtonText] = useState<string>("Submit");
-  const [disabled, setDisabled] = useState<boolean>(false);
-  const [textareaValue, setTextareaValue] = useState<string>("");
-  const hiveRef = useRef<HTMLInputElement>(null);
-
-  type Hive = {
-    Name: string;
-    Creator: string;
-    Description: string;
-  };
 
   const baseURL = import.meta.env.VITE_BASEURL;
   const navigate = useNavigate();
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setDisabled(true);
-    const hiveObject: Hive = {
-      Name: `${hiveRef?.current?.value}`,
+  const form = useForm({
+    defaultValues: {
+      Name: "",
       Creator: `${localStorage.getItem("username")}`,
-      Description: textareaValue,
-    };
-    mutate(hiveObject);
-  }
-  const { mutate } = useMutation({
-    mutationFn: postHive,
+      Description: "",
+    },
+    onSubmit: async ({ value }) => {
+      postHive(value);
+    },
   });
 
   async function postHive(body: Hive) {
@@ -44,7 +38,6 @@ const CreateHiveForm = () => {
         body: JSON.stringify(body),
       });
       if (!response.ok) {
-        setDisabled(false);
         throw new Error(`${response.status}`);
       }
       setButtonText("Success!");
@@ -56,29 +49,35 @@ const CreateHiveForm = () => {
     }
   }
 
-  function textareaHandler(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    setTextareaValue(e.target.value);
-  }
-
   return (
     <div className="flex justify-center">
-      <form className="w-[260px]" onSubmit={handleSubmit}>
+      <form
+        className="w-[260px]"
+        onSubmit={(e) => {
+          e.preventDefault();
+          form.handleSubmit();
+        }}
+      >
         <label
           htmlFor="title"
           className="text-[15px] font-normal leading-[45px] text-black"
         >
           Hive Name
         </label>
-        <input
-          type="text"
-          name="title"
-          className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
-          minLength={1}
-          maxLength={30}
-          pattern="^[a-zA-Z]+$"
-          disabled={disabled}
-          ref={hiveRef}
-          required
+        <form.Field
+          name="Name"
+          children={(Name) => (
+            <input
+              name="Name"
+              className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
+              value={Name.state.value}
+              minLength={1}
+              maxLength={30}
+              pattern="^[a-zA-Z]+$"
+              onChange={(e) => Name.handleChange(e.target.value)}
+              required
+            />
+          )}
         />
         <label
           htmlFor="message"
@@ -86,15 +85,19 @@ const CreateHiveForm = () => {
         >
           Description
         </label>
-        <textarea
-          name="title"
-          className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[150px] p-2 appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
-          minLength={1}
-          maxLength={256}
-          disabled={disabled}
-          value={textareaValue}
-          onChange={textareaHandler}
-          required
+        <form.Field
+          name="Description"
+          children={(Description) => (
+            <textarea
+              name="description"
+              minLength={1}
+              maxLength={256}
+              className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[150px] p-2 appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
+              value={Description.state.value}
+              required
+              onChange={(e) => Description.handleChange(e.target.value)}
+            />
+          )}
         />
         <button
           type="submit"
