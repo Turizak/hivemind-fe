@@ -8,7 +8,7 @@ const CreateDropdown = () => {
       <DropdownMenu.Trigger>
         <CreateIcon />
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content className="p-2 m-2 text-sm rounded-md bg-yellow-400 text-black drop-shadow-md">
+      <DropdownMenu.Content className="p-2 m-2 text-sm rounded-md bg-gray-300 text-black drop-shadow-md">
         <DropdownMenu.Group>
           <DropdownMenu.Item className="p-2 hover:bg-black hover:text-white hover:rounded-md">
             <Link to="/createContent">Create Content</Link>

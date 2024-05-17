@@ -74,7 +74,7 @@ const LoginForm: React.FC = () => {
             form.handleSubmit();
           }}
         >
-          <div className="flex items-baseline justify-between">
+          <div>
             <label
               htmlFor="email"
               className="text-[15px] font-medium leading-[35px] text-black"
@@ -95,7 +95,7 @@ const LoginForm: React.FC = () => {
               )}
             />
           </div>
-          <div className="flex items-baseline justify-between">
+          <div>
             <label className="text-[15px] font-medium leading-[35px] text-black">
               Password
             </label>
@@ -115,7 +115,7 @@ const LoginForm: React.FC = () => {
           </div>
           <button
             type="submit"
-            className="box-border w-full text-white shadow-blackA4 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-black px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
+            className="box-border w-full text-white shadow-blackA4 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-black px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[24px]"
           >
             Login
           </button>

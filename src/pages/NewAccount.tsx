@@ -3,7 +3,7 @@ import CreateAccount from "../components/CreateAccount"
 const NewAccount = () => {
   return (
     <>
-    <div className="text-center text-3xl p-8 mb-2 w-full bg-gray-300">Create an Account</div>
+    <div className="text-center text-3xl p-8 mb-2 w-full bg-yellow-400">Create an Account</div>
     <CreateAccount />
     </>
   )
