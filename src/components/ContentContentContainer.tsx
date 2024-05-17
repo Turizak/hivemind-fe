@@ -1,40 +1,10 @@
-import { useState } from "react";
 import useIso from "../hooks/useIso";
-import useVote from "../hooks/useVote";
 import CommentIcon from "../assets/CommentIcon";
 import { TContent } from "../types";
-import UpvoteIcon from "../assets/UpvoteIcon";
-import DownvoteIcon from "../assets/DownvoteIcon";
+// import UpvoteIcon from "../assets/UpvoteIcon";
+// import DownvoteIcon from "../assets/DownvoteIcon";
 
 const ContentContentContainer = (props: TContent) => {
-  {
-    /* URL Variables */
-  }
-  const baseURL = import.meta.env.VITE_BASEURL;
-  const upvoteURL = baseURL + "/content/uuid/" + props.Uuid + "/add-upvote";
-  const downvoteURL = baseURL + "/content/uuid/" + props.Uuid + "/add-downvote";
-
-  {
-    /* State and Setters.  Initial state is received from parent component via GET.  Setter function calls useState and increments the value by 1. */
-  }
-  const [upvoteCount, setUpvoteCount] = useState<number>(props.Upvote);
-  const [downvoteCount, setDownvoteCount] = useState<number>(props.Downvote);
-  const upvoteSetter = () => setUpvoteCount((prev: any) => prev + 1);
-  const downvoteSetter = () => setDownvoteCount((prev: any) => prev + 1);
-
-  {
-    /* Vote Hooks.  Params are the PATCH URL and the setter function */
-  }
-  const { mutate: upvote } = useVote(upvoteURL, upvoteSetter);
-  const { mutate: downvote } = useVote(downvoteURL, downvoteSetter);
-
-  {
-    /* Vote Click Function.  Pass in the mutution to call */
-  }
-  function vote(fn: any) {
-    fn();
-  }
-
   return (
     <div
       className="p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md"
@@ -42,19 +12,16 @@ const ContentContentContainer = (props: TContent) => {
     >
       <div className="flex gap-2">
         {/* Vertical Vote Container */}
-        <div className="hidden md:flex flex-col p-2 h-max rounded-md text-sm hover:bg-gray-200">
-          <button
-            className="block hover:cursor-pointer"
-            onClick={() => vote(upvote)}
-          >
+        {/* <div className="hidden md:flex flex-col p-2 h-max rounded-md text-sm hover:bg-gray-200">
+          <button className="block hover:cursor-pointer">
             <UpvoteIcon />
           </button>
-          <p className="p-2">{upvoteCount}</p>
-          <button onClick={() => vote(downvote)}>
+          <p className="p-2"></p>
+          <button>
             <DownvoteIcon />
-            <p className="p-2">{downvoteCount}</p>
+            <p className="p-2"></p>
           </button>
-        </div>
+        </div> */}
         <div>
           {/* User & Time Container */}
           <div className="flex w-max p-2 rounded-md text-sm">
@@ -72,7 +39,7 @@ const ContentContentContainer = (props: TContent) => {
           </div>
           {/* Horizontal Vote Container */}
           <div className="flex gap-2">
-            <div className="flex w-max p-2 justify-evenly rounded-md text-sm md:hidden">
+            {/* <div className="flex w-max p-2 justify-evenly rounded-md text-sm md:hidden">
               <button>
                 <UpvoteIcon />
               </button>
@@ -81,7 +48,7 @@ const ContentContentContainer = (props: TContent) => {
                 <DownvoteIcon />
               </button>
               <p className="px-2">{props.Downvote}</p>
-            </div>
+            </div> */}
             {/* Comment Container */}
             <div className="flex w-max p-2 justify-evenly rounded-md text-sm">
               <CommentIcon />
