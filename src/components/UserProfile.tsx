@@ -4,9 +4,9 @@ import { useForm } from "@tanstack/react-form";
 import SessionContext from "../context/SessionProvider";
 
 const UserProfile = () => {
-  const [buttonText, setButtonText] = useState("Change Password")
+  const [buttonText, setButtonText] = useState("Change Password");
   const baseURL = import.meta.env.VITE_BASEURL;
-  const { session }: any = useContext(SessionContext)
+  const { session }: any = useContext(SessionContext);
 
   const form = useForm({
     defaultValues: {
@@ -22,7 +22,7 @@ const UserProfile = () => {
   );
 
   async function changePassword<T>(body: T) {
-  const token = session.accessToken;
+    const token = session.accessToken;
     try {
       const response = await fetch(baseURL + "/account/change-password", {
         method: "PATCH",
@@ -34,11 +34,11 @@ const UserProfile = () => {
         body: JSON.stringify(body),
       });
       if (!response.ok) {
-        setButtonText(`Error: ${response.status}`)
+        setButtonText(`Error: ${response.status}`);
         throw new Error(`${response.status}`);
       }
       if (response.ok) {
-        setButtonText('Password Updated')
+        setButtonText("Password Updated");
       }
     } catch (error) {
       console.error(error);
@@ -78,7 +78,7 @@ const UserProfile = () => {
         >
           <div>
             <label className="text-[15px] font-medium leading-[35px] text-black">
-             New Password
+              New Password
             </label>
             <form.Field
               name="password"
@@ -89,7 +89,8 @@ const UserProfile = () => {
                   type="password"
                   value={password.state.value}
                   onChange={(e) => password.handleChange(e.target.value)}
-                  data-testid="loginPassword"
+                  pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\w\s]).{12,}$"
+                  data-testid="userProfilePassword"
                   required
                 />
               )}
@@ -97,12 +98,23 @@ const UserProfile = () => {
           </div>
           <button
             type="submit"
-            className="box-border w-full text-white shadow-blackA4 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-black px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[24px]"
+            className="box-border w-full text-white shadow-blackA4 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-black px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[16px]"
             data-testid="userProfileBtn1"
           >
             {buttonText}
           </button>
         </form>
+      </div>
+      <div className="flex justify-center mt-2">
+        <div>
+          <p className="text-xl p-2 underline">Password Requirements</p>
+          <ul className="text-justify list-disc">
+            <li>At least 12 characters</li>
+            <li>1 Upper Case Letter</li>
+            <li>1 Lower Case Letter</li>
+            <li>1 Special Character</li>
+          </ul>
+        </div>
       </div>
     </>
   );
