@@ -29,7 +29,7 @@ const LoginForm: React.FC = () => {
 
   //@ts-expect-error
   // Session hook
-  const { session, setSession } = useContext(SessionContext);
+  const { session, setSession } = useContext<TContext>(SessionContext);
 
   async function login(body: LoginCredentials) {
     try {
@@ -90,6 +90,7 @@ const LoginForm: React.FC = () => {
                   className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
                   value={email.state.value}
                   onChange={(e) => email.handleChange(e.target.value)}
+                  data-testid="loginEmail"
                   required
                 />
               )}
@@ -108,6 +109,7 @@ const LoginForm: React.FC = () => {
                   type="password"
                   value={password.state.value}
                   onChange={(e) => password.handleChange(e.target.value)}
+                  data-testid="loginPassword"
                   required
                 />
               )}
@@ -116,11 +118,15 @@ const LoginForm: React.FC = () => {
           <button
             type="submit"
             className="box-border w-full text-white shadow-blackA4 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-black px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[24px]"
+            data-testid="loginBtn1"
           >
             Login
           </button>
           <Link to="/createAccount">
-            <button className="box-border w-full text-white shadow-blackA4 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-black px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[20px]">
+            <button
+              className="box-border w-full text-white shadow-blackA4 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-black px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[20px]"
+              data-testid="loginBtn2"
+            >
               Create Account
             </button>
           </Link>

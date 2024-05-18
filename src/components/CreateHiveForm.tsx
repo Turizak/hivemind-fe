@@ -75,6 +75,7 @@ const CreateHiveForm = () => {
               maxLength={30}
               pattern="^[a-zA-Z]+$"
               onChange={(e) => Name.handleChange(e.target.value)}
+              data-testid="createHiveName"
               required
             />
           )}
@@ -96,12 +97,14 @@ const CreateHiveForm = () => {
               value={Description.state.value}
               required
               onChange={(e) => Description.handleChange(e.target.value)}
+              data-testid="createHiveDescription"
             />
           )}
         />
         <button
           type="submit"
           className="box-border w-full text-white shadow-blackA4 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-black px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
+          data-testid="createHiveBtn"
         >
           {buttonText}
         </button>
