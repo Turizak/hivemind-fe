@@ -25,8 +25,8 @@ const ContentContentContainer = (props: TContent) => {
         <div>
           {/* User & Time Container */}
           <div className="flex w-max p-2 rounded-md text-sm">
-            <p>
-              {props.Hive} | {useIso(props.Created.Time)}
+            <p className="hover:cursor-pointer hover:underline">
+                {props.Hive}  | {useIso(props.Created.Time)}
             </p>
           </div>
           {/* Content Title Container */}
