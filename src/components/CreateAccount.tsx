@@ -22,7 +22,6 @@ const CreateAccount = () => {
       username: "",
       email: "",
       password: "",
-      passwordConfirm: "",
     },
     onSubmit: async ({ value }) => {
       createAccount(value);
@@ -30,11 +29,6 @@ const CreateAccount = () => {
   });
 
   async function createAccount(body: Account) {
-    const reqBody = {
-      username: body.username,
-      password: body.password,
-      email: body.email,
-    };
     try {
       const response = await fetch(baseURL + "/account/create", {
         method: "POST",
@@ -42,7 +36,7 @@ const CreateAccount = () => {
           Accept: "*/*",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(reqBody),
+        body: JSON.stringify(body),
       });
       if (!response.ok) {
         setButtonText("There was an error");
@@ -188,37 +182,13 @@ const CreateAccount = () => {
           </label>
         </div>
 
-        <form.Field
+        <input
+          className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
+          type="password"
           name="passwordConfirm"
-          validators={{
-            onChange: ({ value, fieldApi }) => {
-              console.log(value, fieldApi.form.getFieldValue("password"));
-              if (fieldApi.form.getFieldValue("password") !== value) {
-                return "Passwords do not match!";
-              }
-              return undefined;
-            },
-          }}
-        >
-          {(passwordConfirm) => (
-            <>
-              <input
-                className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
-                type="password"
-                name="passwordConfirm"
-                data-testid="createAccountPassword2"
-                value={passwordConfirm.state.value}
-                onChange={(e) => passwordConfirm.handleChange(e.target.value)}
-                required
-              />
-              {passwordConfirm.state.meta.errors ? (
-                <em role="alert">
-                  {passwordConfirm.state.meta.errors.join(", ")}
-                </em>
-              ) : null}
-            </>
-          )}
-        </form.Field>
+          data-testid="createAccountPassword2"
+          required
+        />
 
         <form.Subscribe
           selector={(state) => [state.canSubmit, state.isSubmitting]}
