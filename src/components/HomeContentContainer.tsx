@@ -10,7 +10,10 @@ const HomeContentContainer = ({ item }: { item: TContent }) => {
       className="p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md"
       id={item.Id}
     >
-      <div className="flex gap-2">
+      <div
+        className={"flex gap-2 contentItem-" + item.Id}
+        data-testid="contentItem"
+      >
         {/* Vertical Vote Container */}
         {/* <div className="hidden md:flex flex-col p-2 h-max rounded-md text-sm hover:bg-gray-200">
           <button
@@ -28,8 +31,12 @@ const HomeContentContainer = ({ item }: { item: TContent }) => {
         </div> */}
         <div>
           {/* User & Time Container */}
-          <div className="flex w-max p-2 rounded-md text-sm">
-            <p className="hover:cursor-pointer hover:underline">
+          <div
+            className={
+              "flex w-max p-2 rounded-md text-sm contentDate-" + item.Id
+            }
+          >
+            <p className={"hover:cursor-pointer hover:underline contentHive-"+item.Id}>
               <Link to={`/hive/uuid/${item.HiveUuid}/content`}>
                 {item.Hive}
               </Link>{" "}
@@ -39,7 +46,7 @@ const HomeContentContainer = ({ item }: { item: TContent }) => {
           {/* Content Title Container */}
           <Link to={`/content/uuid/${item.Uuid}`}>
             <div className="p-2 mt-2 rounded-md max-w-md hover:cursor-pointer hover:bg-gray-200">
-              <p className="text-xl">{item.Title}</p>
+              <p className={"text-xl contentTitle-" + item.Id}>{item.Title}</p>
             </div>
           </Link>
           {/* Content Body Container */}
