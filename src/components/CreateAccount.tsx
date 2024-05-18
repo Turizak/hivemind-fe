@@ -72,28 +72,30 @@ const CreateAccount = () => {
               className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
               value={username.state.value}
               onChange={(e) => username.handleChange(e.target.value)}
+              data-testid="createAccountUsername"
               required
             />
           )}
         />
- <div className="flex items-baseline justify-between">
+        <div className="flex items-baseline justify-between">
           <label className="text-[15px] font-medium leading-[35px] text-black">
             Email
           </label>
         </div>
         <form.Field
+          name="email"
+          children={(email) => (
+            <input
               name="email"
-              children={(email) => (
-                <input
-                  name="email"
-                  type="email"
-                  className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
-                  value={email.state.value}
-                  onChange={(e) => email.handleChange(e.target.value)}
-                  required
-                />
-              )}
+              type="email"
+              className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
+              value={email.state.value}
+              onChange={(e) => email.handleChange(e.target.value)}
+              data-testid="createAccountEmail"
+              required
             />
+          )}
+        />
         <div className="flex items-baseline justify-between">
           <label
             htmlFor="password"
@@ -103,18 +105,19 @@ const CreateAccount = () => {
           </label>
         </div>
         <form.Field
+          name="password"
+          children={(password) => (
+            <input
               name="password"
-              children={(password) => (
-                <input
-                  name="password"
-                  className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
-                  type="password"
-                  value={password.state.value}
-                  onChange={(e) => password.handleChange(e.target.value)}
-                  required
-                />
-              )}
+              className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
+              type="password"
+              value={password.state.value}
+              onChange={(e) => password.handleChange(e.target.value)}
+              data-testid="createAccountPassword1"
+              required
             />
+          )}
+        />
         <div className="flex items-baseline justify-between">
           <label
             htmlFor="passwordConfirm"
@@ -127,10 +130,15 @@ const CreateAccount = () => {
           className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
           type="password"
           name="passwordConfirm"
+          data-testid="createAccountPassword2"
           required
         />
-       
-        <button className="box-border w-full text-white shadow-blackA4 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-black px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[20px]" type="submit">
+
+        <button
+          className="box-border w-full text-white shadow-blackA4 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-black px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[20px]"
+          type="submit"
+          data-testid="createAccountBtn"
+        >
           {buttonText}
         </button>
       </form>

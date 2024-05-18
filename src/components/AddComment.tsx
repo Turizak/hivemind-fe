@@ -69,6 +69,7 @@ const AddComment = (props: any) => {
                 className="w-4/5 border border-black rounded-md p-3 md:mx-auto my-2 max-w-xl resize-none"
                 value={message.state.value}
                 onChange={(e) => message.handleChange(e.target.value)}
+                data-testid="addCommentMessage"
               />
             )}
           />
@@ -77,6 +78,7 @@ const AddComment = (props: any) => {
           <button
             className="w-4/5 justify-center md:w-auto rounded-md flex p-3 mx-auto my-2 max-w-xl bg-black text-white hover:cursor-pointer hover:bg-gray-300 hover:text-black"
             type="submit"
+            data-testid="addCommentBtn"
           >
             {buttonText}
           </button>

@@ -55,7 +55,7 @@ const CreateContentForm = () => {
         navigate("/");
       }, 1500);
     } catch (error) {
-      setButtonText("There was an error")
+      setButtonText("There was an error");
       console.error(error);
     }
   }
@@ -84,6 +84,7 @@ const CreateContentForm = () => {
           className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
           value={selectValue}
           onChange={selectHandler}
+          data-testid="createContentHive"
         >
           {isLoading ? (
             <option value="">Loading...</option>
@@ -116,6 +117,7 @@ const CreateContentForm = () => {
               minLength={1}
               maxLength={256}
               onChange={(e) => Title.handleChange(e.target.value)}
+              data-testid="createContentTitle"
               required
             />
           )}
@@ -135,14 +137,16 @@ const CreateContentForm = () => {
               maxLength={5000}
               className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[150px] p-2 appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
               value={Message.state.value}
-              required
+              data-testid="createContentMessage"
               onChange={(e) => Message.handleChange(e.target.value)}
+              required
             />
           )}
         />
         <button
           type="submit"
           className="box-border w-full text-white shadow-blackA4 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-black px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
+          data-testid="createContentBtn"
         >
           {buttonText}
         </button>
