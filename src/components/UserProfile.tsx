@@ -10,7 +10,8 @@ const UserProfile = () => {
 
   const form = useForm({
     defaultValues: {
-      password: "",
+      Old: "",
+      New: "",
     },
     onSubmit: async ({ value }) => {
       changePassword(value);
@@ -78,17 +79,37 @@ const UserProfile = () => {
         >
           <div>
             <label className="text-[15px] font-medium leading-[35px] text-black">
+              Old Password
+            </label>
+            <form.Field
+              name="Old"
+              children={(Old) => (
+                <input
+                  name="oldPassword"
+                  className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
+                  type="password"
+                  value={Old.state.value}
+                  onChange={(e) => Old.handleChange(e.target.value)}
+                  pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\w\s]).{12,}$"
+                  data-testid="userProfilePasswordOld"
+                  required
+                />
+              )}
+            />
+          </div>
+          <div>
+            <label className="text-[15px] font-medium leading-[35px] text-black">
               New Password
             </label>
             <form.Field
-              name="password"
-              children={(password) => (
+              name="New"
+              children={(New) => (
                 <input
                   name="password"
                   className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
                   type="password"
-                  value={password.state.value}
-                  onChange={(e) => password.handleChange(e.target.value)}
+                  value={New.state.value}
+                  onChange={(e) => New.handleChange(e.target.value)}
                   pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\w\s]).{12,}$"
                   data-testid="userProfilePassword"
                   required
