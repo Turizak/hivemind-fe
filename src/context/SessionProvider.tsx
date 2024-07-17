@@ -8,7 +8,8 @@ export const SessionProvider = ({ children }: any) => {
     accessToken: localStorage.getItem("accessToken"),
     username: localStorage.getItem("username"),
     accountUUID: localStorage.getItem("accountUUID"),
-    //   refreshToken: localStorage.getItem('refreshToken')
+    refreshToken: localStorage.getItem('refreshToken'),
+    accessTokenExpiry: localStorage.getItem('accessTokenExpiry'),
     // email: null
   });
 

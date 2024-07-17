@@ -1,27 +1,32 @@
 import { useQuery } from "@tanstack/react-query";
-import SessionContext from "../context/SessionProvider";
-import { useContext } from "react";
+import useUserValidation from "./useUserValidation";
 
 const useGetAccount = (url: string) => {
-   const {session }: any = useContext(SessionContext)
-   const token = session.accessToken;
-    const getData = async () => {
+  const { accessToken, currentTime, expiry } = useUserValidation();
+  const getData = async () => {
+    try {
+      if (currentTime > expiry) {
+        throw new Error("Time Error");
+      }
       const response = await fetch(url, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       });
       const data = await response.json();
       return data;
-    };
-  
-    const { data, error, refetch, isLoading, isError, isFetching } = useQuery({
-      queryKey: ["accounts"],
-      queryFn: getData,
-    });
-  
-    return { data, error, refetch, isLoading, isError, isFetching };
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-export default useGetAccount
+  const { data, error, refetch, isLoading, isError, isFetching } = useQuery({
+    queryKey: ["accounts"],
+    queryFn: getData,
+  });
+
+  return { data, error, refetch, isLoading, isError, isFetching };
+};
+
+export default useGetAccount;

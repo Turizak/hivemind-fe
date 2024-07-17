@@ -32,6 +32,8 @@ export type TComment = {
 
 export type TSession = {
   accessToken: string | null;
+  accessTokenExpiry: any;
+  refreshToken: string | null;
   username: string | null;
   accountUUID: string | null;
 };

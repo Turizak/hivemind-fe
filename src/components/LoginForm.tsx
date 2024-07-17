@@ -50,9 +50,11 @@ const LoginForm: React.FC = () => {
         const JWT = useJWT(results.Token);
         localStorage.setItem("username", JWT.Username);
         localStorage.setItem("accountUUID", JWT.AccountUUID);
+        localStorage.setItem("accessTokenExpiry", JWT.Exp)
         setSession((prevState: TSession) => ({
           ...prevState,
           accessToken: results.Token,
+          accessTokenExpiry: JWT.Exp,
           username: JWT.Username,
           accountUUID: JWT.AccountUUID,
         }));
