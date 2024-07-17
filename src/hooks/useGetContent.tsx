@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import useUserValidation from "./useUserValidation";
+import getNewAccessToken from "../utils/getNewAccessToken";
 
 const useGetContent = (url: string) => {
   const { accessToken, currentTime, expiry } = useUserValidation();
   const getData = async () => {
     try {
       if (currentTime > expiry) {
-        throw new Error("Time Error");
+        getNewAccessToken();
       }
       const response = await fetch(url, {
         method: "GET",

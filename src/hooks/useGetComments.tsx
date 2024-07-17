@@ -1,18 +1,23 @@
 //@ts-nocheck
 import { useQuery } from "@tanstack/react-query";
+import getNewAccessToken from "../utils/getNewAccessToken";
 
 const useGetComments = (url: string) => {
   const token = localStorage.getItem("accessToken");
   let comments = [];
   let replies = [];
   const getData = async () => {
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const data = await response.json();  
+    try {
+      if (currentTime > expiry) {
+        getNewAccessToken();
+      }
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await response.json();
       // Separate comments and replies
       data.forEach((element) => {
         if (element.ParentUuid.length == 0) {
@@ -21,18 +26,27 @@ const useGetComments = (url: string) => {
           replies.push(element);
         }
       });
-    
+
       // Sort comments and replies by creation time
-      comments = comments.sort((a, b) => new Date(a.Created.Time) - new Date(b.Created.Time));
-      replies = replies.sort((a, b) => new Date(a.Created.Time) - new Date(b.Created.Time));
-    
+      comments = comments.sort(
+        (a, b) => new Date(a.Created.Time) - new Date(b.Created.Time),
+      );
+      replies = replies.sort(
+        (a, b) => new Date(a.Created.Time) - new Date(b.Created.Time),
+      );
+
       // Pair comments with their replies
       comments.forEach((comment) => {
-        const matchingReplies = replies.filter((reply) => reply.ParentUuid === comment.Uuid);
+        const matchingReplies = replies.filter(
+          (reply) => reply.ParentUuid === comment.Uuid,
+        );
         comment.Replies.push(...matchingReplies);
       });
-    
+
       return comments;
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const { data, refetch, error, isLoading, isError, isFetching } = useQuery({
