@@ -6,9 +6,11 @@ const SessionContext = createContext<TSession | undefined>(undefined);
 export const SessionProvider = ({ children }: any) => {
   const [session, setSession] = useState<TSession>({
     accessToken: localStorage.getItem("accessToken"),
+    refreshToken: localStorage.getItem('refreshToken'),
     username: localStorage.getItem("username"),
     accountUUID: localStorage.getItem("accountUUID"),
-    //   refreshToken: localStorage.getItem('refreshToken')
+    accessTokenExpiry: localStorage.getItem('accessTokenExpiry'),
+    refreshTokenExpiry: localStorage.getItem('refreshTokenExpiry'),
     // email: null
   });
 
