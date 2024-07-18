@@ -38,3 +38,17 @@ export type TSession = {
   username: string | null;
   accountUUID: string | null;
 };
+
+export type TPassError = {
+  isValid: boolean;
+  errorMsg: string;
+}
+
+export type TPassValidation = {
+  input: string,
+  minLength: TPassError;
+  upper: TPassError;
+  lower: TPassError;
+  number: TPassError;
+  special: TPassError;
+}

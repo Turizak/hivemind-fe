@@ -1,15 +1,13 @@
 import { useForm } from "@tanstack/react-form";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  validatePasswordComplexity,
-  invalidPasswordMessage,
-} from "../utils/validatePasswordComplexity";
+import validatePassword from "../utils/formValidation/validatePassword";
 
 type Account = {
   username: string;
-  password: string;
   email: string;
+  password: string;
+  confirmPassword: string;
 };
 
 const CreateAccount = () => {
@@ -22,6 +20,7 @@ const CreateAccount = () => {
       username: "",
       email: "",
       password: "",
+      confirmPassword: "",
     },
     onSubmit: async ({ value }) => {
       createAccount(value);
@@ -75,7 +74,7 @@ const CreateAccount = () => {
         <form.Field
           name="username"
           validators={{
-            onChange: ({ value }) => {
+            onBlur: ({ value }) => {
               if (value.length == 0) {
                 return "Username cannot be empty";
               }
@@ -90,11 +89,14 @@ const CreateAccount = () => {
                 className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
                 value={username.state.value}
                 onChange={(e) => username.handleChange(e.target.value)}
+                onBlur={username.handleBlur}
                 data-testid="createAccountUsername"
                 required
               />
               {username.state.meta.errors ? (
-                <em role="alert">{username.state.meta.errors.join(", ")}</em>
+                <em role="alert" className="text-xs text-red-700">
+                  {username.state.meta.errors.join(", ")}
+                </em>
               ) : null}
             </>
           )}
@@ -109,7 +111,7 @@ const CreateAccount = () => {
         <form.Field
           name="email"
           validators={{
-            onChange: ({ value }) => {
+            onBlur: ({ value }) => {
               if (value.length == 0) {
                 return "Email cannot be empty";
               }
@@ -125,11 +127,14 @@ const CreateAccount = () => {
                 className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
                 value={email.state.value}
                 onChange={(e) => email.handleChange(e.target.value)}
+                onBlur={email.handleBlur}
                 data-testid="createAccountEmail"
                 required
               />
               {email.state.meta.errors ? (
-                <em role="alert">{email.state.meta.errors.join(", ")}</em>
+                <em role="alert" className="text-xs text-red-700">
+                  {email.state.meta.errors.join(", ")}
+                </em>
               ) : null}
             </>
           )}
@@ -147,9 +152,19 @@ const CreateAccount = () => {
         <form.Field
           name="password"
           validators={{
-            onChange: ({ value }) => {
-              if (!validatePasswordComplexity(value)) {
-                return invalidPasswordMessage;
+            onBlur: ({ value }) => {
+              const passValidation = validatePassword(value);
+              const errors = [];
+              for (const key in passValidation) {
+                if (
+                  key !== "input" &&
+                  (passValidation as any)[key].isValid === false
+                ) {
+                  errors.push((passValidation as any)[key].errorMsg);
+                }
+              }
+              if (errors.length > 0) {
+                return "Password must contain: " + errors.join(", ");
               }
               return undefined;
             },
@@ -163,11 +178,14 @@ const CreateAccount = () => {
                 type="password"
                 value={password.state.value}
                 onChange={(e) => password.handleChange(e.target.value)}
+                onBlur={password.handleBlur}
                 data-testid="createAccountPassword1"
                 required
               />
               {password.state.meta.errors ? (
-                <em role="alert">{password.state.meta.errors.join(", ")}</em>
+                <em role="alert" className="text-xs text-red-700">
+                  {password.state.meta.errors.join(", ")}
+                </em>
               ) : null}
             </>
           )}
@@ -175,26 +193,50 @@ const CreateAccount = () => {
 
         <div className="flex items-baseline justify-between">
           <label
-            htmlFor="passwordConfirm"
+            htmlFor="confirmPassword"
             className="text-[15px] font-medium leading-[35px] text-black"
           >
             Confirm Password
           </label>
         </div>
 
-        <input
-          className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
-          type="password"
-          name="passwordConfirm"
-          data-testid="createAccountPassword2"
-          required
-        />
+        <form.Field
+          name="confirmPassword"
+          validators={{
+            onBlur: ({ value, fieldApi }) => {
+              if (value != fieldApi.form.getFieldValue("password")) {
+                return "Passwords do not match";
+              }
+              return undefined;
+            },
+          }}
+        >
+          {(confirmPassword) => (
+            <>
+              <input
+                name="confirmPassword"
+                className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
+                type="password"
+                value={confirmPassword.state.value}
+                onChange={(e) => confirmPassword.handleChange(e.target.value)}
+                onBlur={confirmPassword.handleBlur}
+                data-testid="createAccountPassword2"
+                required
+              />
+              {confirmPassword.state.meta.errors ? (
+                <em role="alert" className="text-xs text-red-700">
+                  {confirmPassword.state.meta.errors.join(", ")}
+                </em>
+              ) : null}
+            </>
+          )}
+        </form.Field>
 
         <form.Subscribe
           selector={(state) => [state.canSubmit, state.isSubmitting]}
           children={([canSubmit, isSubmitting]) => (
             <button
-              className="box-border w-full text-white shadow-blackA4 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-black px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[20px] disabled:cursor-not-allowed disabled:text-red-500"
+              className="box-border w-full text-white shadow-blackA4 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-black px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[20px] disabled:cursor-not-allowed disabled:bg-red-700"
               type="submit"
               disabled={!canSubmit || isSubmitting}
               data-testid="createAccountBtn"
