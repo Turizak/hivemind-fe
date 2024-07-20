@@ -126,7 +126,7 @@ const LoginForm: React.FC = () => {
                 value={password.state.value}
                 onChange={(e) => password.handleChange(e.target.value)}
                 onBlur={password.handleBlur}
-                data-testid="createAccountPassword1"
+                data-testid="loginPassword"
                 required
               />
               {password.state.meta.errors ? (
@@ -144,7 +144,7 @@ const LoginForm: React.FC = () => {
               className="box-border w-full text-white shadow-blackA4 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-black px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[20px] disabled:cursor-not-allowed disabled:bg-red-700"
               type="submit"
               disabled={!canSubmit || isSubmitting}
-              data-testid="createAccountBtn"
+              data-testid="loginBtn1"
             >
               {isSubmitting ? "..." : buttonText}
             </button>
