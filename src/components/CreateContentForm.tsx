@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useForm } from "@tanstack/react-form";
 import { useNavigate } from "react-router-dom";
+import validateTitle from "../utils/formValidation/validateTitle";
 import useGetHives from "../hooks/useGetHives";
 
 type Content = {
@@ -11,15 +12,19 @@ type Content = {
 };
 
 const CreateContentForm = () => {
-  const [selectValue, setSelectValue] = useState<string>("");
   const [buttonText, setButtonText] = useState<string>("Create Content");
 
   const baseURL = import.meta.env.VITE_BASEURL;
   const navigate = useNavigate();
 
+  // Get All Hives
+  const { data, error, isLoading, isFetching, isError } = useGetHives(
+    baseURL + "/hive",
+  );
+
   const form = useForm({
     defaultValues: {
-      Hive: selectValue,
+      Hive: data?.Name ?? 'Gaming',
       Author: `${localStorage.getItem("username")}`,
       Title: "",
       Message: "",
@@ -28,11 +33,6 @@ const CreateContentForm = () => {
       postContent(value);
     },
   });
-
-  // Get All Hives
-  const { data, error, isLoading, isFetching, isError } = useGetHives(
-    baseURL + "/hive",
-  );
 
   // POST Content
   async function postContent(body: Content) {
@@ -60,10 +60,6 @@ const CreateContentForm = () => {
     }
   }
 
-  function selectHandler(e: React.ChangeEvent<HTMLSelectElement>) {
-    setSelectValue(e.target.value);
-  }
-
   return (
     <div className="flex justify-center">
       <form
@@ -73,17 +69,24 @@ const CreateContentForm = () => {
           form.handleSubmit();
         }}
       >
-        <label
-          htmlFor="hive"
-          className="text-[15px] font-normal leading-[35px] text-black"
+        <div className="flex items-baseline justify-between">
+          <label
+            htmlFor="hive"
+            className="text-[15px] font-normal leading-[35px] text-black"
+          >
+            Hive
+          </label>
+        </div>
+        <form.Field
+          name="Hive"
         >
-          Hive
-        </label>
-        <select
+          {(hive) => (
+            <>
+                    <select
           name="hive"
           className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
-          value={selectValue}
-          onChange={selectHandler}
+          value={hive.state.value}
+          onChange={(e) => hive.handleChange(e.target.value)}
           data-testid="createContentHive"
         >
           {isLoading ? (
@@ -101,6 +104,10 @@ const CreateContentForm = () => {
             ))
           )}
         </select>
+            </>
+          )}
+        </form.Field>
+
         <label
           htmlFor="title"
           className="text-[15px] font-normal leading-[45px] text-black"
@@ -109,47 +116,102 @@ const CreateContentForm = () => {
         </label>
         <form.Field
           name="Title"
-          children={(Title) => (
-            <input
-              name="Title"
-              className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
-              value={Title.state.value}
-              minLength={1}
-              maxLength={256}
-              onChange={(e) => Title.handleChange(e.target.value)}
-              data-testid="createContentTitle"
-              required
-            />
-          )}
-        />
-        <label
-          htmlFor="message"
-          className="text-[15px] font-normal leading-[45px] text-black"
+          validators={{
+            onBlur: ({ value }) => {
+              const titleValidation = validateTitle(value);
+              const errors = [];
+              for (const key in titleValidation) {
+                if (
+                  key !== "input" &&
+                  (titleValidation as any)[key].isValid === false
+                ) {
+                  errors.push((titleValidation as any)[key].errorMsg);
+                }
+              }
+              if (errors.length > 0) {
+                return "Title error: " + errors.join(", ");
+              }
+              return undefined;
+            },
+          }}
         >
-          Message
-        </label>
+          {(Title) => (
+            <>
+              <input
+                name="Title"
+                className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
+                value={Title.state.value}
+                minLength={1}
+                maxLength={256}
+                onChange={(e) => Title.handleChange(e.target.value)}
+                onBlur={Title.handleBlur}
+                data-testid="createContentTitle"
+                required
+              />
+              {Title.state.meta.errors ? (
+                <em role="alert" className="text-xs text-red-700">
+                  {Title.state.meta.errors.join(", ")}
+                </em>
+              ) : null}
+            </>
+          )}
+        </form.Field>
+        <div className="flex items-baseline justify-between">
+          <label
+            htmlFor="message"
+            className="text-[15px] font-normal leading-[45px] text-black"
+          >
+            Message
+          </label>
+        </div>
         <form.Field
           name="Message"
-          children={(Message) => (
-            <textarea
-              name="Message"
-              minLength={1}
-              maxLength={5000}
-              className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[150px] p-2 appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
-              value={Message.state.value}
-              data-testid="createContentMessage"
-              onChange={(e) => Message.handleChange(e.target.value)}
-              required
-            />
+          validators={{
+            onBlur: ({ value }) => {
+              if (!value) {
+                return "Message error: message cannot be blank";
+              }
+              if (value.length > 5000) {
+                return "Message error: message cannot be more than 5000 characters";
+              }
+              return undefined;
+            },
+          }}
+        >
+          {(Message) => (
+            <>
+              <textarea
+                name="Message"
+                minLength={1}
+                maxLength={5000}
+                className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[150px] p-2 appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
+                value={Message.state.value}
+                data-testid="createContentMessage"
+                onChange={(e) => Message.handleChange(e.target.value)}
+                onBlur={Message.handleBlur}
+                required
+              />
+              {Message.state.meta.errors ? (
+                <em role="alert" className="text-xs text-red-700">
+                  {Message.state.meta.errors.join(", ")}
+                </em>
+              ) : null}
+            </>
+          )}
+        </form.Field>
+        <form.Subscribe 
+          selector={(state) => [state.canSubmit, state.isSubmitting]}
+          children={([canSubmit, isSubmitting]) => (
+            <button
+            className="box-border w-full text-white shadow-blackA4 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-black px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[20px] disabled:cursor-not-allowed disabled:bg-red-700"
+            type="submit"
+            disabled={!canSubmit || isSubmitting}
+            data-testid="createContentBtn"
+            >
+              {isSubmitting ? "..." : buttonText}
+            </button>
           )}
         />
-        <button
-          type="submit"
-          className="box-border w-full text-white shadow-blackA4 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-black px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
-          data-testid="createContentBtn"
-        >
-          {buttonText}
-        </button>
       </form>
     </div>
   );

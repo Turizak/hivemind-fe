@@ -58,3 +58,14 @@ export type TEmailValidation = {
   minLength: TPassError;
   format: TPassError
 }
+export type TTitleValidation = {
+  input: string,
+  minLength: TPassError;
+  maxLength: TPassError
+}
+export type THiveValidation = {
+  input: string,
+  minLength: TPassError;
+  maxLength: TPassError;
+  format: TPassError;
+}

@@ -47,7 +47,7 @@ const LoginForm: React.FC = () => {
       setStorage(results.Token, results.RefreshToken);
       navigate("/");
     } catch (error) {
-      console.error('Login Failed', error);
+      console.error("Login Failed", error);
     }
   }
 
@@ -76,14 +76,14 @@ const LoginForm: React.FC = () => {
               const errors = [];
               for (const key in emailValidation) {
                 if (
-                  key !== "input" && 
-                  (emailValidation as any)[key].isValid === false 
+                  key !== "input" &&
+                  (emailValidation as any)[key].isValid === false
                 ) {
                   errors.push((emailValidation as any)[key].errorMsg);
                 }
               }
               if (errors.length > 0) {
-                return "Email error: " + errors.join(", ")
+                return "Email error: " + errors.join(", ");
               }
               return undefined;
             },
@@ -151,13 +151,13 @@ const LoginForm: React.FC = () => {
           )}
         />
         <Link to="/createAccount">
-            <button
-              className="box-border w-full text-white shadow-blackA4 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-black px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[20px]"
-              data-testid="loginBtn2"
-            >
-              Create Account
-            </button>
-          </Link>
+          <button
+            className="box-border w-full text-white shadow-blackA4 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-black px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[20px]"
+            data-testid="loginBtn2"
+          >
+            Create Account
+          </button>
+        </Link>
       </form>
     </div>
   );
