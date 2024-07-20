@@ -52,3 +52,9 @@ export type TPassValidation = {
   number: TPassError;
   special: TPassError;
 }
+
+export type TEmailValidation = {
+  input: string,
+  minLength: TPassError;
+  format: TPassError
+}

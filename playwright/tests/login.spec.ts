@@ -26,7 +26,7 @@ test.describe("Hivemind: Login Page Tests", { tag: ["@login"] }, () => {
       };
       await test.step("Attempt to login with invalid credentials", async () => {
         await loginPage.login(options);
-        await expect(page.getByText("There was an error")).toBeVisible();
+        await expect(page.getByText("Login Failed")).toBeVisible();
       });
     },
   );
