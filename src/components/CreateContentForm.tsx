@@ -24,7 +24,7 @@ const CreateContentForm = () => {
 
   const form = useForm({
     defaultValues: {
-      Hive: data?.Name ?? 'Gaming',
+      Hive: data?.Name ?? "",
       Author: `${localStorage.getItem("username")}`,
       Title: "",
       Message: "",
@@ -79,41 +79,58 @@ const CreateContentForm = () => {
         </div>
         <form.Field
           name="Hive"
+          validators={{
+            onBlur: ({ value }) => {
+              console.log(value);
+              if (value === "") {
+                return "Please select a hive";
+              }
+              return undefined;
+            },
+          }}
         >
           {(hive) => (
             <>
-                    <select
-          name="hive"
-          className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
-          value={hive.state.value}
-          onChange={(e) => hive.handleChange(e.target.value)}
-          data-testid="createContentHive"
-        >
-          {isLoading ? (
-            <option value="">Loading...</option>
-          ) : isFetching ? (
-            <option value="">Loading...</option>
-          ) : isError ? (
-            <option value="">Error: {error?.message}</option>
-          ) : (
-            data &&
-            data.map((item: any) => (
-              <option value={item.Name} key={item.Id}>
-                {item.Name}
-              </option>
-            ))
-          )}
-        </select>
+              <select
+                name="hive"
+                className="box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
+                value={hive.state.value}
+                onChange={(e) => hive.handleChange(e.target.value)}
+                onBlur={hive.handleBlur}
+                data-testid="createContentHive"
+              >
+                {isLoading ? (
+                  <option value="">Loading...</option>
+                ) : isFetching ? (
+                  <option value="">Loading...</option>
+                ) : isError ? (
+                  <option value="">Error: {error?.message}</option>
+                ) : (
+                  data &&
+                  data.map((item: any) => (
+                    <option value={item.Name} key={item.Id}>
+                      {item.Name}
+                    </option>
+                  ))
+                )}
+              </select>
+              {hive.state.meta.errors ? (
+                <em role="alert" className="text-xs text-red-700">
+                  {hive.state.meta.errors.join(", ")}
+                </em>
+              ) : null}
             </>
           )}
         </form.Field>
 
-        <label
-          htmlFor="title"
-          className="text-[15px] font-normal leading-[45px] text-black"
-        >
-          Title
-        </label>
+        <div className="flex items-baseline justify-between">
+          <label
+            htmlFor="title"
+            className="text-[15px] font-normal leading-[45px] text-black"
+          >
+            Title
+          </label>
+        </div>
         <form.Field
           name="Title"
           validators={{
@@ -199,14 +216,14 @@ const CreateContentForm = () => {
             </>
           )}
         </form.Field>
-        <form.Subscribe 
+        <form.Subscribe
           selector={(state) => [state.canSubmit, state.isSubmitting]}
           children={([canSubmit, isSubmitting]) => (
             <button
-            className="box-border w-full text-white shadow-blackA4 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-black px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[20px] disabled:cursor-not-allowed disabled:bg-red-700"
-            type="submit"
-            disabled={!canSubmit || isSubmitting}
-            data-testid="createContentBtn"
+              className="box-border w-full text-white shadow-blackA4 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-black px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[20px] disabled:cursor-not-allowed disabled:bg-red-700"
+              type="submit"
+              disabled={!canSubmit || isSubmitting}
+              data-testid="createContentBtn"
             >
               {isSubmitting ? "..." : buttonText}
             </button>
