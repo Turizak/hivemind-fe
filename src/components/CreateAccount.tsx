@@ -2,6 +2,7 @@ import { useForm } from "@tanstack/react-form";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import validatePassword from "../utils/formValidation/validatePassword";
+import validateEmail from "../utils/formValidation/validateEmail";
 
 type Account = {
   username: string;
@@ -112,8 +113,18 @@ const CreateAccount = () => {
           name="email"
           validators={{
             onBlur: ({ value }) => {
-              if (value.length == 0) {
-                return "Email cannot be empty";
+              const emailValidation = validateEmail(value);
+              const errors = [];
+              for (const key in emailValidation) {
+                if (
+                  key !== "input" &&
+                  (emailValidation as any)[key].isValid === false
+                ) {
+                  errors.push((emailValidation as any)[key].errorMsg);
+                }
+              }
+              if (errors.length > 0) {
+                return "Email error: " + errors.join(", ");
               }
               return undefined;
             },
