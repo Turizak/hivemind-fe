@@ -5,15 +5,15 @@ function validateHive(hive: string): THiveValidation {
         input: "hiveName",
         minLength: {
             isValid: false,
-            errorMsg: " hive name cannot be blank",
+            errorMsg: " cannot be blank",
         },
         maxLength: {
             isValid: false,
-            errorMsg: " hive name cannot be more than 30 characters"
+            errorMsg: " cannot be more than 30 characters"
         },
         format: {
             isValid: false,
-            errorMsg: " hive name can only contain alphabetic characters (A-Z, a-z)"
+            errorMsg: " can only contain alphabetic characters (A-Z, a-z)"
         },
     }
 
