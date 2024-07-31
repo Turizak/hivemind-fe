@@ -63,12 +63,12 @@ const votingState = showVotes()
           <div className="flex gap-2">
             <div className="flex w-max p-2 justify-evenly rounded-md text-sm md:hidden">
               <button>
-                <UpvoteIcon />
+              {votingState.upvote === true ? <UpvoteIconTrue /> : <UpvoteIcon />}
               </button>
               <p className="px-2">{item.Upvote}</p>
               <Link to={`/content/uuid/${item.Uuid}`}>
                 <button>
-                  <DownvoteIcon />
+                {votingState.downvote === true ? <DownvoteIconTrue /> : <DownvoteIcon />}
                 </button>
               </Link>
               <p className="px-2"></p>
