@@ -1,10 +1,30 @@
 import { Link } from "react-router-dom";
 import useIso from "../hooks/useIso";
 import { TContent } from "../types";
-// import UpvoteIcon from "../assets/UpvoteIcon";
-// import DownvoteIcon from "../assets/DownvoteIcon";
+import UpvoteIcon from "../assets/UpvoteIcon";
+import UpvoteIconTrue from "../assets/UpvoteIconTrue";
+import DownvoteIcon from "../assets/DownvoteIcon";
+import DownvoteIconTrue from "../assets/DownvoteIconTrue"
 
 const HiveContentContainer = ({ item }: { item: TContent }) => {
+
+function showVotes() {
+  const votingState = {
+    upvote: false,
+    downvote: false
+  }
+  const upvotes = localStorage.getItem("Upvotes")
+  const downvotes = localStorage.getItem("Downvotes")
+  if (upvotes?.includes(item.Uuid)) {
+    votingState.upvote = true
+  } if (downvotes?.includes(item.Uuid)) {
+    votingState.downvote = true
+  }
+  return votingState
+}
+
+const votingState = showVotes()
+
   return (
     <div
       className="p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md"
@@ -12,16 +32,16 @@ const HiveContentContainer = ({ item }: { item: TContent }) => {
     >
       <div className="flex gap-2">
         {/* Vertical Vote Container */}
-        {/* <div className="hidden md:flex flex-col p-2 h-max rounded-md text-sm hover:bg-gray-200">
+        <div className="hidden md:flex flex-col p-2 h-max rounded-md text-sm">
           <button className="block hover:cursor-pointer">
-            <UpvoteIcon />
+            {votingState.upvote === true ? <UpvoteIconTrue /> : <UpvoteIcon />}
           </button>
           <p className="p-2"></p>
-          <button>
-            <DownvoteIcon />
+          <button className="block hover:cursor-pointer">
+            {votingState.downvote === true ? <DownvoteIconTrue /> : <DownvoteIcon />}
             <p className="p-2"></p>
           </button>
-        </div> */}
+        </div>
         <div>
           {/* User & Time Container */}
           <div className="flex w-max p-2 rounded-md text-sm">
@@ -41,7 +61,7 @@ const HiveContentContainer = ({ item }: { item: TContent }) => {
           </div>
           {/* Horizontal Vote Container */}
           <div className="flex gap-2">
-            {/* <div className="flex w-max p-2 justify-evenly rounded-md text-sm md:hidden">
+            <div className="flex w-max p-2 justify-evenly rounded-md text-sm md:hidden">
               <button>
                 <UpvoteIcon />
               </button>
@@ -52,7 +72,7 @@ const HiveContentContainer = ({ item }: { item: TContent }) => {
                 </button>
               </Link>
               <p className="px-2"></p>
-            </div> */}
+            </div>
             {/* Comment Container */}
             <div className="flex w-max p-2 justify-evenly rounded-md text-sm">
               <svg
