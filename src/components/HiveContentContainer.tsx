@@ -4,26 +4,26 @@ import { TContent } from "../types";
 import UpvoteIcon from "../assets/UpvoteIcon";
 import UpvoteIconTrue from "../assets/UpvoteIconTrue";
 import DownvoteIcon from "../assets/DownvoteIcon";
-import DownvoteIconTrue from "../assets/DownvoteIconTrue"
+import DownvoteIconTrue from "../assets/DownvoteIconTrue";
 
 const HiveContentContainer = ({ item }: { item: TContent }) => {
-
-function showVotes() {
-  const votingState = {
-    upvote: false,
-    downvote: false
+  function showVotes() {
+    const votingState = {
+      upvote: false,
+      downvote: false,
+    };
+    const upvotes = localStorage.getItem("Upvotes");
+    const downvotes = localStorage.getItem("Downvotes");
+    if (upvotes?.includes(item.Uuid)) {
+      votingState.upvote = true;
+    }
+    if (downvotes?.includes(item.Uuid)) {
+      votingState.downvote = true;
+    }
+    return votingState;
   }
-  const upvotes = localStorage.getItem("Upvotes")
-  const downvotes = localStorage.getItem("Downvotes")
-  if (upvotes?.includes(item.Uuid)) {
-    votingState.upvote = true
-  } if (downvotes?.includes(item.Uuid)) {
-    votingState.downvote = true
-  }
-  return votingState
-}
 
-const votingState = showVotes()
+  const votingState = showVotes();
 
   return (
     <div
@@ -33,14 +33,39 @@ const votingState = showVotes()
       <div className="flex gap-2">
         {/* Vertical Vote Container */}
         <div className="hidden md:flex flex-col p-2 h-max rounded-md text-sm">
-          <button className="block hover:cursor-pointer">
-            {votingState.upvote === true ? <UpvoteIconTrue /> : <UpvoteIcon />}
-          </button>
-          <p className="p-2"></p>
-          <button className="block hover:cursor-pointer">
-            {votingState.downvote === true ? <DownvoteIconTrue /> : <DownvoteIcon />}
-            <p className="p-2"></p>
-          </button>
+          {votingState.upvote === true ? (
+            <>
+              <button
+                className="block hover:cursor-pointer"
+                onClick={() => (votingState.upvote = false)}
+              >
+                <UpvoteIconTrue />
+              </button>
+              <p className="p-2">{item.Upvote}</p>
+            </>
+          ) : votingState.downvote === false && votingState.upvote === false ? (
+            <>
+              <button className="block hover:cursor-pointer">
+                <UpvoteIcon />
+              </button>
+              <p className="p-2">{item.Upvote}</p>
+            </>
+          ) : null}
+          {votingState.downvote === true ? (
+            <>
+              <button className="block hover:cursor-pointer">
+                <DownvoteIconTrue />
+              </button>
+              <p className="p-2">{item.Downvote}</p>
+            </>
+          ) : votingState.downvote === false && votingState.upvote === false ? (
+            <>
+              <button className="block hover:cursor-pointer">
+                <DownvoteIcon />
+              </button>
+              <p className="p-2">{item.Downvote}</p>
+            </>
+          ) : null}
         </div>
         <div>
           {/* User & Time Container */}
@@ -62,16 +87,40 @@ const votingState = showVotes()
           {/* Horizontal Vote Container */}
           <div className="flex gap-2">
             <div className="flex w-max p-2 justify-evenly rounded-md text-sm md:hidden">
-              <button>
-              {votingState.upvote === true ? <UpvoteIconTrue /> : <UpvoteIcon />}
-              </button>
-              <p className="px-2">{item.Upvote}</p>
-              <Link to={`/content/uuid/${item.Uuid}`}>
-                <button>
-                {votingState.downvote === true ? <DownvoteIconTrue /> : <DownvoteIcon />}
+              {votingState.upvote === true ? (
+                <>
+                <button
+                  className="block hover:cursor-pointer"
+                >
+                  <UpvoteIconTrue />
                 </button>
-              </Link>
-              <p className="px-2"></p>
+                <p className="p-2">{item.Upvote}</p>
+                </>
+              ) : votingState.downvote === false &&
+                votingState.upvote === false ? (
+                  <>
+                <button className="block hover:cursor-pointer">
+                  <UpvoteIcon />
+                </button>
+                <p className="p-2">{item.Upvote}</p>
+                </>
+              ) : null}
+              {votingState.downvote === true ? (
+                <>
+                <button className="block hover:cursor-pointer">
+                  <DownvoteIconTrue />
+                </button>
+                <p className="p-2">{item.Downvote}</p>
+                </>
+              ) : votingState.downvote === false &&
+                votingState.upvote === false ? (
+                  <>
+                <button className="block hover:cursor-pointer">
+                  <DownvoteIcon />
+                </button>
+                <p className="p-2">{item.Downvote}</p>
+                </>
+              ) : null}
             </div>
             {/* Comment Container */}
             <div className="flex w-max p-2 justify-evenly rounded-md text-sm">
