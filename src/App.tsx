@@ -10,10 +10,8 @@ import CreateContent from "./pages/CreateContent";
 import CreateHive from "./pages/CreateHive";
 import Login from "./pages/Login";
 import PrivateRoutes from "./routes/PrivateRoutes";
-import { useTriggerFunctionWithDelay } from "./hooks/RenderContext";
 
 function App() {
-  useTriggerFunctionWithDelay();
   return (
     <>
       <Navbar />
