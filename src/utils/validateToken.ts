@@ -1,16 +1,29 @@
-import getCurrentTime from "./getCurrentTime";
-import getExpiry from "./getExpiry";
-import getNewAccessToken from "./getNewAccessToken";
+const validateToken = async () => {
+  function getCurrentTime() {
+    const milliseconds = new Date().getTime();
+    const seconds = Math.floor(milliseconds / 1000);
+    return seconds;
+  }
+  const currentTime = getCurrentTime();
+  const accessExpiry = +localStorage.accessTokenExpiry;
+  const refreshExpiry = +localStorage.refreshTokenExpiry;
+  const tokenValidation = {
+    accessTokenExpired: false,
+    refreshTokenExpired: false
+  }
+  if (currentTime < accessExpiry) {
+    console.log('Tokens Fresh')
+    return
+  }
+  if (currentTime > refreshExpiry) {
+    console.log('Refresh Token Expired')
+    tokenValidation.refreshTokenExpired = true
+  }
+  if (currentTime > accessExpiry) {
+    console.log('Access Token Expired')
+    tokenValidation.accessTokenExpired = true
+  } 
+  return tokenValidation
+};
 
-const validateToken = () => {
-    console.log('Checking Token...')
-    const currentTime = getCurrentTime();
-    const expiry = getExpiry();
-    if (currentTime < expiry) {
-        console.log('Token is valid, seconds remaining = ', expiry - currentTime)
-        return
-    } console.log('Token is expired') 
-        getNewAccessToken();
-}
-
-export default validateToken
+export default validateToken;

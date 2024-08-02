@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import getCurrentTime from "../utils/getCurrentTime";
-import getExpiry from "../utils/getExpiry";
 import getNewAccessToken from "../utils/getNewAccessToken";
+import validateToken from "../utils/validateToken";
 
 const useGetContent = (url: string) => {
   const getData = async (url: string) => {
@@ -18,19 +17,21 @@ const useGetContent = (url: string) => {
     return data;
   };
 
-  const fooGetData = async () => {
-    const currentTime = getCurrentTime();
-    const expiry = getExpiry();
-    if (currentTime > expiry) {
+  const getContent = async () => {
+    const token = await validateToken()
+    if (token?.refreshTokenExpired === true) {
+      localStorage.clear()
+    }
+    if (token?.accessTokenExpired === true) {
       await getNewAccessToken();
     }
     const data = await getData(url);
     return data;
-  };
+    }
 
   const { data, error, refetch, isLoading, isError, isFetching } = useQuery({
     queryKey: ['content', url],
-    queryFn: fooGetData,
+    queryFn: getContent,
   });
 
   return { data, error, refetch, isLoading, isError, isFetching };
