@@ -11,7 +11,6 @@ export const SessionProvider = ({ children }: any) => {
     accountUUID: localStorage.getItem("accountUUID"),
     accessTokenExpiry: localStorage.getItem('accessTokenExpiry'),
     refreshTokenExpiry: localStorage.getItem('refreshTokenExpiry'),
-    // email: null
   });
 
   return (

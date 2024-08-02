@@ -1,14 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import useUserValidation from "./useUserValidation";
-import getNewAccessToken from "../utils/getNewAccessToken";
 
 const useGetHives = (url: string) => {
-  const { accessToken, currentTime, expiry } = useUserValidation();
+  const accessToken = localStorage.getItem("accessToken")
   const getData = async () => {
     try {
-      if (currentTime > expiry) {
-        getNewAccessToken();
-      }
     const response = await fetch(url, {
       method: "GET",
       headers: {

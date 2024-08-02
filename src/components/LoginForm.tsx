@@ -1,10 +1,10 @@
 import { useForm } from "@tanstack/react-form";
-import { useState } from "react";
+import { useState} from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import validateEmail from "../utils/formValidation/validateEmail";
 import setStorage from "../utils/setStorage";
-import useGetVotes from "../hooks/useGetVotes";
+
 
 type LoginCredentials = {
   email: string;
@@ -12,11 +12,10 @@ type LoginCredentials = {
 };
 
 const LoginForm: React.FC = () => {
-  const [buttonText, setButtonText] = useState<string>("Submit");
+  const [buttonText, setButtonText] = useState<string>("Submit")
   const baseURL = import.meta.env.VITE_BASEURL;
   const navigate = useNavigate();
 
-  const { data: votes } = useGetVotes(baseURL + "/content/votes");
   const form = useForm({
     defaultValues: {
       email: "",
@@ -47,8 +46,6 @@ const LoginForm: React.FC = () => {
       }
       const results = await response.json();
       setStorage(results.Token, results.RefreshToken);
-      localStorage.setItem("Upvotes", votes.Upvotes);
-      localStorage.setItem("Downvotes", votes.Downvotes);
       navigate("/");
     } catch (error) {
       console.error("Login Failed", error);

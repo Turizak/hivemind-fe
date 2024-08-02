@@ -4,6 +4,7 @@ import { TContent } from "../types";
 
 const Home = () => {
   const baseURL = import.meta.env.VITE_BASEURL;
+
   const { data, error, isLoading, isFetching, isError } = useGetContent(
     baseURL + "/content",
   );
@@ -20,7 +21,7 @@ const Home = () => {
         </span>
       ) : isError ? (
         <span className="flex justify-center p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md">
-          Error: {error?.message}
+          {error?.name}: Please refresh
         </span>
       ) : (
         data &&
