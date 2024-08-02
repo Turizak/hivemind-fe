@@ -5,6 +5,7 @@ import { TContent } from "../types";
 const Home = () => {
   const baseURL = import.meta.env.VITE_BASEURL;
 
+
   const { data, error, isLoading, isFetching, isError } = useGetContent(
     baseURL + "/content",
   );
