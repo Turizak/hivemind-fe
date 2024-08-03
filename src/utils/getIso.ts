@@ -1,15 +1,14 @@
-const useIso = (isoTime: any) => {
+const useIso = (isoTime: string) => {
   const date = new Date(isoTime);
-  const options = {
+  const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "short",
     day: "numeric",
     hour: "numeric",
     minute: "2-digit",
-    timeZoneName: "short", // Optional: Include time zone
+    timeZoneName: "short",
   };
 
-  //@ts-expect-error
   const formattedTime = date.toLocaleString("en-US", options);
   return formattedTime;
 };

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import useIso from "../hooks/useIso";
+import useIso from "../utils/getIso";
 import useShowVotes from "../hooks/useShowVotes";
 import { TContent } from "../types";
 import UpvoteIcon from "../assets/UpvoteIcon";

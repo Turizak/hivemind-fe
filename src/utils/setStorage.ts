@@ -1,4 +1,4 @@
-import useJWT from "../hooks/useJWT"
+import useJWT from "./decodeJWT"
 
 const setStorage = (accessToken: string, refreshToken: string) => {
     const accessJWT = useJWT(accessToken);

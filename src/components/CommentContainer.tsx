@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useForm } from "@tanstack/react-form";
-import useIso from "../hooks/useIso";
+import useIso from "../utils/getIso";
 import { TComment } from "../types";
 import ReplyContainer from "./ReplyContainer";
 import CommentIcon from "../assets/CommentIcon";

@@ -1,4 +1,4 @@
-import useGetContent from "../hooks/useGetContent";
+import useGET from "../hooks/useGET";
 import useGetVotes from "../hooks/useGetVotes";
 import HiveContentContainer from "../components/HiveContentContainer";
 import { useParams } from "react-router-dom";
@@ -9,7 +9,7 @@ const Hive = () => {
   const baseURL = import.meta.env.VITE_BASEURL;
   
   useGetVotes(baseURL + "/content/votes")
-  const { data, error, isLoading, isFetching, isError } = useGetContent(
+  const { data, error, isLoading, isFetching, isError } = useGET(
     baseURL + "/hive/uuid/" + params.hiveUuid + "/content",
   );
   

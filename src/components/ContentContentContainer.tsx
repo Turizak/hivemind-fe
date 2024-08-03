@@ -1,4 +1,4 @@
-import useIso from "../hooks/useIso";
+import useIso from "../utils/getIso";
 import CommentIcon from "../assets/CommentIcon";
 import { TContent } from "../types";
 // import UpvoteIcon from "../assets/UpvoteIcon";
