@@ -1,4 +1,5 @@
 import useGetContent from "../hooks/useGetContent";
+import useGetVotes from "../hooks/useGetVotes";
 import HiveContentContainer from "../components/HiveContentContainer";
 import { useParams } from "react-router-dom";
 import { TContent } from "../types";
@@ -6,20 +7,30 @@ import { TContent } from "../types";
 const Hive = () => {
   const params = useParams();
   const baseURL = import.meta.env.VITE_BASEURL;
+  
+  useGetVotes(baseURL + "/content/votes")
   const { data, error, isLoading, isFetching, isError } = useGetContent(
     baseURL + "/hive/uuid/" + params.hiveUuid + "/content",
   );
+  
 
   return (
     <>
       <div className="text-center text-3xl p-8 w-full bg-yellow-400">
-        {data[0].Hive}
-      </div>
-      {isLoading ? (
-        <span className="flex justify-center p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md">
+        {isLoading || isFetching ? (
+        <span>
           Loading...
         </span>
-      ) : isFetching ? (
+      ) : isError ? (
+        <span>
+          Error: {error?.message}
+        </span>
+      ) : (
+        data && data.length > 0 ? data[0].Hive : "There's nothing here..."
+        )
+      }
+      </div>
+      {isLoading || isFetching ? (
         <span className="flex justify-center p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md">
           Loading...
         </span>
