@@ -1,3 +1,7 @@
+export type SvgProps = {
+  [key: string]: any
+};
+
 export type TContent = {
   Id: string;
   Hive: string;
