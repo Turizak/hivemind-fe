@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import useGetAccount from "../hooks/useGetAccount";
+import useGET from "../hooks/useGET";
 import { useForm } from "@tanstack/react-form";
 import SessionContext from "../context/SessionProvider";
 
@@ -18,7 +18,7 @@ const UserProfile = () => {
     },
   });
 
-  const { data, error, isLoading, isFetching, isError } = useGetAccount(
+  const { data, error, isLoading, isFetching, isError } = useGET(
     baseURL + "/account",
   );
 

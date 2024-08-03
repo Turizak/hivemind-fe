@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "@tanstack/react-form";
 import { useNavigate } from "react-router-dom";
-import useGetHives from "../hooks/useGetHives";
+import useGET from "../hooks/useGET";
 
 type Content = {
   Hive: string;
@@ -30,7 +30,7 @@ const CreateContentForm = () => {
   });
 
   // Get All Hives
-  const { data, error, isLoading, isFetching, isError } = useGetHives(
+  const { data, error, isLoading, isFetching, isError } = useGET(
     baseURL + "/hive",
   );
 

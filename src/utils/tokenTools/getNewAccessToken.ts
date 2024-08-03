@@ -1,4 +1,4 @@
-import setStorage from "./setStorage";
+import setStorage from "../setStorage";
 
 const getNewAccessToken = async (): Promise<string> => {
   const baseURL = import.meta.env.VITE_BASEURL

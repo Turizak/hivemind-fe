@@ -1,4 +1,4 @@
-import useIso from "../hooks/useIso";
+import getIso from "../utils/tokenTools/getIso";
 import { TComment } from "../types";
 //import UpvoteIcon from "../assets/UpvoteIcon";
 // import DownvoteIcon from "../assets/DownvoteIcon";
@@ -14,7 +14,7 @@ const ReplyContainer = (props: TComment) => {
           {/* User & Time Container */}
           <div className="flex w-max p-2 rounded-md text-sm">
             <p>
-              {props.Author} | {useIso(props.Created.Time)}
+              {props.Author} | {getIso(props.Created.Time)}
             </p>
             <p></p>
           </div>

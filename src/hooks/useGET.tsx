@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import getNewAccessToken from "../utils/getNewAccessToken";
-import validateToken from "../utils/validateToken";
+import getNewAccessToken from "../utils/tokenTools/getNewAccessToken";
+import validateToken from "../utils/tokenTools/validateToken";
 
-const useGetAccount = (url: string) => {
+const useGET = (url: string) => {
   /*
   This function calls the validateToken helper function.  The validateToken helper function returns an object with two properties - accessTokenExpired and refreshTokenExpired.  Both properties are booleans.
   If the access token is expired, a new token will be fetched from the server before the getData call.  
@@ -10,36 +10,43 @@ const useGetAccount = (url: string) => {
   If the refresh token is expired, local storage is deleted and the function returns early.  This is create an error on the page, instructing the user to refresh.  
   Upon refresh, the user will be routed to the login page.
   */
-  const getAccount = async () => {
-    const token = await validateToken();
+  const getData = async () => {
+    const token = await validateToken()
     if (token?.refreshTokenExpired === true) {
-      localStorage.clear();
-      return;
+      localStorage.clear()
+      return
     }
     if (token?.accessTokenExpired === true) {
       await getNewAccessToken();
     }
-    const data = await getData(url);
+    const data = await fetchData(url);
     return data;
-  };
-
-  const getData = async (url: string) => {
+    }
+/*
+Async GET request
+*/
+  const fetchData = async (url: string) => {
     const response = await fetch(url, {
-      method: "GET",
+      method: 'GET',
       headers: {
         Authorization: `Bearer ${localStorage.accessToken}`,
       },
     });
+    if (!response.ok) {
+      throw new Error(`${response.status}: Failed to fetch`);
+    }
     const data = await response.json();
     return data;
   };
-
+/*
+Tanstack Query
+*/
   const { data, error, refetch, isLoading, isError, isFetching } = useQuery({
-    queryKey: ["accounts", url],
-    queryFn: getAccount,
+    queryKey: ['item', url],
+    queryFn: getData,
   });
 
   return { data, error, refetch, isLoading, isError, isFetching };
 };
 
-export default useGetAccount;
+export default useGET;

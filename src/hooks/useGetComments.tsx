@@ -1,7 +1,7 @@
 //@ts-nocheck
 import { useQuery } from "@tanstack/react-query";
-import getNewAccessToken from "../utils/getNewAccessToken";
-import validateToken from "../utils/validateToken";
+import getNewAccessToken from "../utils/tokenTools/getNewAccessToken";
+import validateToken from "../utils/tokenTools/validateToken";
 
 const useGetComments = (url: string) => {
   let comments = [];
