@@ -1,20 +1,26 @@
-import { createContext, useState } from "react";
+import { createContext, useState, ReactNode } from "react";
 import { TSession } from "../types";
 
-const SessionContext = createContext<TSession | undefined>(undefined);
+type SessionContextType = {
+  session: TSession;
+  setSession: React.Dispatch<React.SetStateAction<TSession>>;
+};
 
-export const SessionProvider = ({ children }: any) => {
-  const [session, setSession] = useState<TSession>({
-    accessToken: localStorage.getItem("accessToken"),
-    refreshToken: localStorage.getItem('refreshToken'),
-    username: localStorage.getItem("username"),
-    accountUUID: localStorage.getItem("accountUUID"),
-    accessTokenExpiry: localStorage.getItem('accessTokenExpiry'),
-    refreshTokenExpiry: localStorage.getItem('refreshTokenExpiry'),
-  });
+const defaultSession: TSession = {
+  accessToken: localStorage.getItem("accessToken"),
+  refreshToken: localStorage.getItem('refreshToken'),
+  username: localStorage.getItem("username"),
+  accountUUID: localStorage.getItem("accountUUID"),
+  accessTokenExpiry: localStorage.getItem('accessTokenExpiry'),
+  refreshTokenExpiry: localStorage.getItem('refreshTokenExpiry'),
+};
+
+const SessionContext = createContext<SessionContextType | undefined>(undefined);
+
+export const SessionProvider = ({ children }: { children: ReactNode }) => {
+  const [session, setSession] = useState<TSession>(defaultSession);
 
   return (
-    // @ts-expect-error
     <SessionContext.Provider value={{ session, setSession }}>
       {children}
     </SessionContext.Provider>
