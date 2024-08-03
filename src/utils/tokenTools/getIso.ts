@@ -1,4 +1,4 @@
-const useIso = (isoTime: string) => {
+const getIso = (isoTime: string) => {
   const date = new Date(isoTime);
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
@@ -13,4 +13,4 @@ const useIso = (isoTime: string) => {
   return formattedTime;
 };
 
-export default useIso;
+export default getIso;

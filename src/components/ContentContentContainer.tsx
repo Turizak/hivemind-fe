@@ -1,4 +1,4 @@
-import useIso from "../utils/getIso";
+import getIso from "../utils/tokenTools/getIso";
 import CommentIcon from "../assets/CommentIcon";
 import { TContent } from "../types";
 // import UpvoteIcon from "../assets/UpvoteIcon";
@@ -26,7 +26,7 @@ const ContentContentContainer = (props: TContent) => {
           {/* User & Time Container */}
           <div className="flex w-max p-2 rounded-md text-sm">
             <p className="hover:cursor-pointer hover:underline">
-                {props.Hive}  | {useIso(props.Created.Time)}
+                {props.Hive}  | {getIso(props.Created.Time)}
             </p>
           </div>
           {/* Content Title Container */}

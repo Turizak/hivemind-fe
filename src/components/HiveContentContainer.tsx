@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import useIso from "../utils/getIso";
+import getIso from "../utils/tokenTools/getIso";
 import useShowVotes from "../hooks/useShowVotes";
 import { TContent } from "../types";
 import UpvoteIcon from "../assets/UpvoteIcon";
@@ -55,7 +55,7 @@ const HiveContentContainer = ({ item }: { item: TContent }) => {
           {/* User & Time Container */}
           <div className="flex w-max p-2 rounded-md text-sm">
             <p>
-              {item.Hive} | {useIso(item.Created.Time)}
+              {item.Hive} | {getIso(item.Created.Time)}
             </p>
           </div>
           {/* Content Title Container */}
