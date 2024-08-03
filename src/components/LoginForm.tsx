@@ -46,6 +46,7 @@ const LoginForm: React.FC = () => {
       }
       const results = await response.json();
       setStorage(results.Token, results.RefreshToken);
+      
       navigate("/");
     } catch (error) {
       console.error("Login Failed", error);
