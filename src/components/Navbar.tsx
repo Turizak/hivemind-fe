@@ -1,12 +1,8 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import SessionContext from "../context/SessionProvider";
 import CreateDropdown from "./CreateDropdown";
 import UserDropdown from "./UserDropdown";
 
 const Navbar = () => {
-  // @ts-expect-error
-  const { session } = useContext(SessionContext);
   return (
     <nav className="bg-black text-white">
       <ul className="flex justify-between">
@@ -15,10 +11,10 @@ const Navbar = () => {
         </li>
         <div className="flex">
           <li className="p-2">
-           {session.accessToken ? <CreateDropdown /> : null } 
+            {localStorage.accessToken ? <CreateDropdown /> : null}
           </li>
           <li className="p-2">
-            {session.accessToken ? <UserDropdown /> : null }
+            {localStorage.accessToken ? <UserDropdown /> : null}
           </li>
         </div>
       </ul>
