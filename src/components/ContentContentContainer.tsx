@@ -1,4 +1,5 @@
 import getIso from "../utils/tokenTools/getIso";
+import { Link } from "react-router-dom";
 import CommentIcon from "../assets/CommentIcon";
 import { TContent } from "../types";
 // import UpvoteIcon from "../assets/UpvoteIcon";
@@ -24,11 +25,13 @@ const ContentContentContainer = (props: TContent) => {
         </div> */}
         <div>
           {/* User & Time Container */}
+          <Link to={`/hive/uuid/${props.HiveUuid}/content`}>
           <div className="flex w-max p-2 rounded-md text-sm">
             <p className="hover:cursor-pointer hover:underline">
                 {props.Hive}  | {getIso(props.Created.Time)}
             </p>
           </div>
+          </Link>
           {/* Content Title Container */}
           <div className="p-2 mt-2 rounded-md max-w-md">
             <p className="text-xl">{props.Title}</p>

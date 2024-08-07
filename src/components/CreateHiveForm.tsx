@@ -42,7 +42,7 @@ const CreateHiveForm = () => {
       }
       setButtonText("Success!");
       setTimeout(() => {
-        navigate("/home");
+        navigate("/");
       }, 1500);
     } catch (error) {
       console.error(error);
