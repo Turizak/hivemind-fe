@@ -7,7 +7,7 @@ import DownvoteIcon from "../assets/DownvoteIcon";
 import CommentIcon from "../assets/CommentIcon";
 
 const HiveContentContainer = ({ item }: { item: TContent }) => {
-  const votingState = useShowVotes(item.Uuid)
+  const votingState = useShowVotes(item.Uuid);
 
   return (
     <div
@@ -23,7 +23,10 @@ const HiveContentContainer = ({ item }: { item: TContent }) => {
                 className="block hover:cursor-pointer"
                 onClick={() => (votingState.upvote = false)}
               >
-                <UpvoteIcon fill="rgba(251, 191, 36, 1)" stroke="rgba(0, 0, 0, 1)"/>
+                <UpvoteIcon
+                  fill="rgba(251, 191, 36, 1)"
+                  stroke="rgba(0, 0, 0, 1)"
+                />
               </button>
               <p className="p-2">{item.Upvote}</p>
             </>
@@ -38,7 +41,10 @@ const HiveContentContainer = ({ item }: { item: TContent }) => {
           {votingState.downvote === true ? (
             <>
               <button className="block hover:cursor-pointer">
-                <DownvoteIcon fill="rgba(251, 191, 36, 1)" stroke="rgba(0, 0, 0, 1)" />
+                <DownvoteIcon
+                  fill="rgba(251, 191, 36, 1)"
+                  stroke="rgba(0, 0, 0, 1)"
+                />
               </button>
               <p className="p-2">{item.Downvote}</p>
             </>
@@ -73,36 +79,40 @@ const HiveContentContainer = ({ item }: { item: TContent }) => {
             <div className="flex w-max p-2 justify-evenly rounded-md text-sm md:hidden">
               {votingState.upvote === true ? (
                 <>
-                <button
-                  className="block hover:cursor-pointer"
-                >
-                  <UpvoteIcon fill="rgba(251, 191, 36, 1)" stroke="rgba(0, 0, 0, 1)" />
-                </button>
-                <p className="p-2">{item.Upvote}</p>
+                  <button className="block hover:cursor-pointer">
+                    <UpvoteIcon
+                      fill="rgba(251, 191, 36, 1)"
+                      stroke="rgba(0, 0, 0, 1)"
+                    />
+                  </button>
+                  <p className="p-2">{item.Upvote}</p>
                 </>
               ) : votingState.downvote === false &&
                 votingState.upvote === false ? (
-                  <>
-                <button className="block hover:cursor-pointer">
-                  <UpvoteIcon />
-                </button>
-                <p className="p-2">{item.Upvote}</p>
+                <>
+                  <button className="block hover:cursor-pointer">
+                    <UpvoteIcon />
+                  </button>
+                  <p className="p-2">{item.Upvote}</p>
                 </>
               ) : null}
               {votingState.downvote === true ? (
                 <>
-                <button className="block hover:cursor-pointer">
-                  <DownvoteIcon fill="rgba(251, 191, 36, 1)" stroke="rgba(0, 0, 0, 1)" />
-                </button>
-                <p className="p-2">{item.Downvote}</p>
+                  <button className="block hover:cursor-pointer">
+                    <DownvoteIcon
+                      fill="rgba(251, 191, 36, 1)"
+                      stroke="rgba(0, 0, 0, 1)"
+                    />
+                  </button>
+                  <p className="p-2">{item.Downvote}</p>
                 </>
               ) : votingState.downvote === false &&
                 votingState.upvote === false ? (
-                  <>
-                <button className="block hover:cursor-pointer">
-                  <DownvoteIcon />
-                </button>
-                <p className="p-2">{item.Downvote}</p>
+                <>
+                  <button className="block hover:cursor-pointer">
+                    <DownvoteIcon />
+                  </button>
+                  <p className="p-2">{item.Downvote}</p>
                 </>
               ) : null}
             </div>

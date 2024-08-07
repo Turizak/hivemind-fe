@@ -28,9 +28,6 @@ const useGetComments = (url: string) => {
 
   const getData = async () => {
     try {
-      if (currentTime > expiry) {
-        getNewAccessToken();
-      }
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -49,16 +46,16 @@ const useGetComments = (url: string) => {
 
       // Sort comments and replies by creation time
       comments = comments.sort(
-        (a, b) => new Date(a.Created.Time) - new Date(b.Created.Time),
+        (a, b) => new Date(a.Created.Time) - new Date(b.Created.Time)
       );
       replies = replies.sort(
-        (a, b) => new Date(a.Created.Time) - new Date(b.Created.Time),
+        (a, b) => new Date(a.Created.Time) - new Date(b.Created.Time)
       );
 
       // Pair comments with their replies
       comments.forEach((comment) => {
         const matchingReplies = replies.filter(
-          (reply) => reply.ParentUuid === comment.Uuid,
+          (reply) => reply.ParentUuid === comment.Uuid
         );
         comment.Replies.push(...matchingReplies);
       });
