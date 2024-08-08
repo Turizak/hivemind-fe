@@ -1,15 +1,19 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useForm } from "@tanstack/react-form";
-import getIso from "../utils/tokenTools/getIso"
+import getIso from "../utils/tokenTools/getIso";
+import useShowVotes from "../hooks/useShowVotes";
 import { TComment } from "../types";
 import ReplyContainer from "./ReplyContainer";
 import CommentIcon from "../assets/CommentIcon";
+import UpvoteIcon from "../assets/UpvoteIcon";
+import DownvoteIcon from "../assets/DownvoteIcon";
 
 const CommentContainer = (props: any) => {
   // URL Variables
   const baseURL = import.meta.env.VITE_BASEURL;
   const params = useParams();
+  const votingState = useShowVotes(props.Uuid);
 
   // State
   const [replyTextareaShow, setReplyTextareaShow] = useState<boolean>(false);
@@ -52,7 +56,7 @@ const CommentContainer = (props: any) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(body),
-        },
+        }
       );
       if (!response.ok) {
         throw new Error(`${response.status}`);
@@ -92,24 +96,54 @@ const CommentContainer = (props: any) => {
           </div>
           {/* Horizontal Vote Container */}
           <div className="flex gap-2">
-            {/* <div className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200">
-              <button>
-                <UpvoteIcon />
+            <div className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200">
+              {votingState.upvote === true ? (
+                <>
+                  <button className="block hover:cursor-pointer">
+                    <UpvoteIcon
+                      fill="rgba(251, 191, 36, 1)"
+                      stroke="rgba(0, 0, 0, 1)"
+                    />
+                  </button>
+                  <p className="p-2">{props.Upvote}</p>
+                </>
+              ) : votingState.downvote === false &&
+                votingState.upvote === false ? (
+                <>
+                  <button className="block hover:cursor-pointer">
+                    <UpvoteIcon />
+                  </button>
+                  <p className="p-2">{props.Upvote}</p>
+                </>
+              ) : null}
+              {votingState.downvote === true ? (
+                <>
+                  <button className="block hover:cursor-pointer">
+                    <DownvoteIcon
+                      fill="rgba(251, 191, 36, 1)"
+                      stroke="rgba(0, 0, 0, 1)"
+                    />
+                  </button>
+                  <p className="p-2">{props.Downvote}</p>
+                </>
+              ) : votingState.downvote === false &&
+                votingState.upvote === false ? (
+                <>
+                  <button className="block hover:cursor-pointer">
+                    <DownvoteIcon />
+                  </button>
+                  <p className="p-2">{props.Downvote}</p>
+                </>
+              ) : null}
+              {/* Comment Container */}
+              <button
+                className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200"
+                onClick={replyToggle}
+              >
+                <CommentIcon />
+                <p className="pl-1">{props.Replies.length}</p>
               </button>
-              <p className="px-2"></p>
-              <button>
-                <DownvoteIcon />
-              </button>
-              <p className="px-2"></p>
-            </div> */}
-            {/* Comment Container */}
-            <button
-              className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200"
-              onClick={replyToggle}
-            >
-              <p className="pr-1">{props.Replies.length}</p>
-              <CommentIcon />
-            </button>
+            </div>
           </div>
           {/* Reply Input Start */}
           <div className="mx-auto bg-gray-300 xs:rounded-none sm:rounded-md">
