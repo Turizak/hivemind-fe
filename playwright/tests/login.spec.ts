@@ -10,8 +10,11 @@ test.describe("Hivemind: Login Page Tests", { tag: ["@login"] }, () => {
     { tag: ["@smoke", "@regression"] },
     async ({ loginPage, account, page }) => {
       await test.step("Login with valid credentials", async () => {
-        await loginPage.login(account);
-        // await expect(page.getByTestId("contentItem").first()).toBeVisible();
+        const options = {
+          email: account.email,
+          password: account.password,
+        };
+        await loginPage.login(options);
       });
     },
   );
