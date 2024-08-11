@@ -12,6 +12,7 @@ import "dotenv/config";
  */
 export default defineConfig({
   testDir: "./playwright/tests",
+  timeout: process.env.CI ? 60 * 1000 : 20 * 1000,
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
