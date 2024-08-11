@@ -10,28 +10,25 @@ test.describe("Hivemind: Login Page Tests", { tag: ["@login"] }, () => {
     { tag: ["@smoke", "@regression"] },
     async ({ loginPage, account, page }) => {
       await test.step("Login with valid credentials", async () => {
-        const options = {
-          email: process.env.PLAYWRIGHT_USER as string,
-          password: process.env.PLAYWRIGHT_PASS as string,
-        };
-        await loginPage.login(options);
+        await loginPage.login(account);
+        // await expect(page.getByTestId("contentItem").first()).toBeVisible();
       });
-    }
+    },
   );
 
   test(
     "Verify unsuccessful login with invalid email and password",
     { tag: ["@smoke", "@regression"] },
     async ({ loginPage, page }) => {
-      const options = {
+      const options: LoginFormOptions = {
         email: "BadEmail@ex.com",
         password: "BadPassword1234!@",
       };
       await test.step("Attempt to login with invalid credentials", async () => {
         await loginPage.login(options);
-        await expect(loginPage.btnLogin).toHaveText("Login Failed");
+        await expect(page.getByText("Login Failed")).toBeVisible();
       });
-    }
+    },
   );
 
   test(
@@ -42,6 +39,6 @@ test.describe("Hivemind: Login Page Tests", { tag: ["@login"] }, () => {
         await loginPage.clickCreateAccountButton();
         expect(page.url()).toContain("/createAccount");
       });
-    }
+    },
   );
 });
