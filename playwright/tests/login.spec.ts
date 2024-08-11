@@ -11,12 +11,12 @@ test.describe("Hivemind: Login Page Tests", { tag: ["@login"] }, () => {
     async ({ loginPage, account, page }) => {
       await test.step("Login with valid credentials", async () => {
         const options = {
-          email: account.email,
-          password: account.password,
+          email: process.env.PLAYWRIGHT_USER as string,
+          password: process.env.PLAYWRIGHT_PASS as string,
         };
         await loginPage.login(options);
       });
-    },
+    }
   );
 
   test(
@@ -31,7 +31,7 @@ test.describe("Hivemind: Login Page Tests", { tag: ["@login"] }, () => {
         await loginPage.login(options);
         await expect(loginPage.btnLogin).toHaveText("Login Failed");
       });
-    },
+    }
   );
 
   test(
@@ -42,6 +42,6 @@ test.describe("Hivemind: Login Page Tests", { tag: ["@login"] }, () => {
         await loginPage.clickCreateAccountButton();
         expect(page.url()).toContain("/createAccount");
       });
-    },
+    }
   );
 });
