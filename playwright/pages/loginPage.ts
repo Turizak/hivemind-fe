@@ -12,8 +12,6 @@ export class LoginPage {
   readonly btnLogin: Locator;
   readonly btnCreateAccount: Locator;
 
-  readonly containerContentItem: Locator;
-
   constructor(page: Page) {
     this.page = page;
 
@@ -44,9 +42,12 @@ export class LoginPage {
     await this.inputPassword.fill(password);
   }
 
-  async login(opts: { email: string; password: string }) {
+  async login(
+    opts: { email: string; password: string },
+    fail: boolean = false
+  ) {
     await this.fillEmail(opts.email);
     await this.fillPassword(opts.password);
-    await this.clickLoginButton();
+    fail ? null : await this.clickLoginButton();
   }
 }
