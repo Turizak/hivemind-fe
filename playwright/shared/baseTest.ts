@@ -1,5 +1,6 @@
 import { test as base } from "@playwright/test";
 import { LoginPage } from "../pages/loginPage";
+import { HivePage } from "../pages/hivePage";
 
 interface LoginFormOptions {
   email: string;
@@ -8,10 +9,14 @@ interface LoginFormOptions {
 
 const test = base.extend<{
   loginPage: LoginPage;
+  hivePage: HivePage;
   account: LoginFormOptions;
 }>({
   loginPage: async ({ page }, use) => {
     await use(new LoginPage(page));
+  },
+  hivePage: async ({ page }, use) => {
+    await use(new HivePage(page));
   },
   account: async ({}, use) => {
     const formData: LoginFormOptions = {

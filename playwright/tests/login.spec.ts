@@ -1,4 +1,3 @@
-import exp from "constants";
 import { test, expect, LoginFormOptions } from "../shared/baseTest";
 
 test.describe("Hivemind: Login Page Tests", { tag: ["@login"] }, () => {
@@ -12,6 +11,7 @@ test.describe("Hivemind: Login Page Tests", { tag: ["@login"] }, () => {
     async ({ loginPage, account, page }) => {
       await test.step("Login with valid credentials", async () => {
         await loginPage.login(account);
+        await expect(page.getByText("Select a Hive")).toBeVisible();
       });
     }
   );
