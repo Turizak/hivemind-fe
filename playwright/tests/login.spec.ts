@@ -20,7 +20,7 @@ test.describe("Hivemind: Login Page Tests", { tag: ["@login"] }, () => {
     "Verify unsuccessful login with invalid email and password",
     { tag: ["@smoke", "@regression"] },
     async ({ loginPage, page }) => {
-      const options: LoginFormOptions = {
+      const options = {
         email: "BadEmail@ex.com",
         password: "BadPassword1234!@",
       };
