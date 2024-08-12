@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import getIso from "../utils/tokenTools/getIso";
 import useShowVotes from "../hooks/useShowVotes";
 import { TContent } from "../types";
@@ -7,6 +8,7 @@ import DownvoteIcon from "../assets/DownvoteIcon";
 import CommentIcon from "../assets/CommentIcon";
 
 const HiveContentContainer = ({ item }: { item: TContent }) => {
+  const [hidden, setHidden] = useState("hidden ");
   const votingState = useShowVotes(item.Uuid);
 
   return (
@@ -37,7 +39,14 @@ const HiveContentContainer = ({ item }: { item: TContent }) => {
               </button>
               <p className="p-2">{item.Upvote}</p>
             </>
-          ) : null}
+          ) : (
+            <>
+              <button className={hidden + "block hover:cursor-pointer"}>
+                <UpvoteIcon />
+              </button>
+              <p className={hidden + "p-2"}>{item.Upvote}</p>
+            </>
+          )}
           {votingState.downvote === true ? (
             <>
               <button className="block hover:cursor-pointer">
@@ -55,7 +64,14 @@ const HiveContentContainer = ({ item }: { item: TContent }) => {
               </button>
               <p className="p-2">{item.Downvote}</p>
             </>
-          ) : null}
+          ) : (
+            <>
+              <button className={hidden + "block hover:cursor-pointer"}>
+                <DownvoteIcon />
+              </button>
+              <p className={hidden + "p-2"}>{item.Downvote}</p>
+            </>
+          )}
         </div>
         <div>
           {/* User & Time Container */}
@@ -95,7 +111,14 @@ const HiveContentContainer = ({ item }: { item: TContent }) => {
                   </button>
                   <p className="p-2">{item.Upvote}</p>
                 </>
-              ) : null}
+              ) : (
+                <>
+                  <button className={hidden + "block hover:cursor-pointer"}>
+                    <UpvoteIcon />
+                  </button>
+                  <p className={hidden + "p-2"}>{item.Upvote}</p>
+                </>
+              )}
               {votingState.downvote === true ? (
                 <>
                   <button className="block hover:cursor-pointer">
@@ -114,7 +137,14 @@ const HiveContentContainer = ({ item }: { item: TContent }) => {
                   </button>
                   <p className="p-2">{item.Downvote}</p>
                 </>
-              ) : null}
+              ) : (
+                <>
+                  <button className={hidden + "block hover:cursor-pointer"}>
+                    <DownvoteIcon />
+                  </button>
+                  <p className={hidden + "p-2"}>{item.Downvote}</p>
+                </>
+              )}
             </div>
             {/* Comment Container */}
             <div className="flex w-max p-2 justify-evenly rounded-md text-sm">
