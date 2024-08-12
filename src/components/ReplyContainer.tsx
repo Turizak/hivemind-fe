@@ -1,9 +1,10 @@
 import getIso from "../utils/tokenTools/getIso";
 import { TComment } from "../types";
-//import UpvoteIcon from "../assets/UpvoteIcon";
-// import DownvoteIcon from "../assets/DownvoteIcon";
-
+import UpvoteIcon from "../assets/UpvoteIcon";
+import DownvoteIcon from "../assets/DownvoteIcon";
+import useShowVotes from "../hooks/useShowVotes";
 const ReplyContainer = (props: TComment) => {
+  const votingState = useShowVotes(props.Uuid);
   return (
     <div
       className="p-3 mx-auto my-4 max-w-xl bg-gray-400 xs:rounded-none sm:rounded-md"
@@ -24,16 +25,46 @@ const ReplyContainer = (props: TComment) => {
           </div>
           {/* Horizontal Vote Container */}
           <div className="flex gap-2">
-            {/* <div className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200">
-              <button>
-                <UpvoteIcon />
-              </button>
-              <p className="px-2"></p>
-              <button>
-                <DownvoteIcon />
-              </button>
-              <p className="px-2"></p>
-            </div> */}
+            <div className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200">
+              {votingState.upvote === true ? (
+                <>
+                  <button className="block hover:cursor-pointer">
+                    <UpvoteIcon
+                      fill="rgba(251, 191, 36, 1)"
+                      stroke="rgba(0, 0, 0, 1)"
+                    />
+                  </button>
+                  <p className="p-2">{props.Upvote}</p>
+                </>
+              ) : votingState.downvote === false &&
+                votingState.upvote === false ? (
+                <>
+                  <button className="block hover:cursor-pointer">
+                    <UpvoteIcon />
+                  </button>
+                  <p className="p-2">{props.Upvote}</p>
+                </>
+              ) : null}
+              {votingState.downvote === true ? (
+                <>
+                  <button className="block hover:cursor-pointer">
+                    <DownvoteIcon
+                      fill="rgba(251, 191, 36, 1)"
+                      stroke="rgba(0, 0, 0, 1)"
+                    />
+                  </button>
+                  <p className="p-2">{props.Downvote}</p>
+                </>
+              ) : votingState.downvote === false &&
+                votingState.upvote === false ? (
+                <>
+                  <button className="block hover:cursor-pointer">
+                    <DownvoteIcon />
+                  </button>
+                  <p className="p-2">{props.Downvote}</p>
+                </>
+              ) : null}
+            </div>
           </div>
         </div>
       </div>
