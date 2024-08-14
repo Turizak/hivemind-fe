@@ -1,9 +1,16 @@
 import { useState, useEffect } from "react";
 import { TContent } from "../types";
+import useUpvote from "../hooks/useUpvote";
 import UpvoteIcon from "../assets/UpvoteIcon";
 import DownvoteIcon from "../assets/DownvoteIcon";
 
-const VoteContainer = ({ Upvote, Downvote, Uuid }: TContent) => {
+const VoteContainer = ({
+  Upvote,
+  Downvote,
+  Uuid,
+  refetchVotes,
+}: TContent & { refetchVotes: () => void }) => {
+  const baseURL = import.meta.env.VITE_BASEURL;
   const [votingState, setVotingState] = useState({
     upvoteState: false,
     downvoteState: false,
@@ -44,6 +51,13 @@ const VoteContainer = ({ Upvote, Downvote, Uuid }: TContent) => {
   }, [Uuid]);
 
   const upvoteClickHandler = () => {
+    if (votingState.upvoteState === false) {
+      useUpvote(baseURL + "/content/uuid/" + Uuid + "/add-upvote");
+    }
+    if (votingState.upvoteState === true) {
+      useUpvote(baseURL + "/content/uuid/" + Uuid + "/remove-upvote");
+    }
+
     setVotingState((prevState) => {
       const newUpvoteState = !prevState.upvoteState;
       const newUpvoteCount = newUpvoteState
@@ -61,6 +75,7 @@ const VoteContainer = ({ Upvote, Downvote, Uuid }: TContent) => {
         downvoteIconDisplay: newUpvoteState ? "hidden " : "",
       };
     });
+    refetchVotes();
   };
   const downvoteClickHandler = () => {
     setVotingState((prevState) => {
