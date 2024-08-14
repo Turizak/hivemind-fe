@@ -25,7 +25,7 @@ const VoteContainer = ({
   });
 
   const markVotes = () => {
-    if (voteData.Upvotes && voteData.Upvotes.includes(Uuid)) {
+    if (voteData?.Upvotes && voteData.Upvotes.includes(Uuid)) {
       setVotingState((prev) => ({
         ...prev,
         upvoteState: true,
@@ -34,7 +34,7 @@ const VoteContainer = ({
         downvoteIconDisplay: "hidden ",
       }));
     }
-    if (voteData.Downvotes && voteData.Downvotes.includes(Uuid)) {
+    if (voteData?.Downvotes && voteData.Downvotes.includes(Uuid)) {
       setVotingState((prev) => ({
         ...prev,
         downvoteState: true,

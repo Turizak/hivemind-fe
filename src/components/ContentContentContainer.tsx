@@ -11,6 +11,8 @@ const ContentContentContainer = (props: TContent) => {
   const { data, isLoading, isFetching, isError } = useGetVotes(
     baseURL + "/content/votes"
   );
+  console.log(data);
+  console.log(props);
   return (
     <div
       className="p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md"
