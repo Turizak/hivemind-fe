@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useForm } from "@tanstack/react-form";
 import getIso from "../utils/tokenTools/getIso";
+import useGetVotes from "../hooks/useGetVotes";
 import VoteContainer from "./VoteContainer";
 import { TComment } from "../types";
 import ReplyContainer from "./ReplyContainer";
@@ -11,11 +12,14 @@ const CommentContainer = (props: any) => {
   // URL Variables
   const baseURL = import.meta.env.VITE_BASEURL;
   const params = useParams();
+  const voteURL = baseURL + "/comment/uuid/" + props.Uuid;
 
   // State
   const [replyTextareaShow, setReplyTextareaShow] = useState<boolean>(false);
   const [replyButtonShow, setReplyButtonShow] = useState<boolean>(false);
   const [replyButtonText, setReplyButtonText] = useState<string>("Add Reply");
+
+  useGetVotes(baseURL + "/content/votes");
 
   // ----- Reply Start ----- //
   const form = useForm({
@@ -94,7 +98,7 @@ const CommentContainer = (props: any) => {
           {/* Horizontal Vote Container */}
           <div className="flex gap-2">
             <div className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200">
-              <VoteContainer {...props} />
+              <VoteContainer {...props} voteURL={voteURL} />
               {/* Comment Container */}
               <button
                 className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200"

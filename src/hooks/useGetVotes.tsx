@@ -33,6 +33,8 @@ const useGetVotes = (url: string) => {
       throw new Error(`${response.status}: Failed to fetch`);
     }
     const data = await response.json();
+    localStorage.setItem("Upvotes", data.Upvotes);
+    localStorage.setItem("Downvotes", data.Downvotes);
     return data;
   };
 

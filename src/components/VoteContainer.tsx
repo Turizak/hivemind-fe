@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { TContent } from "../types";
-import useGetVotes from "../hooks/useGetVotes";
 import useUpvote from "../hooks/useUpvote";
 import UpvoteIcon from "../assets/UpvoteIcon";
 import DownvoteIcon from "../assets/DownvoteIcon";
 
-const VoteContainer = ({ Upvote, Downvote, Uuid }: TContent) => {
-  const baseURL = import.meta.env.VITE_BASEURL;
+const VoteContainer = ({
+  Upvote,
+  Downvote,
+  Uuid,
+  voteURL,
+}: TContent & { voteURL: string }) => {
   const [votingState, setVotingState] = useState({
     upvoteState: false,
     downvoteState: false,
@@ -20,11 +23,9 @@ const VoteContainer = ({ Upvote, Downvote, Uuid }: TContent) => {
     downvoteIconStroke: "none",
   });
 
-  const { data } = useGetVotes(baseURL + "/content/votes");
-
   useEffect(() => {
-    const upvotes = data.Upvotes;
-    const downvotes = data.Downvotes;
+    const upvotes = localStorage.getItem("Upvotes");
+    const downvotes = localStorage.getItem("Downvotes");
 
     setVotingState((prevState) => {
       const newUpvoteState = upvotes?.includes(Uuid) ?? false;
@@ -48,12 +49,12 @@ const VoteContainer = ({ Upvote, Downvote, Uuid }: TContent) => {
     });
   }, [Uuid]);
 
-  const upvoteClickHandler = () => {
+  const upvoteClickHandler = (voteURL: string) => {
     if (votingState.upvoteState === false) {
-      useUpvote(baseURL + "/content/uuid/" + Uuid + "/add-upvote");
+      useUpvote(voteURL + "/add-upvote");
     }
     if (votingState.upvoteState === true) {
-      useUpvote(baseURL + "/content/uuid/" + Uuid + "/remove-upvote");
+      useUpvote(voteURL + "/remove-upvote");
     }
     setVotingState((prevState) => {
       const newUpvoteState = !prevState.upvoteState;
@@ -73,12 +74,12 @@ const VoteContainer = ({ Upvote, Downvote, Uuid }: TContent) => {
       };
     });
   };
-  const downvoteClickHandler = () => {
+  const downvoteClickHandler = (voteURL: string) => {
     if (votingState.downvoteState === false) {
-      useUpvote(baseURL + "/content/uuid/" + Uuid + "/add-downvote");
+      useUpvote(voteURL + "/add-downvote");
     }
     if (votingState.downvoteState === true) {
-      useUpvote(baseURL + "/content/uuid/" + Uuid + "/remove-downvote");
+      useUpvote(voteURL + "/remove-downvote");
     }
     setVotingState((prevState) => {
       const newDownvoteState = !prevState.downvoteState;
@@ -103,7 +104,7 @@ const VoteContainer = ({ Upvote, Downvote, Uuid }: TContent) => {
     <>
       <button
         className={votingState.upvoteIconDisplay + "block hover:cursor-pointer"}
-        onClick={upvoteClickHandler}
+        onClick={() => upvoteClickHandler(voteURL)}
       >
         <UpvoteIcon
           fill={votingState.upvoteIconFill}
@@ -117,7 +118,7 @@ const VoteContainer = ({ Upvote, Downvote, Uuid }: TContent) => {
         className={
           votingState.downvoteIconDisplay + "block hover:cursor-pointer"
         }
-        onClick={downvoteClickHandler}
+        onClick={() => downvoteClickHandler(voteURL)}
       >
         <DownvoteIcon
           fill={votingState.downvoteIconFill}
