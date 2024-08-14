@@ -1,5 +1,4 @@
 import useGET from "../hooks/useGET";
-import useGetVotes from "../hooks/useGetVotes";
 import HiveContentContainer from "../components/HiveContentContainer";
 import { useParams } from "react-router-dom";
 import { TContent } from "../types";
@@ -8,8 +7,7 @@ const Hive = () => {
   const params = useParams();
   const baseURL = import.meta.env.VITE_BASEURL;
 
-  useGetVotes(baseURL + "/content/votes");
-  const { data, error, refetch, isLoading, isFetching, isError } = useGET(
+  const { data, error, isLoading, isFetching, isError } = useGET(
     baseURL + "/hive/uuid/" + params.hiveUuid + "/content"
   );
 
@@ -37,11 +35,7 @@ const Hive = () => {
       ) : (
         data &&
         data.map((data: TContent) => (
-          <HiveContentContainer
-            key={data.Id}
-            item={data}
-            refetchVotes={refetch}
-          />
+          <HiveContentContainer key={data.Id} item={data} />
         ))
       )}
     </>

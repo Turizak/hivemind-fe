@@ -4,13 +4,7 @@ import { TContent } from "../types";
 import CommentIcon from "../assets/CommentIcon";
 import VoteContainer from "./VoteContainer";
 
-const HiveContentContainer = ({
-  item,
-  refetchVotes,
-}: {
-  item: TContent;
-  refetchVotes: () => void;
-}) => {
+const HiveContentContainer = ({ item }: { item: TContent }) => {
   return (
     <div
       className="p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md"
@@ -19,7 +13,7 @@ const HiveContentContainer = ({
       <div className="flex gap-2">
         {/* Vertical Vote Container */}
         <div className="hidden md:flex flex-col p-2 h-max rounded-md text-sm">
-          <VoteContainer {...item} refetchVotes={refetchVotes} />
+          <VoteContainer {...item} />
         </div>
         <div>
           {/* User & Time Container */}
@@ -41,7 +35,7 @@ const HiveContentContainer = ({
           {/* Horizontal Vote Container */}
           <div className="flex gap-2">
             <div className="flex w-max p-2 justify-evenly rounded-md text-sm md:hidden">
-              <VoteContainer {...item} refetchVotes={refetchVotes} />
+              <VoteContainer {...item} />
             </div>
             {/* Comment Container */}
             <div className="flex w-max p-2 justify-evenly rounded-md text-sm">

@@ -11,32 +11,30 @@ const useGetVotes = (url: string) => {
   Upon refresh, the user will be routed to the login page.
   */
   const getVotes = async () => {
-    const token = await validateToken()
+    const token = await validateToken();
     if (token?.refreshTokenExpired === true) {
-      localStorage.clear()
-      return
+      localStorage.clear();
+      return;
     }
     if (token?.accessTokenExpired === true) {
       await getNewAccessToken();
     }
     const data = await getData(url);
     return data;
+  };
+  const getData = async (url: string) => {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.accessToken}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`${response.status}: Failed to fetch`);
     }
-    const getData = async (url: string) => {
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${localStorage.accessToken}`,
-        },
-      });
-      if (!response.ok) {
-        throw new Error(`${response.status}: Failed to fetch`);
-      }
-      const data = await response.json();
-      localStorage.setItem("Upvotes", data.Upvotes);
-      localStorage.setItem("Downvotes", data.Downvotes);
-      return data;
-    };
+    const data = await response.json();
+    return data;
+  };
 
   const { data, error, refetch, isLoading, isError, isFetching } = useQuery({
     queryKey: ["votes", url],
