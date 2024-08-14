@@ -1,5 +1,5 @@
 import getIso from "../utils/tokenTools/getIso";
-import VoteContainer from "./VoteContainer";
+// import VoteContainer from "./VoteContainer";
 import { TComment } from "../types";
 
 const ReplyContainer = (props: TComment) => {
@@ -23,9 +23,9 @@ const ReplyContainer = (props: TComment) => {
           </div>
           {/* Horizontal Vote Container */}
           <div className="flex gap-2">
-            <div className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200">
-              <VoteContainer {...props} />
-            </div>
+            {/* <div className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200">
+              <VoteContainer {...props}  />
+            </div> */}
           </div>
         </div>
       </div>
