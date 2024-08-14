@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
+import { TContent } from "../types";
 import UpvoteIcon from "../assets/UpvoteIcon";
 import DownvoteIcon from "../assets/DownvoteIcon";
 
-const VoteContainer = ({ Upvote, Downvote, Uuid }: any) => {
+const VoteContainer = ({ Upvote, Downvote, Uuid }: TContent) => {
   const [votingState, setVotingState] = useState({
     upvoteState: false,
     downvoteState: false,
@@ -16,66 +17,70 @@ const VoteContainer = ({ Upvote, Downvote, Uuid }: any) => {
     downvoteIconStroke: "none",
   });
 
-  function renderVotingContainer(Uuid: any) {
+  useEffect(() => {
     const upvotes = localStorage.getItem("Upvotes");
     const downvotes = localStorage.getItem("Downvotes");
-    if (upvotes?.includes(Uuid)) {
-      setVotingState((votingState) => ({ ...votingState, upvoteState: true }));
-    }
-    if (downvotes?.includes(Uuid)) {
-      setVotingState((votingState) => ({
-        ...votingState,
-        downvoteState: true,
-      }));
-    }
-    if (votingState.upvoteState === true) {
-      setVotingState((votingState) => ({
-        ...votingState,
-        upvoteIconFill: "rgba(251,191,36,1)",
-        upvoteIconStroke: "rgba(0, 0, 0, 1)",
-        downvoteIconDisplay: "hidden ",
-      }));
-    }
-    if (votingState.downvoteState === true) {
-      setVotingState((votingState) => ({
-        ...votingState,
-        downvoteIconFill: "rgba(251,191,36,1)",
-        downvoteIconStroke: "rgba(0, 0, 0, 1)",
-        upvoteIconDisplay: "hidden ",
-      }));
-    }
-  }
 
-  useEffect(() => {
-    renderVotingContainer(Uuid);
-  }, []);
+    setVotingState((prevState) => {
+      const newUpvoteState = upvotes?.includes(Uuid) ?? false;
+      const newDownvoteState = downvotes?.includes(Uuid) ?? false;
 
-  function upvoteClickHandler() {
-    setVotingState((votingState) => ({
-      ...votingState,
-      upvoteState: !votingState.upvoteState,
-    }));
-    console.log(votingState.upvoteState);
-    if (votingState.upvoteState === true) {
-      setVotingState((votingState) => ({
-        ...votingState,
-        upvoteIconFill: "rgba(251,191,36,1)",
-        upvoteIconStroke: "rgba(0, 0, 0, 1)",
-        upvoteCount: votingState.upvoteCount + 1,
-        downvoteIconDisplay: "hidden ",
-      }));
-    }
-    if (votingState.upvoteState === false) {
-      setVotingState((votingState) => ({
-        ...votingState,
-        upvoteIconFill: "rgba(0,0,0,1)",
-        upvoteIconStroke: "none",
-        upvoteCount: votingState.upvoteCount - 1,
-        downvoteIconDisplay: "",
-      }));
-    }
-  }
-  // function downvoteClickHandler() {}
+      return {
+        ...prevState,
+        upvoteState: newUpvoteState,
+        downvoteState: newDownvoteState,
+        upvoteIconFill: newUpvoteState
+          ? "rgba(251,191,36,1)"
+          : "rgba(0, 0, 0, 1)",
+        upvoteIconStroke: newUpvoteState ? "rgba(0, 0, 0, 1)" : "none",
+        downvoteIconFill: newDownvoteState
+          ? "rgba(251,191,36,1)"
+          : "rgba(0, 0, 0, 1)",
+        downvoteIconStroke: newDownvoteState ? "rgba(0, 0, 0, 1)" : "none",
+        upvoteIconDisplay: newDownvoteState ? "hidden " : "",
+        downvoteIconDisplay: newUpvoteState ? "hidden " : "",
+      };
+    });
+  }, [Uuid]);
+
+  const upvoteClickHandler = () => {
+    setVotingState((prevState) => {
+      const newUpvoteState = !prevState.upvoteState;
+      const newUpvoteCount = newUpvoteState
+        ? prevState.upvoteCount + 1
+        : prevState.upvoteCount - 1;
+
+      return {
+        ...prevState,
+        upvoteState: newUpvoteState,
+        upvoteCount: newUpvoteCount,
+        upvoteIconFill: newUpvoteState
+          ? "rgba(251,191,36,1)"
+          : "rgba(0, 0, 0, 1)",
+        upvoteIconStroke: newUpvoteState ? "rgba(0, 0, 0, 1)" : "none",
+        downvoteIconDisplay: newUpvoteState ? "hidden " : "",
+      };
+    });
+  };
+  const downvoteClickHandler = () => {
+    setVotingState((prevState) => {
+      const newDownvoteState = !prevState.downvoteState;
+      const newDownvoteCount = newDownvoteState
+        ? prevState.downvoteCount + 1
+        : prevState.downvoteCount - 1;
+
+      return {
+        ...prevState,
+        downvoteState: newDownvoteState,
+        downvoteCount: newDownvoteCount,
+        downvoteIconFill: newDownvoteState
+          ? "rgba(251,191,36,1)"
+          : "rgba(0, 0, 0, 1)",
+        downvoteIconStroke: newDownvoteState ? "rgba(0, 0, 0, 1)" : "none",
+        upvoteIconDisplay: newDownvoteState ? "hidden " : "",
+      };
+    });
+  };
 
   return (
     <>
@@ -95,6 +100,7 @@ const VoteContainer = ({ Upvote, Downvote, Uuid }: any) => {
         className={
           votingState.downvoteIconDisplay + "block hover:cursor-pointer"
         }
+        onClick={downvoteClickHandler}
       >
         <DownvoteIcon
           fill={votingState.downvoteIconFill}
