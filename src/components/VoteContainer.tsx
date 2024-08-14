@@ -8,8 +8,12 @@ const VoteContainer = ({
   Upvote,
   Downvote,
   Uuid,
+  voteData,
   voteURL,
-}: TContent & { voteURL: string }) => {
+}: TContent & { voteURL: string; voteData: any }) => {
+  const [voteArray, setVoteArray] = useState({
+    voteData,
+  });
   const [votingState, setVotingState] = useState({
     upvoteState: false,
     downvoteState: false,
@@ -23,31 +27,30 @@ const VoteContainer = ({
     downvoteIconStroke: "none",
   });
 
+  const markVotes = () => {
+    if (voteData.Upvotes && voteData.Upvotes.includes(Uuid)) {
+      setVotingState((prev) => ({
+        ...prev,
+        upvoteState: true,
+        upvoteIconFill: "rgba(251,191,36,1)",
+        upvoteIconStroke: "rgba(0, 0, 0, 1)",
+        downvoteIconDisplay: "hidden ",
+      }));
+    }
+    if (voteData.Downvotes && voteData.Downvotes.includes(Uuid)) {
+      setVotingState((prev) => ({
+        ...prev,
+        downvoteState: true,
+        downvoteIconFill: "rgba(251,191,36,1)",
+        downvoteIconStroke: "rgba(0, 0, 0, 1)",
+        upvoteIconDisplay: "hidden ",
+      }));
+    }
+  };
+
   useEffect(() => {
-    const upvotes = localStorage.getItem("Upvotes");
-    const downvotes = localStorage.getItem("Downvotes");
-
-    setVotingState((prevState) => {
-      const newUpvoteState = upvotes?.includes(Uuid) ?? false;
-      const newDownvoteState = downvotes?.includes(Uuid) ?? false;
-
-      return {
-        ...prevState,
-        upvoteState: newUpvoteState,
-        downvoteState: newDownvoteState,
-        upvoteIconFill: newUpvoteState
-          ? "rgba(251,191,36,1)"
-          : "rgba(0, 0, 0, 1)",
-        upvoteIconStroke: newUpvoteState ? "rgba(0, 0, 0, 1)" : "none",
-        downvoteIconFill: newDownvoteState
-          ? "rgba(251,191,36,1)"
-          : "rgba(0, 0, 0, 1)",
-        downvoteIconStroke: newDownvoteState ? "rgba(0, 0, 0, 1)" : "none",
-        upvoteIconDisplay: newDownvoteState ? "hidden " : "",
-        downvoteIconDisplay: newUpvoteState ? "hidden " : "",
-      };
-    });
-  }, [Uuid]);
+    markVotes();
+  }, [voteArray]);
 
   const upvoteClickHandler = (voteURL: string) => {
     if (votingState.upvoteState === false) {
