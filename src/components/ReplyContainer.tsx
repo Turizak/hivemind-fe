@@ -1,7 +1,6 @@
 import getIso from "../utils/tokenTools/getIso";
+// import VoteContainer from "./VoteContainer";
 import { TComment } from "../types";
-//import UpvoteIcon from "../assets/UpvoteIcon";
-// import DownvoteIcon from "../assets/DownvoteIcon";
 
 const ReplyContainer = (props: TComment) => {
   return (
@@ -25,14 +24,7 @@ const ReplyContainer = (props: TComment) => {
           {/* Horizontal Vote Container */}
           <div className="flex gap-2">
             {/* <div className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200">
-              <button>
-                <UpvoteIcon />
-              </button>
-              <p className="px-2"></p>
-              <button>
-                <DownvoteIcon />
-              </button>
-              <p className="px-2"></p>
+              <VoteContainer {...props}  />
             </div> */}
           </div>
         </div>

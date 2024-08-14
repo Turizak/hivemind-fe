@@ -1,13 +1,18 @@
 import getIso from "../utils/tokenTools/getIso";
+import useGetVotes from "../hooks/useGetVotes";
 import { Link } from "react-router-dom";
 import { TContent } from "../types";
-import useShowVotes from "../hooks/useShowVotes";
+import VoteContainer from "./VoteContainer";
 import CommentIcon from "../assets/CommentIcon";
-import UpvoteIcon from "../assets/UpvoteIcon";
-import DownvoteIcon from "../assets/DownvoteIcon";
 
 const ContentContentContainer = (props: TContent) => {
-  const votingState = useShowVotes(props.Uuid);
+  const baseURL = import.meta.env.VITE_BASEURL;
+  const voteURL = baseURL + "/content/uuid/" + props.Uuid;
+  const { data, isLoading, isFetching, isError } = useGetVotes(
+    baseURL + "/content/votes"
+  );
+  console.log(data);
+  console.log(props);
   return (
     <div
       className="p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md"
@@ -16,45 +21,13 @@ const ContentContentContainer = (props: TContent) => {
       <div className="flex gap-2">
         {/* Vertical Vote Container */}
         <div className="hidden md:flex flex-col p-2 h-max rounded-md text-sm">
-          {votingState.upvote === true ? (
-            <>
-              <button
-                className="block hover:cursor-pointer"
-                onClick={() => (votingState.upvote = false)}
-              >
-                <UpvoteIcon
-                  fill="rgba(251, 191, 36, 1)"
-                  stroke="rgba(0, 0, 0, 1)"
-                />
-              </button>
-              <p className="p-2">{props.Upvote}</p>
-            </>
-          ) : votingState.downvote === false && votingState.upvote === false ? (
-            <>
-              <button className="block hover:cursor-pointer">
-                <UpvoteIcon />
-              </button>
-              <p className="p-2">{props.Upvote}</p>
-            </>
-          ) : null}
-          {votingState.downvote === true ? (
-            <>
-              <button className="block hover:cursor-pointer">
-                <DownvoteIcon
-                  fill="rgba(251, 191, 36, 1)"
-                  stroke="rgba(0, 0, 0, 1)"
-                />
-              </button>
-              <p className="p-2">{props.Downvote}</p>
-            </>
-          ) : votingState.downvote === false && votingState.upvote === false ? (
-            <>
-              <button className="block hover:cursor-pointer">
-                <DownvoteIcon />
-              </button>
-              <p className="p-2">{props.Downvote}</p>
-            </>
-          ) : null}
+          {isLoading || isFetching ? (
+            "..."
+          ) : isError ? (
+            "Error"
+          ) : (
+            <VoteContainer {...props} voteData={data} voteURL={voteURL} />
+          )}
         </div>
         <div>
           {/* User & Time Container */}
@@ -76,44 +49,13 @@ const ContentContentContainer = (props: TContent) => {
           {/* Horizontal Vote Container */}
           <div className="flex gap-2">
             <div className="flex w-max p-2 justify-evenly rounded-md text-sm md:hidden">
-              {votingState.upvote === true ? (
-                <>
-                  <button className="block hover:cursor-pointer">
-                    <UpvoteIcon
-                      fill="rgba(251, 191, 36, 1)"
-                      stroke="rgba(0, 0, 0, 1)"
-                    />
-                  </button>
-                  <p className="p-2">{props.Upvote}</p>
-                </>
-              ) : votingState.downvote === false &&
-                votingState.upvote === false ? (
-                <>
-                  <button className="block hover:cursor-pointer">
-                    <UpvoteIcon />
-                  </button>
-                  <p className="p-2">{props.Upvote}</p>
-                </>
-              ) : null}
-              {votingState.downvote === true ? (
-                <>
-                  <button className="block hover:cursor-pointer">
-                    <DownvoteIcon
-                      fill="rgba(251, 191, 36, 1)"
-                      stroke="rgba(0, 0, 0, 1)"
-                    />
-                  </button>
-                  <p className="p-2">{props.Downvote}</p>
-                </>
-              ) : votingState.downvote === false &&
-                votingState.upvote === false ? (
-                <>
-                  <button className="block hover:cursor-pointer">
-                    <DownvoteIcon />
-                  </button>
-                  <p className="p-2">{props.Downvote}</p>
-                </>
-              ) : null}
+              {isLoading || isFetching ? (
+                "..."
+              ) : isError ? (
+                "Error"
+              ) : (
+                <VoteContainer {...props} voteData={data} voteURL={voteURL} />
+              )}
             </div>
             {/* Comment Container */}
             <div className="flex w-max p-2 justify-evenly rounded-md text-sm">

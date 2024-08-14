@@ -19,6 +19,7 @@ const UserDropdown = () => {
       accountUUID: "",
     }));
     navigate("/login");
+    location.reload();
   }
   return (
     <DropdownMenu.Root>
