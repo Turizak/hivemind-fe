@@ -8,7 +8,9 @@ import CommentIcon from "../assets/CommentIcon";
 const ContentContentContainer = (props: TContent) => {
   const baseURL = import.meta.env.VITE_BASEURL;
   const voteURL = baseURL + "/content/uuid/" + props.Uuid;
-  useGetVotes(baseURL + "/content/votes");
+  const { data, isLoading, isFetching, isError } = useGetVotes(
+    baseURL + "/content/votes"
+  );
   return (
     <div
       className="p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md"
@@ -17,7 +19,13 @@ const ContentContentContainer = (props: TContent) => {
       <div className="flex gap-2">
         {/* Vertical Vote Container */}
         <div className="hidden md:flex flex-col p-2 h-max rounded-md text-sm">
-          <VoteContainer {...props} voteURL={voteURL} />
+          {isLoading || isFetching ? (
+            "..."
+          ) : isError ? (
+            "Error"
+          ) : (
+            <VoteContainer {...props} voteData={data} voteURL={voteURL} />
+          )}
         </div>
         <div>
           {/* User & Time Container */}
@@ -39,7 +47,13 @@ const ContentContentContainer = (props: TContent) => {
           {/* Horizontal Vote Container */}
           <div className="flex gap-2">
             <div className="flex w-max p-2 justify-evenly rounded-md text-sm md:hidden">
-              <VoteContainer {...props} voteURL={voteURL} />
+              {isLoading || isFetching ? (
+                "..."
+              ) : isError ? (
+                "Error"
+              ) : (
+                <VoteContainer {...props} voteData={data} voteURL={voteURL} />
+              )}
             </div>
             {/* Comment Container */}
             <div className="flex w-max p-2 justify-evenly rounded-md text-sm">
