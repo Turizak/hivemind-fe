@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import UpvoteIcon from "../assets/UpvoteIcon";
 import DownvoteIcon from "../assets/DownvoteIcon";
 
-const VoteContainer = (item: any) => {
+const VoteContainer = ({ Upvote, Downvote, Uuid }: any) => {
   const [votingState, setVotingState] = useState({
     upvoteState: false,
     downvoteState: false,
-    upvoteCount: item.Upvote,
-    downvoteCount: item.Downvote,
+    upvoteCount: Upvote,
+    downvoteCount: Downvote,
     upvoteIconDisplay: "",
     downvoteIconDisplay: "",
     upvoteIconFill: "rgba(0, 0, 0, 1)",
@@ -20,10 +20,13 @@ const VoteContainer = (item: any) => {
     const upvotes = localStorage.getItem("Upvotes");
     const downvotes = localStorage.getItem("Downvotes");
     if (upvotes?.includes(Uuid)) {
-      votingState.upvoteState = true;
+      setVotingState((votingState) => ({ ...votingState, upvoteState: true }));
     }
     if (downvotes?.includes(Uuid)) {
-      votingState.downvoteState = true;
+      setVotingState((votingState) => ({
+        ...votingState,
+        downvoteState: true,
+      }));
     }
     if (votingState.upvoteState === true) {
       setVotingState((votingState) => ({
@@ -44,7 +47,7 @@ const VoteContainer = (item: any) => {
   }
 
   useEffect(() => {
-    renderVotingContainer(item.Uuid);
+    renderVotingContainer(Uuid);
   }, []);
 
   function upvoteClickHandler() {
@@ -72,7 +75,7 @@ const VoteContainer = (item: any) => {
       }));
     }
   }
-  function downvoteClickHandler() {}
+  // function downvoteClickHandler() {}
 
   return (
     <>
