@@ -11,9 +11,6 @@ const VoteContainer = ({
   voteData,
   voteURL,
 }: TContent & { voteURL: string; voteData: any }) => {
-  const [voteArray, setVoteArray] = useState({
-    voteData,
-  });
   const [votingState, setVotingState] = useState({
     upvoteState: false,
     downvoteState: false,
@@ -50,7 +47,7 @@ const VoteContainer = ({
 
   useEffect(() => {
     markVotes();
-  }, [voteArray]);
+  }, [voteData]);
 
   const upvoteClickHandler = (voteURL: string) => {
     if (votingState.upvoteState === false) {
