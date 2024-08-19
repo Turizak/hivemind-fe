@@ -1,9 +1,12 @@
 import { useForm } from "@tanstack/react-form";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { TSession } from "../types";
 import validateEmail from "../utils/formValidation/validateEmail";
 import setStorage from "../utils/setStorage";
+import SessionContext from "../context/SessionProvider";
+
 
 type LoginCredentials = {
   email: string;
@@ -12,6 +15,11 @@ type LoginCredentials = {
 
 const LoginForm: React.FC = () => {
   const [buttonText, setButtonText] = useState<string>("Submit");
+  const context = useContext(SessionContext);
+  if (context === undefined) {
+    throw new Error("Context is undefined");
+  }
+  const { setSession } = context
   const baseURL = import.meta.env.VITE_BASEURL;
   const navigate = useNavigate();
 
@@ -45,6 +53,15 @@ const LoginForm: React.FC = () => {
       }
       const results = await response.json();
       setStorage(results.Token, results.RefreshToken);
+      setSession((prev: TSession) => ({
+        ...prev, 
+        accessToken: localStorage.getItem("accessToken"),
+        refreshToken: localStorage.getItem('refreshToken'),
+        username: localStorage.getItem("username"),
+        accountUUID: localStorage.getItem("accountUUID"),
+        accessTokenExpiry: localStorage.getItem('accessTokenExpiry'),
+        refreshTokenExpiry: localStorage.getItem('refreshTokenExpiry'),
+      }))
       navigate("/");
       location.reload();
     } catch (error) {
