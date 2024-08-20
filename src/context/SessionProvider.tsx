@@ -13,6 +13,9 @@ const defaultSession: TSession = {
   accountUUID: localStorage.getItem("accountUUID"),
   accessTokenExpiry: localStorage.getItem('accessTokenExpiry'),
   refreshTokenExpiry: localStorage.getItem('refreshTokenExpiry'),
+  contentUpvotes: localStorage.getItem('contentUpvotes'),
+  contentDownvotes: localStorage.getItem('contentDownvotes'),
+  commentVotes: localStorage.getItem('commentsVoted'),
 };
 
 const SessionContext = createContext<SessionContextType | undefined>(undefined);

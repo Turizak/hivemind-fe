@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useForm } from "@tanstack/react-form";
 import getIso from "../utils/tokenTools/getIso";
-import useGetVotes from "../hooks/useGetVotes";
+import useGetVotes from "../hooks/useGetContentVotes";
 import VoteContainer from "./VoteContainer";
 import { TComment } from "../types";
 import ReplyContainer from "./ReplyContainer";

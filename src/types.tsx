@@ -41,6 +41,9 @@ export type TSession = {
   refreshToken: string | null;
   username: string | null;
   accountUUID: string | null;
+  contentUpvotes: string | null;
+  contentDownvotes: string | null;
+  commentVotes: string | null;
 };
 
 export type TPassError = {

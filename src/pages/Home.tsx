@@ -1,18 +1,17 @@
-import useGET from "../hooks/useGET";
-import HomeContentContainer from "../components/HomeContentContainer";
-import { TContent } from "../types";
+import useGET from '../hooks/useGET';
+import HomeContentContainer from '../components/HomeContentContainer';
+import { TContent } from '../types';
 
 const Home = () => {
   const baseURL = import.meta.env.VITE_BASEURL;
 
-
   const { data, error, isLoading, isFetching, isError } = useGET(
-    baseURL + "/hive",
+    baseURL + '/hive'
   );
 
   return (
     <>
-        <div className="text-center text-3xl p-8 w-full bg-yellow-400">
+      <div className="text-center text-3xl p-8 w-full bg-yellow-400">
         Select a Hive
       </div>
       {isLoading ? (
