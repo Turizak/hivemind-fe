@@ -1,8 +1,15 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import SessionContext from "../context/SessionProvider";
 import CreateDropdown from "./CreateDropdown";
 import UserDropdown from "./UserDropdown";
 
 const Navbar = () => {
+  const context = useContext(SessionContext);
+  if (context === undefined) {
+    throw new Error("Context is undefined");
+  }
+  const { session } = context
   return (
     <nav className="bg-black text-white">
       <ul className="flex justify-between">
@@ -11,10 +18,10 @@ const Navbar = () => {
         </li>
         <div className="flex">
           <li className="p-2">
-            {localStorage.accessToken ? <CreateDropdown /> : null}
+            {session.accessToken ? <CreateDropdown /> : null}
           </li>
           <li className="p-2">
-            {localStorage.accessToken ? <UserDropdown /> : null}
+            {session.accessToken ? <UserDropdown /> : null}
           </li>
         </div>
       </ul>
