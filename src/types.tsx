@@ -42,7 +42,7 @@ export type TSession = {
   username: string | null;
   accountUUID: string | null;
   contentVotes: string | null;
-  commentVotes: string | null;
+  commentVotes: any;
 };
 
 export type TPassError = {

@@ -61,6 +61,7 @@ const LoginForm: React.FC = () => {
       throw new Error(`${response.status}: Failed to fetch`);
     }
     const data = await response.json();
+    localStorage.setItem("commentVotes", data)
     return data;
   };
       const { data: votes } = useQuery({
@@ -97,7 +98,6 @@ const LoginForm: React.FC = () => {
 
   useEffect(() => {
     if (isLoggedIn && votes) {
-      console.log(votes)
       setSession((prev: TSession) => ({
         ...prev, 
         accessToken: localStorage.getItem("accessToken"),
@@ -111,7 +111,6 @@ const LoginForm: React.FC = () => {
       navigate('/')
     }
   }, [isLoggedIn, votes]);
-
 
   return (
     <div className="flex justify-center">

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useForm } from "@tanstack/react-form";
 import getIso from "../utils/tokenTools/getIso";
-import useGetVotes from "../hooks/useGetContentVotes";
 import VoteContainer from "./VoteContainer";
 import { TComment } from "../types";
 import ReplyContainer from "./ReplyContainer";
@@ -18,8 +17,6 @@ const CommentContainer = (props: any) => {
   const [replyTextareaShow, setReplyTextareaShow] = useState<boolean>(false);
   const [replyButtonShow, setReplyButtonShow] = useState<boolean>(false);
   const [replyButtonText, setReplyButtonText] = useState<string>("Add Reply");
-
-  useGetVotes(baseURL + "/content/votes");
 
   // ----- Reply Start ----- //
   const form = useForm({
