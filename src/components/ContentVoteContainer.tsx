@@ -1,6 +1,5 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect} from "react";
 import { TContent } from "../types";
-import SessionContext from "../context/SessionProvider";
 import useUpvote from "../hooks/useUpvote";
 import UpvoteIcon from "../assets/UpvoteIcon";
 import DownvoteIcon from "../assets/DownvoteIcon";
@@ -12,11 +11,7 @@ const VoteContainer = ({
   voteData,
   voteURL,
 }: TContent & { voteURL: string; voteData: any }) => {
- const context = useContext(SessionContext);
-  if (context === undefined) {
-    throw new Error("Context is undefined");
-  }
-  const { session } = context
+
   const [votingState, setVotingState] = useState({
     upvoteState: false,
     downvoteState: false,
@@ -30,10 +25,8 @@ const VoteContainer = ({
     downvoteIconStroke: "none",
   });
 
-
   const markVotes = () => {
     if (voteData?.Upvotes && voteData.Upvotes.includes(Uuid)) {
-      console.log([...session.commentVotes])
       setVotingState((prev) => ({
         ...prev,
         upvoteState: true,
@@ -49,6 +42,15 @@ const VoteContainer = ({
         downvoteIconFill: "rgba(251,191,36,1)",
         downvoteIconStroke: "rgba(0, 0, 0, 1)",
         upvoteIconDisplay: "hidden ",
+      }));
+    }
+    if (voteData?.ContentUuid && voteData.ContentUuid.Upvotes.includes(Uuid)) {
+      setVotingState((prev) => ({
+        ...prev,
+        upvoteState: true,
+        upvoteIconFill: "rgba(251,191,36,1)",
+        upvoteIconStroke: "rgba(0, 0, 0, 1)",
+        downvoteIconDisplay: "hidden ",
       }));
     }
   };

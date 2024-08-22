@@ -3,7 +3,7 @@ import getIso from "../utils/tokenTools/getIso";
 import useGetVotes from "../hooks/useGetContentVotes";
 import { TContent } from "../types";
 import CommentIcon from "../assets/CommentIcon";
-import VoteContainer from "./VoteContainer";
+import VoteContainer from "./ContentVoteContainer";
 
 const HiveContentContainer = ({ item }: { item: TContent }) => {
   const baseURL = import.meta.env.VITE_BASEURL;
