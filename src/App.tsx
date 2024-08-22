@@ -3,6 +3,7 @@
 import { Routes, Route } from "react-router-dom";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Hive from "./pages/HIve";
 import Profile from "./pages/Profile";
@@ -32,6 +33,7 @@ function App() {
       <ReactQueryDevtools
         initialIsOpen={import.meta.env.VITE_OPEN_DEVTOOLS === "true" ? true : false}
       />
+      <Footer />
     </>
   );
 }
