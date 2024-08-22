@@ -1,5 +1,5 @@
 import getIso from "../utils/tokenTools/getIso";
-import useGetVotes from "../hooks/useGetContentVotes";
+import useGetVotes from "../hooks/useGetVotes";
 import { Link } from "react-router-dom";
 import { TContent } from "../types";
 import VoteContainer from "./ContentVoteContainer";

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import getCommentVotes from "../hooks/getCommentVotes";
+import useGetVotes from "../hooks/useGetVotes"
 import { useParams } from "react-router-dom";
 import { useForm } from "@tanstack/react-form";
 import getIso from "../utils/tokenTools/getIso";
@@ -13,7 +13,7 @@ const CommentContainer = (props: any) => {
   const baseURL = import.meta.env.VITE_BASEURL;
   const params = useParams();
   const voteURL = baseURL + "/comment/uuid/" + props.Uuid;
-  const { data, isLoading, isFetching, isError } = getCommentVotes(
+  const { data, isLoading, isFetching, isError } = useGetVotes(
     baseURL + "/comment/votes"
   );
 
