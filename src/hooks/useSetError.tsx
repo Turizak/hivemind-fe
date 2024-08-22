@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 // @ts-nocheck
 import { ErrorContext } from "../context/ErrorContext";
 import { useContext, useState } from "react";

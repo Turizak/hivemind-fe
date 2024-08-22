@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import { createContext, useState, ReactNode } from "react";
 import { TSession } from "../types";
 

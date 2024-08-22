@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import { useContext, useState } from "react";
 import useGET from "../hooks/useGET";
 import { useForm } from "@tanstack/react-form";

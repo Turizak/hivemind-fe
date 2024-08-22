@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import getIso from "../utils/tokenTools/getIso";
 // import VoteContainer from "./VoteContainer";
 import { TComment } from "../types";

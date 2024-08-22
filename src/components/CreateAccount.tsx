@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import { useForm } from "@tanstack/react-form";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

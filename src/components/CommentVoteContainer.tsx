@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import { useState, useEffect } from 'react';
 import { TContent } from '../types';
 import useUpvote from '../hooks/useUpvote';
@@ -25,7 +27,7 @@ const VoteContainer = ({
   });
 
   const markVotes = (arr: any) => {
-    arr.forEach((item: any) => {
+    arr.map((item: any) => {
       if (item.Upvotes.includes(Uuid)) {
         setVotingState((prev) => ({
           ...prev,

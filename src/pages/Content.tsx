@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import useGET from "../hooks/useGET";
 import useGetComments from "../hooks/useGetComments";
 import { useParams } from "react-router-dom";

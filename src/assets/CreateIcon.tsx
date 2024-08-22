@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import { SvgProps } from "../types";
 
 const CreateIcon: React.FC<SvgProps> = ({

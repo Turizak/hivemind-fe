@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import getIso from "../utils/tokenTools/getIso";
 import useGetVotes from "../hooks/useGetVotes";
 import { Link } from "react-router-dom";

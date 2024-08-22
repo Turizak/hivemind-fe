@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import LoginForm from "../components/LoginForm";
 import ErrorMessage from "../components/ErrorMessage";
 

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import { useState, useContext} from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -35,6 +37,7 @@ const LoginForm: React.FC = () => {
 
   async function login(body: LoginCredentials) {
     try {
+      setButtonText("Logging in...")
       const response = await fetch(baseURL + "/account/login", {
         method: "POST",
         headers: {
@@ -51,6 +54,7 @@ const LoginForm: React.FC = () => {
 
         throw new Error(`${response.status}`);
       }
+      setButtonText('Login Successful!')
       const results = await response.json();
       setStorage(results.Token, results.RefreshToken);
       setSession((prev: TSession) => ({

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import useJWT from "./tokenTools/decodeJWT"
 
 const setStorage = (accessToken: string, refreshToken: string) => {

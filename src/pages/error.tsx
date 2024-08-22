@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import { useRouteError } from "react-router-dom";
 
 export default function ErrorPage() {
