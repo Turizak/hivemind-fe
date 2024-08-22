@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import useGET from "../hooks/useGET";
 import HiveContentContainer from "../components/HiveContentContainer";
 import { useParams } from "react-router-dom";

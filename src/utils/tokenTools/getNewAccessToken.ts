@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import setStorage from "../setStorage";
 
 const getNewAccessToken = async (): Promise<string> => {
@@ -6,7 +8,7 @@ const getNewAccessToken = async (): Promise<string> => {
   const body = {
     RefreshToken: localStorage.getItem("refreshToken"),
   };
-      console.log('New Access Token Requested')
+      // console.log('New Access Token Requested')
       const response = await fetch(baseURL + "/account/token/refresh", {
         method: "POST",
         headers: {
@@ -20,7 +22,7 @@ const getNewAccessToken = async (): Promise<string> => {
         throw new Error(`${response.status}: Failed to fetch new token`);
       }
       const results = await response.json();
-      console.log(`${response.status}: New Access Token Received`)
+      // console.log(`${response.status}: New Access Token Received`)
       setStorage(results.Token, results.RefreshToken)
       return results.Token;
     }

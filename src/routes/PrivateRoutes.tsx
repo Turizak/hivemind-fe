@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import { Navigate, Outlet } from 'react-router-dom'
 import { useContext } from 'react'
 import SessionContext from '../context/SessionProvider'

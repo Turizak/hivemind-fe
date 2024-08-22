@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 const validateToken = async () => {
   function getCurrentTime() {
     const milliseconds = new Date().getTime();
@@ -12,15 +14,15 @@ const validateToken = async () => {
     refreshTokenExpired: false
   }
   if (currentTime < accessExpiry) {
-    console.log('Tokens Fresh')
+    // console.log('Tokens Fresh')
     return
   }
   if (currentTime > refreshExpiry) {
-    console.log('Refresh Token Expired')
+    // console.log('Refresh Token Expired')
     tokenValidation.refreshTokenExpired = true
   }
   if (currentTime > accessExpiry) {
-    console.log('Access Token Expired')
+    // console.log('Access Token Expired')
     tokenValidation.accessTokenExpired = true
   } 
   return tokenValidation

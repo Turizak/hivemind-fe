@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import { TPassValidation } from "../../types";
 
 function validatePassword(password: string): TPassValidation {

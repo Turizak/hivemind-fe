@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import { useState, useEffect} from "react";
 import { TContent } from "../types";
 import useUpvote from "../hooks/useUpvote";

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import useGET from '../hooks/useGET';
 import HomeContentContainer from '../components/HomeContentContainer';
 import { TContent } from '../types';

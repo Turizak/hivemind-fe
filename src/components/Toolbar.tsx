@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 const Toolbar = () => {
   return (
     <div className="hidden md:flex mx-auto mt-2 max-w-xl p-2 gap-2 rounded-md bg-gray-300">

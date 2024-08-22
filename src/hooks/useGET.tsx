@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import { useQuery } from "@tanstack/react-query";
 import getNewAccessToken from "../utils/tokenTools/getNewAccessToken";
 import validateToken from "../utils/tokenTools/validateToken";

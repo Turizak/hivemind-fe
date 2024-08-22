@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import { useState } from "react";
 import useGetVotes from "../hooks/useGetVotes"
 import { useParams } from "react-router-dom";

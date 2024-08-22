@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 const useJWT = (token: string) => {
   const base64Url = token.split(".")[1];
   const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");

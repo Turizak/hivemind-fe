@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+
 import {TEmailValidation } from "../../types"
 
 function validateEmail(email: string): TEmailValidation {
