@@ -1,9 +1,9 @@
 import { useState } from "react";
+import useGetVotes from "../hooks/useGetVotes"
 import { useParams } from "react-router-dom";
 import { useForm } from "@tanstack/react-form";
 import getIso from "../utils/tokenTools/getIso";
-import useGetVotes from "../hooks/useGetVotes";
-import VoteContainer from "./VoteContainer";
+import CommentVoteContainer from "./CommentVoteContainer"
 import { TComment } from "../types";
 import ReplyContainer from "./ReplyContainer";
 import CommentIcon from "../assets/CommentIcon";
@@ -13,13 +13,14 @@ const CommentContainer = (props: any) => {
   const baseURL = import.meta.env.VITE_BASEURL;
   const params = useParams();
   const voteURL = baseURL + "/comment/uuid/" + props.Uuid;
+  const { data, isLoading, isFetching, isError } = useGetVotes(
+    baseURL + "/comment/votes"
+  );
 
   // State
   const [replyTextareaShow, setReplyTextareaShow] = useState<boolean>(false);
   const [replyButtonShow, setReplyButtonShow] = useState<boolean>(false);
   const [replyButtonText, setReplyButtonText] = useState<string>("Add Reply");
-
-  useGetVotes(baseURL + "/content/votes");
 
   // ----- Reply Start ----- //
   const form = useForm({
@@ -98,7 +99,13 @@ const CommentContainer = (props: any) => {
           {/* Horizontal Vote Container */}
           <div className="flex gap-2">
             <div className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200">
-              <VoteContainer {...props} voteURL={voteURL} />
+            {isLoading || isFetching ? (
+            "..."
+          ) : isError ? (
+            "Error"
+          ) : (
+            <CommentVoteContainer {...props} voteData={data} voteURL={voteURL} />
+          )}
               {/* Comment Container */}
               <button
                 className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200"

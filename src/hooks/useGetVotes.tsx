@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import getNewAccessToken from "../utils/tokenTools/getNewAccessToken";
 import validateToken from "../utils/tokenTools/validateToken";
 
-const useGetVotes = (url: string) => {
+const useGetContentVotes = (url: string) => {
   /*
   This function calls the validateToken helper function.  The validateToken helper function returns an object with two properties - accessTokenExpired and refreshTokenExpired.  Both properties are booleans.
   If the access token is expired, a new token will be fetched from the server before the getData call.  
@@ -33,8 +33,8 @@ const useGetVotes = (url: string) => {
       throw new Error(`${response.status}: Failed to fetch`);
     }
     const data = await response.json();
-    localStorage.setItem("Upvotes", data.Upvotes);
-    localStorage.setItem("Downvotes", data.Downvotes);
+    localStorage.setItem("contentUpvotes", data.Upvotes);
+    localStorage.setItem("contentDownvotes", data.Downvotes);
     return data;
   };
 
@@ -46,4 +46,4 @@ const useGetVotes = (url: string) => {
   return { data, error, refetch, isLoading, isError, isFetching };
 };
 
-export default useGetVotes;
+export default useGetContentVotes;

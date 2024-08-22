@@ -2,7 +2,7 @@ import getIso from "../utils/tokenTools/getIso";
 import useGetVotes from "../hooks/useGetVotes";
 import { Link } from "react-router-dom";
 import { TContent } from "../types";
-import VoteContainer from "./VoteContainer";
+import VoteContainer from "./ContentVoteContainer";
 import CommentIcon from "../assets/CommentIcon";
 
 const ContentContentContainer = (props: TContent) => {
@@ -11,8 +11,6 @@ const ContentContentContainer = (props: TContent) => {
   const { data, isLoading, isFetching, isError } = useGetVotes(
     baseURL + "/content/votes"
   );
-  console.log(data);
-  console.log(props);
   return (
     <div
       className="p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md"

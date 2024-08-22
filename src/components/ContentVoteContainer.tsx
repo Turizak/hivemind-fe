@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import { TContent } from "../types";
 import useUpvote from "../hooks/useUpvote";
 import UpvoteIcon from "../assets/UpvoteIcon";
@@ -11,6 +11,7 @@ const VoteContainer = ({
   voteData,
   voteURL,
 }: TContent & { voteURL: string; voteData: any }) => {
+
   const [votingState, setVotingState] = useState({
     upvoteState: false,
     downvoteState: false,
@@ -41,6 +42,15 @@ const VoteContainer = ({
         downvoteIconFill: "rgba(251,191,36,1)",
         downvoteIconStroke: "rgba(0, 0, 0, 1)",
         upvoteIconDisplay: "hidden ",
+      }));
+    }
+    if (voteData?.ContentUuid && voteData.ContentUuid.Upvotes.includes(Uuid)) {
+      setVotingState((prev) => ({
+        ...prev,
+        upvoteState: true,
+        upvoteIconFill: "rgba(251,191,36,1)",
+        upvoteIconStroke: "rgba(0, 0, 0, 1)",
+        downvoteIconDisplay: "hidden ",
       }));
     }
   };
