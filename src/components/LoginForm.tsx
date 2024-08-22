@@ -1,10 +1,7 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext} from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "@tanstack/react-form";
-import { useQuery } from "@tanstack/react-query";
-import getNewAccessToken from "../utils/tokenTools/getNewAccessToken";
-import validateToken from "../utils/tokenTools/validateToken";
 import { TSession } from "../types";
 import validateEmail from "../utils/formValidation/validateEmail";
 import setStorage from "../utils/setStorage";
@@ -22,7 +19,6 @@ const LoginForm: React.FC = () => {
   }
   const { setSession } = context
   const [buttonText, setButtonText] = useState<string>("Submit");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const baseURL = import.meta.env.VITE_BASEURL;
   const navigate = useNavigate();
@@ -36,39 +32,6 @@ const LoginForm: React.FC = () => {
       login(value);
     },
   });
-
-  const getVotes = async () => {
-    const token = await validateToken();
-    if (token?.refreshTokenExpired === true) {
-      localStorage.clear();
-      return;
-    }
-    if (token?.accessTokenExpired === true) {
-      await getNewAccessToken();
-    }
-    const data = await getData(baseURL + "/comment/votes");
-    return data;
-  };
-
-  const getData = async (url: string) => {
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.accessToken}`,
-      },
-    });
-    if (!response.ok) {
-      throw new Error(`${response.status}: Failed to fetch`);
-    }
-    const data = await response.json();
-    localStorage.setItem("commentVotes", data)
-    return data;
-  };
-      const { data: votes } = useQuery({
-        queryKey: ["votes"],
-        queryFn: getVotes,
-        enabled: isLoggedIn, 
-      });
 
   async function login(body: LoginCredentials) {
     try {
@@ -90,14 +53,6 @@ const LoginForm: React.FC = () => {
       }
       const results = await response.json();
       setStorage(results.Token, results.RefreshToken);
-      setIsLoggedIn(true); // Set login state to true
-    } catch (error) {
-      console.error("Login Failed", error);
-    }
-  }
-
-  useEffect(() => {
-    if (isLoggedIn && votes) {
       setSession((prev: TSession) => ({
         ...prev, 
         accessToken: localStorage.getItem("accessToken"),
@@ -106,11 +61,12 @@ const LoginForm: React.FC = () => {
         accountUUID: localStorage.getItem("accountUUID"),
         accessTokenExpiry: localStorage.getItem('accessTokenExpiry'),
         refreshTokenExpiry: localStorage.getItem('refreshTokenExpiry'),
-        commentVotes: votes
       }));
       navigate('/')
+    } catch (error) {
+      console.error("Login Failed", error);
     }
-  }, [isLoggedIn, votes]);
+  }
 
   return (
     <div className="flex justify-center">
