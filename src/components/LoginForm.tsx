@@ -21,6 +21,7 @@ const LoginForm: React.FC = () => {
   }
   const { setSession } = context
   const [buttonText, setButtonText] = useState<string>("Submit");
+  const [disabled, setDisabled] = useState<boolean>(false)
 
   const baseURL = import.meta.env.VITE_BASEURL;
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ const LoginForm: React.FC = () => {
   async function login(body: LoginCredentials) {
     try {
       setButtonText("Logging in...")
+      setDisabled(true)
       const response = await fetch(baseURL + "/account/login", {
         method: "POST",
         headers: {
@@ -50,6 +52,7 @@ const LoginForm: React.FC = () => {
         setButtonText("Login Failed");
         setTimeout(() => {
           setButtonText("Submit");
+          setDisabled(false)
         }, 1500);
 
         throw new Error(`${response.status}`);
@@ -160,14 +163,14 @@ const LoginForm: React.FC = () => {
         </form.Field>
         <form.Subscribe
           selector={(state) => [state.canSubmit, state.isSubmitting]}
-          children={([canSubmit, isSubmitting]) => (
+          children={() => (
             <button
               className="box-border w-full text-white shadow-blackA4 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-black px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[20px] disabled:cursor-not-allowed disabled:bg-red-700"
               type="submit"
-              disabled={!canSubmit || isSubmitting}
+              disabled={disabled}
               data-testid="loginBtn1"
             >
-              {isSubmitting ? "..." : buttonText}
+              {buttonText}
             </button>
           )}
         />
