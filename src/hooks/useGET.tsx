@@ -24,6 +24,7 @@ const useGET = (url: string) => {
     const data = await fetchData(url);
     return data;
     }
+
 /*
 Async GET request
 */
@@ -38,6 +39,9 @@ Async GET request
       throw new Error(`${response.status}: Failed to fetch`);
     }
     const data = await response.json();
+    if (Array.isArray(data)) {
+      data.sort((a, b) => (b.Upvote || 0) - (a.Upvote || 0));
+    }
     return data;
   };
 /*
