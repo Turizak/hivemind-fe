@@ -46,10 +46,17 @@ const useGetComments = (url: string) => {
         }
       });
 
-      // Sort comments and replies by creation time
-      comments = comments.sort(
-        (a, b) => new Date(a.Created.Time) - new Date(b.Created.Time)
-      );
+      // Sort comments and replies by upvote, then creation time
+      comments = comments.sort((a, b) => {
+        // First sort by Upvote
+        const upvoteDifference = (b.Upvote || 0) - (a.Upvote || 0);
+        // If Upvote values are the same, sort by Created.Time
+        if (upvoteDifference !== 0) {
+          return upvoteDifference;
+        }
+        // Secondary sort by Created.Time
+        return new Date(b.Created.Time) - new Date(a.Created.Time);
+      });
       replies = replies.sort(
         (a, b) => new Date(a.Created.Time) - new Date(b.Created.Time)
       );
