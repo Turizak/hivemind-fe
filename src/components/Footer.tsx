@@ -4,7 +4,7 @@ import GitHubIcon from "../assets/GitHubIcon";
 
 const Footer = () => {
     return (
-      <footer className="bg-black text-white py-2">
+      <footer className="bg-black text-white py-2 mt-auto">
         <div className="container mx-auto flex flex-col md:flex-row justify-evenly items-center text-center">
           {/* Left Side */}
           <div className="mb-4 md:mb-0">

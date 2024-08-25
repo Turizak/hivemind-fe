@@ -15,7 +15,7 @@ const HiveContentContainer = ({ item }: { item: TContent }) => {
   );
   return (
     <div
-      className="p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md"
+      className="p-3 mx-auto my-2 max-w-xl w-full bg-gray-300 xs:rounded-none sm:rounded-md"
       id={item.Id}
     >
       <div className="flex gap-2">
