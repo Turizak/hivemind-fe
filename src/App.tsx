@@ -16,7 +16,7 @@ import PrivateRoutes from "./routes/PrivateRoutes";
 
 function App() {
   return (
-    <>
+    <div className="flex flex-col h-full">
       <Navbar />
       <Routes>
         <Route path="/login" element={<Login />} />
@@ -34,7 +34,7 @@ function App() {
         initialIsOpen={import.meta.env.VITE_OPEN_DEVTOOLS === "true" ? true : false}
       />
       <Footer />
-    </>
+    </div>
   );
 }
 

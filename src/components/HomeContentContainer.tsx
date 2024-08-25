@@ -6,7 +6,7 @@ const HomeContentContainer = ({ item }: { item: any }) => {
   return (
     <>
       <div
-        className="p-3 mx-auto my-2 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md hover:bg-gray-200"
+        className="p-3 mx-auto my-2 max-w-xl w-full bg-gray-300 xs:rounded-none sm:rounded-md hover:bg-gray-200"
         id={item.Id}
       >
         <Link to={`/hive/uuid/${item.Uuid}/content`}>

@@ -82,7 +82,7 @@ const CommentContainer = (props: any) => {
 
   return (
     <div
-      className="p-3 mx-auto my-4 max-w-xl bg-gray-300 xs:rounded-none sm:rounded-md"
+      className="p-3 mx-auto my-4 max-w-xl w-full bg-gray-300 xs:rounded-none sm:rounded-md"
       id={props.Id}
     >
       <div className="flex gap-2">
