@@ -8,6 +8,7 @@ Hivemind is a reddit/forum style web application created by [Tom Slanda](https:/
 ## Built With
 
 ![Static Badge](https://shields.io/badge/react-black?logo=react&style=for-the-badge)  
+![Static Badge](https://img.shields.io/badge/React%20Router-badge?style=for-the-badge&logo=reactrouter&logoColor=%23CA4245&color=%23000000&link=https%3A%2F%2Freactrouter.com%2Fen%2Fmain)  
 ![Static Badge](https://img.shields.io/badge/-Tanstack%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=ffd94c)  
 ![Static Badge](https://img.shields.io/badge/-Tanstack%20Form-eab308?style=for-the-badge&logo=react%20query&logoColor=#ffd94c)  
 ![Static Badge](https://img.shields.io/badge/tailwindcss-0F172A?&style=for-the-badge&logo=tailwindcss)  
