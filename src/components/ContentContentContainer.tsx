@@ -47,7 +47,7 @@ const ContentContentContainer = (props: TContent) => {
             <p className="truncate ...">{props.Message}</p>
           </div>
           {/* Horizontal Vote Container */}
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
             <div className="flex w-max p-2 justify-evenly rounded-md text-sm md:hidden">
               {isLoading || isFetching ? (
                 "..."

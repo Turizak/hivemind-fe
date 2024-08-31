@@ -11,7 +11,7 @@ const HomeContentContainer = ({ item }: { item: any }) => {
       >
         <Link to={`/hive/uuid/${item.Uuid}/content`}>
           <div className="p-2 mt-2 hover:cursor-pointer ">
-            <p className="text-xl">{item.Name}</p>
+            <p className="pb-2 text-xl">{item.Name}</p>
           </div>
         </Link>
       </div>
