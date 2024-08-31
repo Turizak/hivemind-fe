@@ -7,7 +7,7 @@ import { TComment } from "../types";
 const ReplyContainer = (props: TComment) => {
   return (
     <div
-      className="p-3 mx-auto my-4 max-w-xl bg-gray-400 xs:rounded-none sm:rounded-md"
+      className="p-3 mx-auto my-4 max-w-xl bg-gray-400 rounded-md"
       id={props.Id}
     >
       <div className="flex gap-2">

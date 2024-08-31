@@ -99,7 +99,7 @@ const CommentContainer = (props: any) => {
             <p>{props.Deleted === true ? "Comment Deleted" : props.Message}</p>
           </div>
           {/* Horizontal Vote Container */}
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
             <div className="flex w-max p-2 justify-evenly rounded-md text-sm hover:bg-gray-200">
             {isLoading || isFetching ? (
             "..."

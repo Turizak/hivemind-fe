@@ -131,11 +131,11 @@ const UserProfile = () => {
       <div className="flex justify-center mt-2">
         <div>
           <p className="text-xl p-2 underline">Password Requirements</p>
-          <ul className="text-justify list-disc">
+          <ul className="text-justify pl-10 list-disc">
             <li>At least 12 characters</li>
-            <li>1 Upper Case Letter</li>
-            <li>1 Lower Case Letter</li>
-            <li>1 Special Character</li>
+            <li>1 upper case letter</li>
+            <li>1 lower case letter</li>
+            <li>1 special character</li>
           </ul>
         </div>
       </div>

@@ -43,11 +43,11 @@ const HiveContentContainer = ({ item }: { item: TContent }) => {
             </div>
           </Link>
           {/* Content Body Container */}
-          <div className="p-2 rounded-md flex-none max-w-md">
+          <div className="p-2 rounded-md flex-none w-full max-w-md md:max-w-md">
             <p className="truncate ...">{item.Message}</p>
           </div>
           {/* Horizontal Vote Container */}
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
             <div className="flex w-max p-2 justify-evenly rounded-md text-sm md:hidden">
               {isLoading || isFetching ? (
                 "..."
